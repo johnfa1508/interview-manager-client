@@ -1,10 +1,11 @@
 import './App.css';
-import Logo from './Icons/Logo';
+import Dashboard from './pages/dashboard';
 
 function App() {
   return (
     <>
-      <Logo textColor={"#FFFFFF"} arrowColor={"#030311"} boxColor={"#20b2aa"}/>
+      {/* TODO: Routings */}
+      <Dashboard />
     </>
   );
 }

@@ -1,0 +1,18 @@
+nav {
+  background-color: #030d11;
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 10px 0;
+  background-color: #061b23;
+  border-radius: 10px;
+  padding: 10px;
+}
