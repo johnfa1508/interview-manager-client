@@ -10,7 +10,6 @@ export function Droppable(props) {
     border: isOver ? '2px dashed green' : '2px dashed grey',
     padding: '20px',
     borderRadius: '8px',
-    backgroundColor: isOver ? '#061B23' : '#061B23',
     display: 'flex',
     flexDirection: 'column',
     minHeight: '400px'
