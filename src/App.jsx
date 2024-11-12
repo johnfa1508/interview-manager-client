@@ -6,9 +6,10 @@ import Dashboard from './pages/dashboard';
 
 function App() {
   const { openModal, setModal } = useModal();
+
   const showModal = () => {
     // This function will be implemented in the next step
-    setModal(<ViewInterviewModal/>);
+    setModal(<ViewInterviewModal />);
     //setModal(<ModalTesting/>);
 
     openModal();

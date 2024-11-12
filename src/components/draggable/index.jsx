@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useDraggable } from '@dnd-kit/core';
+import './style.css';
 
 export function Draggable(props) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -12,7 +13,6 @@ export function Draggable(props) {
         padding: '10px',
         border: '1px solid gray',
         borderRadius: '4px',
-        backgroundColor: '#535B65',
         cursor: 'grab'
       }
     : {
@@ -20,12 +20,11 @@ export function Draggable(props) {
         padding: '10px',
         border: '1px solid gray',
         borderRadius: '4px',
-        backgroundColor: '#535B65',
         cursor: 'grab'
       };
 
   return (
-    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="draggable">
       {props.children}
     </div>
   );
