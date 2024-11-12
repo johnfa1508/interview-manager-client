@@ -80,6 +80,7 @@ export default function InterviewDashboard() {
 
   return (
     <div>
+      {/* TODO: Make search bar component and logic */}
       <h1>Search bar here</h1>
 
       <DndContext onDragEnd={handleDragEnd}>
