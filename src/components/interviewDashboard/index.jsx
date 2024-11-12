@@ -112,7 +112,7 @@ export default function InterviewDashboard() {
           return {
             ...prevItems,
             [sourceContainer]: prevItems[sourceContainer].filter((id) => id !== active.id),
-            AwaitingFeedback: [...prevItems.unlisted, active.id]
+            AwaitingFeedback: [...prevItems.AwaitingFeedback, active.id]
           };
         } else {
           return prevItems;
@@ -128,7 +128,7 @@ export default function InterviewDashboard() {
       <DndContext onDragEnd={handleDragEnd}>
         <div className="container">
           {containers.map((id) => (
-            <div key={id}>
+            <div key={id} className="column">
               <h3>{id}</h3>
               <Droppable id={id}>
                 {interviewContainer[id].map((itemId, index) => {
