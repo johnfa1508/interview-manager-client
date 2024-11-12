@@ -1,12 +1,15 @@
 import './App.css';
-import ModalTesting from './components/testing/ModalTest';
+import ViewInterviewModal from './components/ViewInterviewModal';
+//import ModalTesting from './components/testing/ModalTest';
 import useModal from './hooks/useModal';
 
 function App() {
   const { openModal, setModal } = useModal();
   const showModal = () => {
     // This function will be implemented in the next step
-    setModal('Modal testing', <ModalTesting />);
+    setModal(<ViewInterviewModal/>);
+    //setModal(<ModalTesting/>);
+
     openModal();
   };
 
