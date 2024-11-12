@@ -3,6 +3,7 @@ import { DndContext } from '@dnd-kit/core';
 import { Droppable } from '../droppable';
 import { Draggable } from '../draggable';
 import { formatDateTime } from '../../utils/formatDate';
+import './style.css';
 
 const mockInterviews = [
   {
@@ -124,7 +125,7 @@ export default function InterviewDashboard() {
   return (
     <div>
       <h1>Search bar here</h1>
-      <h2>Interviews here</h2>
+
       <DndContext onDragEnd={handleDragEnd}>
         <div className="container">
           {containers.map((id) => (

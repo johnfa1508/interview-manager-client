@@ -2,7 +2,7 @@
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: 200px 1fr;
-  height: 100vh;
+  height: 90vh;
 }
 
 header {

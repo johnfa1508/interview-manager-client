@@ -13,9 +13,7 @@ export function Droppable(props) {
     backgroundColor: isOver ? '#061B23' : '#061B23',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: '100px'
+    minHeight: '400px'
   };
 
   return (
