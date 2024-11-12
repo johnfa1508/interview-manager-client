@@ -1,0 +1,23 @@
+.modal-body {
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-rows: auto;
+  row-gap: 20px;
+}
+
+.modal-body p {
+  cursor: pointer;
+}
+
+.modal-header {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  padding-bottom: 20px;
+}
+
+.modal-content {
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-rows: auto;
+  row-gap: 20px;
+}
