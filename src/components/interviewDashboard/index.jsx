@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
-import { Droppable } from '../droppable';
-import { Draggable } from '../draggable';
-import { formatDateTime } from '../../service/formatDate';
+import InterviewColumn from '../interviewDashboardColumn';
+import Searchbar from '../searchbar';
 import {
   getSourceContainer,
   moveDraggable,
@@ -20,6 +19,15 @@ export default function InterviewDashboard() {
     Canceled: [],
     Completed: []
   });
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const searchFilteredInterviews = interviews.filter((interview) =>
+    interview.Job_title.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   // TODO: Connect to backend-API to fetch interviews
   useEffect(() => {
@@ -80,33 +88,17 @@ export default function InterviewDashboard() {
 
   return (
     <div>
-      <h1>Search bar here</h1>
-
+      <Searchbar searchValue={searchValue} handleChange={handleSearchChange} />
       <DndContext onDragEnd={handleDragEnd}>
         <div className="container">
           {containers.map((id) => (
-            <div key={id} className="column">
-              <h3>{id}</h3>
-              <Droppable id={id}>
-                {interviewContainer[id].map((itemId, index) => {
-                  const interview = interviews.find(
-                    (interview) => interview.InterviewId === itemId
-                  );
-
-                  return (
-                    <Draggable key={itemId} id={itemId} index={index}>
-                      <div>
-                        <h4>{interview.Job_title}</h4>
-                        <p>{formatDateTime(interview.Time)}</p>
-                      </div>
-                    </Draggable>
-                  );
-                })}
-
-                {/* If Droppable-container is empty */}
-                {interviewContainer[id].length === 0 && <p>Drop here</p>}
-              </Droppable>
-            </div>
+            <InterviewColumn
+              key={id}
+              id={id}
+              interviews={searchFilteredInterviews}
+              interviewContainer={interviewContainer}
+              searchValue={searchValue}
+            />
           ))}
         </div>
       </DndContext>
