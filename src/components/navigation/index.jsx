@@ -15,17 +15,15 @@ export default function NavBar() {
         </Link>
 
         <ul>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-
-          <li>
-            <Link to="/archive">Archive</Link>
-          </li>
-
-          <li>
-            <Link to="/logbook">Logbook</Link>
-          </li>
+          <Link to="/profile">
+            <li>Profile</li>
+          </Link>
+          <Link to="/archive">
+            <li>Archive</li>
+          </Link>
+          <Link to="/logbook">
+            <li>Logbook</li>
+          </Link>
         </ul>
 
         <MdDarkMode className="navbar-icon" onClick={toggleTheme} />
