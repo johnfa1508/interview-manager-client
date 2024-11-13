@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import ProfilePage from './pages/profilepage/index.jsx';
 import LogbookPage from './pages/logbook/index.jsx';
 import ArchivePage from './pages/archive/index.jsx';
+import LoginPage from './pages/login/index.jsx';
+import RegisterPage from './pages/register/index.jsx';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/archive" element={<ArchivePage />} />
         <Route path="/logbook" element={<LogbookPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </>
   );
