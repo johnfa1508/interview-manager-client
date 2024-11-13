@@ -13,9 +13,9 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
     interviews.some((interview) => interview.InterviewId === itemId)
   );
 
-  const showModal = () => {
+  const showModal = (interview) => {
     // This function will be implemented in the next step
-    setModal(<ViewInterviewModal />);
+    setModal(<ViewInterviewModal interview={interview} />);
     openModal();
   };
 
@@ -28,7 +28,7 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
 
           return (
             <Draggable key={itemId} id={itemId} index={index}>
-              <h4 className="draggable-title" onClick={showModal}>
+              <h4 className="draggable-title" onClick={() => showModal(interview)}>
                 {interview.Job_title}
               </h4>
               <p>{formatDateTime(interview.Time)}</p>
