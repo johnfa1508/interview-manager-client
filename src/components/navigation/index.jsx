@@ -10,15 +10,19 @@ export default function NavBar() {
   return (
     <>
       <nav>
-        <FaHome size={'50px'} />
+        <Link to="/">
+          <FaHome size={'50px'} />
+        </Link>
 
         <ul>
           <li>
             <Link to="/profile">Profile</Link>
           </li>
+
           <li>
             <Link to="/archive">Archive</Link>
           </li>
+
           <li>
             <Link to="/logbook">Logbook</Link>
           </li>
