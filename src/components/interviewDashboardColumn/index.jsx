@@ -2,12 +2,22 @@
 import { Droppable } from '../droppable';
 import { Draggable } from '../draggable';
 import { formatDateTime } from '../../service/formatDate';
+import useModal from '../../hooks/useModal';
+import ViewInterviewModal from '../ViewInterviewModal';
 import './style.css';
 
 export default function InterviewColumn({ id, interviews, interviewContainer, searchValue }) {
+  const { openModal, setModal } = useModal();
+
   const filteredInterviews = interviewContainer[id].filter((itemId) =>
     interviews.some((interview) => interview.InterviewId === itemId)
   );
+
+  const showModal = (interview) => {
+    // This function will be implemented in the next step
+    setModal(<ViewInterviewModal interview={interview} />);
+    openModal();
+  };
 
   return (
     <div className="column">
@@ -18,10 +28,10 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
 
           return (
             <Draggable key={itemId} id={itemId} index={index}>
-              <div>
-                <h4>{interview.Job_title}</h4>
-                <p>{formatDateTime(interview.Time)}</p>
-              </div>
+              <h4 className="draggable-title" onClick={() => showModal(interview)}>
+                {interview.Job_title}
+              </h4>
+              <p>{formatDateTime(interview.Time)}</p>
             </Draggable>
           );
         })}
