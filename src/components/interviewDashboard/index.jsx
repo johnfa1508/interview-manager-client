@@ -62,7 +62,7 @@ export default function InterviewDashboard() {
     });
   }, [interviews]);
 
-  function handleDragEnd(event) {
+  const handleDragEnd = (event) => {
     const { active, over } = event;
 
     setInterviewContainer((prevItems) => {
@@ -91,7 +91,7 @@ export default function InterviewDashboard() {
         }
       }
     });
-  }
+  };
 
   return (
     <div>
