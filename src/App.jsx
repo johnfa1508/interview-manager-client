@@ -1,26 +1,29 @@
 import './App.css';
 import ViewInterviewModal from './components/ViewInterviewModal';
-//import ModalTesting from './components/testing/ModalTest';
 import useModal from './hooks/useModal';
 import Dashboard from './pages/dashboard';
+import {Route, Routes} from 'react-router-dom';
+import ProfilePage from './pages/profilepage/index.jsx';
+import LogbookPage from './pages/logbook/index.jsx';
+import ArchivePage from './pages/archive/index.jsx';
 
 function App() {
   const { openModal, setModal } = useModal();
-
   const showModal = () => {
     // This function will be implemented in the next step
     setModal(<ViewInterviewModal />);
-    //setModal(<ModalTesting/>);
-
     openModal();
   };
-
+  
   return (
     <>
-      <h1>Interview Manager</h1>
-      <button onClick={showModal}>Test modal</button>
-      {/* TODO: Routings */}
-      <Dashboard />
+        <button onClick={showModal}>Test modal</button>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/archive" element={<ArchivePage />} />
+          <Route path="/logbook" element={<LogbookPage />} />
+        </Routes>
     </>
   );
 }
