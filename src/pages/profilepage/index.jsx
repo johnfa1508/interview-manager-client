@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
