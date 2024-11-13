@@ -7,6 +7,7 @@ export function formatDateTime(dateTimeString) {
   const month = date.toLocaleString('default', { month: 'long' });
   const year = date.getUTCFullYear();
 
+  /*
   const daySuffix = (day) => {
     if (day > 3 && day < 21) return 'th';
     switch (day % 10) {
@@ -20,6 +21,7 @@ export function formatDateTime(dateTimeString) {
         return 'th';
     }
   };
+  */
 
-  return `${hours}:${minutes} ${day}${daySuffix(day)} ${month} ${year}`;
+  return `${month} ${day}, ${year} ${hours}:${minutes}`;
 }
