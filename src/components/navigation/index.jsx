@@ -1,6 +1,7 @@
 import { FaHome } from 'react-icons/fa';
 import useTheme from '../../hooks/useTheme';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
   const { toggleTheme } = useTheme();
@@ -11,9 +12,15 @@ export default function NavBar() {
         <FaHome size={'50px'} />
 
         <ul>
-          <li>Profile</li>
-          <li>Archive</li>
-          <li>Logbook</li>
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link to="/archive">Archive</Link>
+          </li>
+          <li>
+            <Link to="/logbook">Logbook</Link>
+          </li>
         </ul>
 
         <div className="toggle-container">
