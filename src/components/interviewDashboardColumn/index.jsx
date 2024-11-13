@@ -22,17 +22,16 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
   return (
     <div className="column">
       <h3>{id}</h3>
-      <button onClick={showModal}>Show modal</button>
       <Droppable id={id}>
         {filteredInterviews.map((itemId, index) => {
           const interview = interviews.find((interview) => interview.InterviewId === itemId);
 
           return (
             <Draggable key={itemId} id={itemId} index={index}>
-              <div>
-                <h4>{interview.Job_title}</h4>
-                <p>{formatDateTime(interview.Time)}</p>
-              </div>
+              <h4 className="draggable-title" onClick={showModal}>
+                {interview.Job_title}
+              </h4>
+              <p>{formatDateTime(interview.Time)}</p>
             </Draggable>
           );
         })}

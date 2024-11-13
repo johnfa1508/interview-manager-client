@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import InterviewColumn from '../interviewDashboardColumn';
 import Searchbar from '../searchbar';
 import {
@@ -20,6 +20,13 @@ export default function InterviewDashboard() {
     Completed: []
   });
   const [searchValue, setSearchValue] = useState('');
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8
+      }
+    })
+  );
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
@@ -89,7 +96,7 @@ export default function InterviewDashboard() {
   return (
     <div>
       <Searchbar searchValue={searchValue} handleChange={handleSearchChange} />
-      <DndContext onDragEnd={handleDragEnd}>
+      <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
         <div className="container">
           {containers.map((id) => (
             <InterviewColumn
