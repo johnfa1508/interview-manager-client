@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: auto;
   grid-auto-rows: auto;
-  row-gap: 20px;
   background-color: var(--secondary-background-color);
 }
 
@@ -14,7 +13,6 @@
 .modal-header {
   display: grid;
   grid-template-columns: 1fr 30px;
-  padding-bottom: 20px;
 }
 
 .modal-content {

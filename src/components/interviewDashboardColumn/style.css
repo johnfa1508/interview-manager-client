@@ -7,3 +7,11 @@
   text-align: center;
   color: var(--text-color);
 }
+
+.draggable-title {
+  cursor: pointer;
+}
+
+.draggable-title:hover {
+  text-decoration: underline;
+}

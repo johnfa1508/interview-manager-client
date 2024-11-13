@@ -1,21 +1,23 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
 import './style.css';
 import { Clock, MapPin, Timer, FileText, X, Plus, Trash2 } from 'lucide-react';
-import './style.css';
+import { formatDateTime } from '../../service/formatDate';
 
-const ViewInterviewModal = () => {
-  // Use the useModal hook to get the closeModal function so we can close the modal on user interaction
-  const { closeModal } = useModal();
-
-  const [message, setMessage] = useState(null);
-  const [text, setText] = useState('');
+const ViewInterviewModal = ({ interview }) => {
+  const [currentInterview, setCurrentInterview] = useState(null);
+  // TODO: Replace using backend data later
   const [notes, setNotes] = useState([
     { id: 1, content: 'Prepare technical questions' },
     { id: 2, content: 'Review company background' }
   ]);
   const [newNote, setNewNote] = useState('');
+
+  useEffect(() => {
+    setCurrentInterview(interview);
+  }, [interview]);
 
   const addNote = () => {
     if (newNote.trim()) {
@@ -28,24 +30,12 @@ const ViewInterviewModal = () => {
     setNotes(notes.filter((note) => note.id !== noteId));
   };
 
-  const onChange = (e) => {
-    setText(e.target.value);
-  };
-
-  //remove submit
-  const onSubmit = async () => {
-    setMessage('Submit button was clicked! Closing modal in 1 seconds...');
-    setTimeout(() => {
-      setMessage(null);
-      closeModal();
-    }, 1000);
-  };
-
   return (
     <>
       <div className="modal-container">
         <div className="modal-header">
-          <h2 className="modal-title">Senior Developer Interview</h2>
+          {/* TODO: Update using correct backend property later */}
+          <h2 className="modal-title">{currentInterview?.Job_title}</h2>
           {/* ADD CLOSE BUTTON STUFF HERE */}
         </div>
 
@@ -54,7 +44,8 @@ const ViewInterviewModal = () => {
             <Clock className="icon" />
             <div className="info-content">
               <div className="info-label">Time</div>
-              <div className="info-text">November 15, 2024 10:00 AM</div>
+              {/* TODO: Update using correct backend property later */}
+              <div className="info-text">{formatDateTime(currentInterview?.Time)}</div>
             </div>
           </div>
 
@@ -62,7 +53,8 @@ const ViewInterviewModal = () => {
             <MapPin className="icon" />
             <div className="info-content">
               <div className="info-label">Address</div>
-              <div className="info-text">123 Tech Street, Silicon Valley</div>
+              {/* TODO: Update using correct backend property later */}
+              <div className="info-text">{currentInterview?.Address}</div>
             </div>
           </div>
 
@@ -70,7 +62,8 @@ const ViewInterviewModal = () => {
             <FileText className="icon" />
             <div className="info-content">
               <div className="info-label">Description</div>
-              <div className="info-text">Technical interview for senior developer position</div>
+              {/* TODO: Update using correct backend property later */}
+              <div className="info-text">{currentInterview?.Description}</div>
             </div>
           </div>
 
@@ -78,10 +71,12 @@ const ViewInterviewModal = () => {
             <Timer className="icon" />
             <div className="info-content">
               <div className="info-label">Duration</div>
-              <div className="info-text">1 hour</div>
+              {/* TODO: Update using correct backend property later */}
+              <div className="info-text">{currentInterview?.Duration_In_Minutes} mins</div>
             </div>
           </div>
 
+          {/* TODO: Update using backend data later */}
           <div className="notes-section">
             <div className="info-label">Notes</div>
 
@@ -89,7 +84,6 @@ const ViewInterviewModal = () => {
               <input
                 value={newNote}
                 onChange={(e) => setNewNote(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && addNote()}
                 placeholder="Add a new note..."
                 className="note-input"
               />
