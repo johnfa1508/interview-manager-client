@@ -37,38 +37,36 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="page-container">
-      <div className="dashboard-layout">
-        <Header />
-        <NavBar />
-        <main className="dashboard-content">
-          <div className="profile-container">
-            <h2 className="profile-title">Profile Information</h2>
-            <form onSubmit={handleSubmit} className="profile-form">
-              <div className="form-group">
-                <label>Username</label>
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Email</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} />
-              </div>
-              <div className="form-group">
-                <label>Mobile</label>
-                <input type="text" name="mobile" value={formData.mobile} onChange={handleChange} />
-              </div>
-              <button type="submit" disabled={isSaving} className="save-button">
-                {isSaving ? 'Saving...' : 'Save Changes'}
-              </button>
-            </form>
-          </div>
-        </main>
-      </div>
+    <div className="dashboard-layout">
+      <Header />
+      <NavBar />
+      <main className="dashboard-content">
+        <div className="profile-container">
+          <h2 className="profile-title">Profile Information</h2>
+          <form onSubmit={handleSubmit} className="profile-form">
+            <div className="form-group">
+              <label>Username</label>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Email</label>
+              <input type="email" name="email" value={formData.email} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Mobile</label>
+              <input type="text" name="mobile" value={formData.mobile} onChange={handleChange} />
+            </div>
+            <button type="submit" disabled={isSaving} className="save-button">
+              {isSaving ? 'Saving...' : 'Save Changes'}
+            </button>
+          </form>
+        </div>
+      </main>
     </div>
   );
 };
