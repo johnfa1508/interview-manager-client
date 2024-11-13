@@ -5,7 +5,6 @@ import './style.css';
 export default function Searchbar({ searchValue, handleChange }) {
   return (
     <>
-      <h1>Searchbar implementation here</h1>
       <div>
         <form className="searchbar-container">
           <input
@@ -16,7 +15,7 @@ export default function Searchbar({ searchValue, handleChange }) {
             onChange={handleChange}
           />
 
-          <CiSearch className="icon" />
+          <CiSearch className="searchbar-icon" />
         </form>
       </div>
     </>
