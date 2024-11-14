@@ -1,0 +1,30 @@
+.decision-modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.decision-modal-content {
+  background-color: var(--secondary-background-color);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--text-color);
+}
+
+.decision-modal-content button {
+  background-color: var(--container-background-color);
+  margin: 5px 0;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.decision-modal-content button:hover {
+  background-color: #ddd;
+}
