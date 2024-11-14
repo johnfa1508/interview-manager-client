@@ -1,10 +1,21 @@
 :root {
-  --background-color: #e4e5f1;
+  --background-color: #ffffff; /* Clean white background */
+  --text-color: #333333; /* Dark gray for high contrast text */
+  --primary-background-color: #cccccc; /* Light gray for primary elements */
+  --secondary-background-color: #f7f7f7; /* Very light gray for subtle contrast */
+  --header-text-color: #333333; /* Dark gray for header text */
+  --container-background-color: #ffffff; /* White for containers */
+  --modal-text-color: #333333; /* Dark gray for modal text */
+}
+
+  
+[data-theme='christmas']  {
+  --background-color: #49be2c;
   --text-color: #000000;
-  --primary-background-color: #d2d3db;
-  --secondary-background-color: #e4e5f1;
+  --primary-background-color: #2cb469;
+  --secondary-background-color: 	#c72b2e;
   --header-text-color: #ffffff;
-  --container-background-color: #f4f4f4;
+  --container-background-color: #ab1717;
   --modal-text-color: #000000;
 }
 
