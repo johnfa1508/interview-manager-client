@@ -12,14 +12,14 @@ export function Draggable(props) {
         margin: '10px 0',
         padding: '10px',
         border: '1px solid gray',
-        borderRadius: '4px',
+        borderRadius: '5px',
         cursor: 'grab'
       }
     : {
         margin: '10px 0',
         padding: '10px',
         border: '1px solid gray',
-        borderRadius: '4px',
+        borderRadius: '5px',
         cursor: 'grab'
       };
 
