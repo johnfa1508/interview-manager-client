@@ -4,3 +4,17 @@
   gap: 20px;
   background-color: var(--primary-background-color);
 }
+
+.container-above-interview {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.add-interview-icon {
+  height: 40px;
+  width: 40px;
+  color: green;
+  cursor: pointer;
+  margin-left: auto;
+}
