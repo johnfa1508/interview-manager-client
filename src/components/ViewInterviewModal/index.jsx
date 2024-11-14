@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
-import useModal from '../../hooks/useModal';
 import './style.css';
 import { Clock, MapPin, Timer, FileText, X, Plus, Trash2 } from 'lucide-react';
 import { formatDateTime } from '../../service/formatDate';
