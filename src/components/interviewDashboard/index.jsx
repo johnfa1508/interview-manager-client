@@ -8,6 +8,7 @@ import {
   moveDraggableBackToAwaiting
 } from '../../service/dragUtils';
 import { interviewsMockData } from '../../service/mockData';
+import { MdOutlineAddCircleOutline } from 'react-icons/md';
 import './style.css';
 
 export default function InterviewDashboard() {
@@ -95,7 +96,13 @@ export default function InterviewDashboard() {
 
   return (
     <div>
-      <Searchbar searchValue={searchValue} handleChange={handleSearchChange} />
+      <div className="container-above-interview">
+        <Searchbar searchValue={searchValue} handleChange={handleSearchChange} />
+        <MdOutlineAddCircleOutline
+          className="add-interview-icon"
+          onClick={() => console.log('hello')}
+        />
+      </div>
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
         <div className="container">
           {containers.map((id) => (
