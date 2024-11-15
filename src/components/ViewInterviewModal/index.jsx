@@ -93,11 +93,14 @@ const ViewInterviewModal = ({ interview }) => {
 
             <div className="notes-grid">
               {notes.map((note) => (
-                <div key={note.id} className="note-card">
-                  <div className="note-content">{note.content}</div>
-                  <button onClick={() => deleteNote(note.id)} className="delete-button">
-                    <Trash2 className="icon-small" />
-                  </button>
+                <div key={note.id} className="note-container">
+                  <div className="note-header">
+                    <div className="note-title">NOTE TITLE HERE </div>
+                    <button onClick={() => deleteNote(note.id)} className="delete-button">
+                      <Trash2 className="icon-small" />
+                    </button>
+                  </div>
+                  <div className="note-description">{note.content}</div>
                 </div>
               ))}
             </div>
