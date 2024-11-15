@@ -8,6 +8,11 @@ async function getUserInterviews() {
   return res.$values;
 }
 
+async function deleteUserInterview(id) {
+  const res = await del(`id/UserInterview/${id}`);
+  return res;
+}
+
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
@@ -51,4 +56,4 @@ async function request(method, endpoint, data, auth = false) {
   return await response.json();
 }
 
-export { getUserInterviews };
+export { getUserInterviews, deleteUserInterview };

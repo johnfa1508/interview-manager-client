@@ -45,16 +45,16 @@ export default function InterviewDashboard() {
     interview.title.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  useEffect(() => {
-    const fetchInterviews = async () => {
-      try {
-        const data = await getUserInterviews();
-        setInterviews(data);
-      } catch (error) {
-        console.error('Error fetching interviews:', error);
-      }
-    };
+  const fetchInterviews = async () => {
+    try {
+      const data = await getUserInterviews();
+      setInterviews(data);
+    } catch (error) {
+      console.error('Error fetching interviews:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchInterviews();
   }, []);
 
@@ -130,6 +130,7 @@ export default function InterviewDashboard() {
               interviews={searchFilteredInterviews}
               interviewContainer={interviewContainer}
               searchValue={searchValue}
+              setInterviews={setInterviews}
             />
           ))}
         </div>

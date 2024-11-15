@@ -9,8 +9,15 @@ import DecisionModal from '../decisionModal';
 import ViewInterviewModal from '../ViewInterviewModal';
 import './style.css';
 import InterviewFormModal from '../InterviewFormModal';
+import { deleteUserInterview } from '../../service/apiClient';
 
-export default function InterviewColumn({ id, interviews, interviewContainer, searchValue }) {
+export default function InterviewColumn({
+  id,
+  interviews,
+  setInterviews,
+  interviewContainer,
+  searchValue
+}) {
   const {
     openModal: openCenteredModal,
     // closeModal: closeCenteredModal,
@@ -34,6 +41,8 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
 
   const handleDelete = (interview) => {
     console.log('Delete:', interview);
+    deleteUserInterview(interview.id);
+    setInterviews((prevInterviews) => prevInterviews.filter((i) => i.id !== interview.id));
     closePositionedModal();
   };
 
