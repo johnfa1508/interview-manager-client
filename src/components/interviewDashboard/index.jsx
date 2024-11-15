@@ -35,12 +35,9 @@ export default function InterviewDashboard() {
   const showModal = () => {
     setModal(
       'Create an interview',
-      <InterviewFormModal
-        isEditing={false}
-        setInterviews={setInterviews}
-        fetchInterviews={fetchInterviews}
-      />
+      <InterviewFormModal isEditing={false} fetchInterviews={fetchInterviews} />
     );
+
     openModal();
   };
 
@@ -138,6 +135,7 @@ export default function InterviewDashboard() {
               interviewContainer={interviewContainer}
               searchValue={searchValue}
               setInterviews={setInterviews}
+              fetchInterviews={fetchInterviews}
             />
           ))}
         </div>

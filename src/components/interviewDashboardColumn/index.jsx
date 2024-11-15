@@ -16,7 +16,8 @@ export default function InterviewColumn({
   interviews,
   setInterviews,
   interviewContainer,
-  searchValue
+  searchValue,
+  fetchInterviews
 }) {
   const {
     openModal: openCenteredModal,
@@ -32,14 +33,20 @@ export default function InterviewColumn({
   const handleEdit = (interview) => {
     console.log('Edit:', interview);
     closePositionedModal();
+
     setCenteredModal(
       'Edit interview',
-      <InterviewFormModal interview={interview} isEditing={true} />
+      <InterviewFormModal
+        interview={interview}
+        isEditing={true}
+        fetchInterviews={fetchInterviews}
+      />
     );
+
     openCenteredModal();
   };
 
-  const handleDelete = async (interview) => {
+  const handleDelete = (interview) => {
     console.log('Delete:', interview);
     deleteUserInterviewAsync(interview.id);
     setInterviews((prevInterviews) => prevInterviews.filter((i) => i.id !== interview.id));

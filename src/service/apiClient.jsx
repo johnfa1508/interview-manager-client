@@ -15,7 +15,7 @@ async function deleteUserInterviewAsync(id) {
 
 async function updateUserInterviewAsync(id, data) {
   const res = await put(`id/UserInterview/${id}`, data);
-  return res;
+  return res.interview;
 }
 
 async function createUserInterviewAsync(data) {
