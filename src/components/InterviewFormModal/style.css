@@ -1,4 +1,4 @@
-.add-interview-modal-container {
+.interview-form-modal-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   border-radius: 10px;
 }
 
-.add-interview-content-container {
+.interview-form-content-container {
   background-color: var(--primary-background-color);
   padding: 15px;
   border-radius: 10px;
@@ -19,18 +19,18 @@
   scrollbar-color: var(--text-color) var(--primary-background-color);
 }
 
-.add-interview-form-group {
+.interview-form-group {
   margin-bottom: 15px;
 }
 
-.add-interview-form-group label {
+.interview-form-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.add-interview-form-group input,
-.add-interview-form-group textarea {
+.interview-form-group input,
+.interview-form-group textarea {
   background-color: var(--container-background-color);
   /* TODO: WTF is this? */
   width: 96%;
@@ -42,12 +42,12 @@
   font-family: inherit;
 }
 
-.add-interview-form-group textarea {
+.interview-form-group textarea {
   resize: none;
   height: 100px;
 }
 
-.add-interview-submit-button {
+.interview-form-submit-button {
   width: 100%;
   padding: 10px;
   background-color: #4caf50;
@@ -59,6 +59,6 @@
   transition: background-color 0.3s;
 }
 
-.add-interview-submit-button:hover {
+.interview-form-submit-button:hover {
   background-color: #45a049;
 }

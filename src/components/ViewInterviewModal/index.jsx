@@ -34,7 +34,7 @@ const ViewInterviewModal = ({ interview }) => {
       <div className="modal-container">
         <div className="modal-header">
           {/* TODO: Update using correct backend property later */}
-          <h2 className="modal-title">{currentInterview?.Job_title}</h2>
+          <h2 className="modal-title">{currentInterview?.title}</h2>
           {/* ADD CLOSE BUTTON STUFF HERE */}
         </div>
 
@@ -44,7 +44,7 @@ const ViewInterviewModal = ({ interview }) => {
             <div className="info-content">
               <div className="info-label">Time</div>
               {/* TODO: Update using correct backend property later */}
-              <div className="info-text">{formatDateTime(currentInterview?.Time)}</div>
+              <div className="info-text">{formatDateTime(currentInterview?.time)}</div>
             </div>
           </div>
 
@@ -53,7 +53,7 @@ const ViewInterviewModal = ({ interview }) => {
             <div className="info-content">
               <div className="info-label">Address</div>
               {/* TODO: Update using correct backend property later */}
-              <div className="info-text">{currentInterview?.Address}</div>
+              <div className="info-text">{currentInterview?.address}</div>
             </div>
           </div>
 
@@ -62,7 +62,7 @@ const ViewInterviewModal = ({ interview }) => {
             <div className="info-content">
               <div className="info-label">Description</div>
               {/* TODO: Update using correct backend property later */}
-              <div className="info-text">{currentInterview?.Description}</div>
+              <div className="info-text">{currentInterview?.description}</div>
             </div>
           </div>
 
@@ -71,7 +71,7 @@ const ViewInterviewModal = ({ interview }) => {
             <div className="info-content">
               <div className="info-label">Duration</div>
               {/* TODO: Update using correct backend property later */}
-              <div className="info-text">{currentInterview?.Duration_In_Minutes} mins</div>
+              <div className="info-text">{currentInterview?.duration} mins</div>
             </div>
           </div>
 
