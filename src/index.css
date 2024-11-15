@@ -6,6 +6,8 @@
   --header-text-color: #ffffff;
   --container-background-color: #f4f4f4;
   --modal-text-color: #000000;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-color) var(--primary-background-color);
 }
 
 [data-theme='dark'] {
