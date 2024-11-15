@@ -5,7 +5,7 @@
   align-items: center;
   padding: 10px;
   height: 50px;
-  width: 50%;
+  width: 500px;
 }
 
 .search-input {
@@ -17,6 +17,7 @@
   display: flex;
   justify-content: center;
   padding: 0px 10px;
+  border: none;
 }
 
 .search-input::placeholder {

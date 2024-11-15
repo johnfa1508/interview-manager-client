@@ -10,8 +10,22 @@
 
 .draggable-title {
   cursor: pointer;
+  margin-top: 0;
 }
 
 .draggable-title:hover {
   text-decoration: underline;
+}
+
+.decision-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.decision-icon {
+  cursor: pointer;
+  justify-self: flex-end;
+  height: 25px;
+  width: 25px;
+  color: var(--text-color);
 }

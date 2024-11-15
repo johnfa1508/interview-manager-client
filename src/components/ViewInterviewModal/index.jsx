@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
-import useModal from '../../hooks/useModal';
 import './style.css';
 import { Clock, MapPin, Timer, FileText, X, Plus, Trash2 } from 'lucide-react';
 import { formatDateTime } from '../../service/formatDate';
@@ -14,6 +13,7 @@ const ViewInterviewModal = ({ interview }) => {
     { id: 2, content: 'Review company background' }
   ]);
   const [newNote, setNewNote] = useState('');
+  const [showAllNotes, setShowAllNotes] = useState(false);
 
   useEffect(() => {
     setCurrentInterview(interview);
@@ -35,7 +35,7 @@ const ViewInterviewModal = ({ interview }) => {
       <div className="modal-container">
         <div className="modal-header">
           {/* TODO: Update using correct backend property later */}
-          <h2 className="modal-title">{currentInterview?.Job_title}</h2>
+          <h2 className="modal-title">{currentInterview?.title}</h2>
           {/* ADD CLOSE BUTTON STUFF HERE */}
         </div>
 
@@ -45,7 +45,7 @@ const ViewInterviewModal = ({ interview }) => {
             <div className="info-content">
               <div className="info-label">Time</div>
               {/* TODO: Update using correct backend property later */}
-              <div className="info-text">{formatDateTime(currentInterview?.Time)}</div>
+              <div className="info-text">{formatDateTime(currentInterview?.time)}</div>
             </div>
           </div>
 
@@ -54,7 +54,7 @@ const ViewInterviewModal = ({ interview }) => {
             <div className="info-content">
               <div className="info-label">Address</div>
               {/* TODO: Update using correct backend property later */}
-              <div className="info-text">{currentInterview?.Address}</div>
+              <div className="info-text">{currentInterview?.address}</div>
             </div>
           </div>
 
@@ -63,7 +63,7 @@ const ViewInterviewModal = ({ interview }) => {
             <div className="info-content">
               <div className="info-label">Description</div>
               {/* TODO: Update using correct backend property later */}
-              <div className="info-text">{currentInterview?.Description}</div>
+              <div className="info-text">{currentInterview?.description}</div>
             </div>
           </div>
 
@@ -72,7 +72,7 @@ const ViewInterviewModal = ({ interview }) => {
             <div className="info-content">
               <div className="info-label">Duration</div>
               {/* TODO: Update using correct backend property later */}
-              <div className="info-text">{currentInterview?.Duration_In_Minutes} mins</div>
+              <div className="info-text">{currentInterview?.duration} mins</div>
             </div>
           </div>
 
@@ -93,14 +93,23 @@ const ViewInterviewModal = ({ interview }) => {
             </div>
 
             <div className="notes-grid">
-              {notes.map((note) => (
-                <div key={note.id} className="note-card">
-                  <div className="note-content">{note.content}</div>
-                  <button onClick={() => deleteNote(note.id)} className="delete-button">
-                    <Trash2 className="icon-small" />
-                  </button>
+              {notes.slice(0, showAllNotes ? notes.length : 3).map((note) => (
+                <div key={note.id} className="note-container">
+                  <div className="note-header">
+                    <div className="note-title">NOTE TITLE </div>
+                    <button onClick={() => deleteNote(note.id)} className="delete-button">
+                      <Trash2 className="icon-small" />
+                    </button>
+                  </div>
+                  <div className="note-description">{note.content}</div>
                 </div>
               ))}
+
+              {notes.length > 3 && (
+                <button className="toggle-button" onClick={() => setShowAllNotes(!showAllNotes)}>
+                  {showAllNotes ? 'See Less Notes' : 'See All Notes'}
+                </button>
+              )}
             </div>
           </div>
         </div>
