@@ -8,6 +8,7 @@ import usePositionedModal from '../../hooks/usePositionedModal';
 import DecisionModal from '../decisionModal';
 import ViewInterviewModal from '../ViewInterviewModal';
 import './style.css';
+import InterviewFormModal from '../InterviewFormModal';
 
 export default function InterviewColumn({ id, interviews, interviewContainer, searchValue }) {
   const {
@@ -25,6 +26,11 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
     // TODO: EditInterviewModal implementation
     console.log('Edit:', interview);
     closePositionedModal();
+    setCenteredModal(
+      'Edit interview',
+      <InterviewFormModal interview={interview} isEditing={true} />
+    );
+    openCenteredModal();
   };
 
   const handleDelete = (interview) => {
@@ -78,9 +84,9 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
                 <CiCircleMore className="decision-icon" />
               </div>
               <h4 className="draggable-title" onClick={() => showInterviewModal(interview)}>
-                {interview.Job_title}
+                {interview.title}
               </h4>
-              <p>{formatDateTime(interview.Time)}</p>
+              <p>{formatDateTime(interview.time)}</p>
             </Draggable>
           );
         })}

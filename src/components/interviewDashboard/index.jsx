@@ -10,7 +10,7 @@ import {
 import { interviewsMockData } from '../../service/mockData';
 import { MdOutlineAddCircleOutline } from 'react-icons/md';
 import useModal from '../../hooks/useModal';
-import AddInterviewModal from '../AddinterviewModal';
+import AddInterviewModal from '../InterviewFormModal';
 import './style.css';
 
 export default function InterviewDashboard() {
@@ -42,7 +42,7 @@ export default function InterviewDashboard() {
   };
 
   const searchFilteredInterviews = interviews.filter((interview) =>
-    interview.Job_title.toLowerCase().includes(searchValue.toLowerCase())
+    interview.title.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   // TODO: Connect to backend-API to fetch interviews
