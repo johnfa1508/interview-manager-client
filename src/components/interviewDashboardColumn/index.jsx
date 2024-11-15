@@ -19,11 +19,10 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
   const { openModal: openPositionedModal, closeModal: closePositionedModal } = usePositionedModal();
 
   const filteredInterviews = interviewContainer[id].filter((itemId) =>
-    interviews.some((interview) => interview.InterviewId === itemId)
+    interviews.some((interview) => interview.id === itemId)
   );
 
   const handleEdit = (interview) => {
-    // TODO: EditInterviewModal implementation
     console.log('Edit:', interview);
     closePositionedModal();
     setCenteredModal(
@@ -34,13 +33,11 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
   };
 
   const handleDelete = (interview) => {
-    // TODO: Delete request to backend
     console.log('Delete:', interview);
     closePositionedModal();
   };
 
   const handleArchive = (interview) => {
-    // TODO: Send request to backend to archive interview
     console.log('Archive:', interview);
     closePositionedModal();
   };
@@ -73,7 +70,9 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
       <h3>{id}</h3>
       <Droppable id={id}>
         {filteredInterviews.map((itemId, index) => {
-          const interview = interviews.find((interview) => interview.InterviewId === itemId);
+          const interview = interviews.find((interview) => interview.id === itemId);
+
+          if (!interview) return null;
 
           return (
             <Draggable key={itemId} id={itemId} index={index}>

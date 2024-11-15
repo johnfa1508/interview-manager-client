@@ -7,11 +7,11 @@ import {
   moveDraggable,
   moveDraggableBackToAwaiting
 } from '../../service/dragUtils';
-import { interviewsMockData } from '../../service/mockData';
 import { MdOutlineAddCircleOutline } from 'react-icons/md';
 import useModal from '../../hooks/useModal';
 import AddInterviewModal from '../InterviewFormModal';
 import './style.css';
+import { getUserInterviews } from '../../service/apiClient';
 
 export default function InterviewDashboard() {
   const containers = ['AwaitingFeedback', 'Scheduled', 'Canceled', 'Completed'];
@@ -45,29 +45,41 @@ export default function InterviewDashboard() {
     interview.title.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  // TODO: Connect to backend-API to fetch interviews
   useEffect(() => {
-    setInterviews(interviewsMockData);
+    const fetchInterviews = async () => {
+      try {
+        const data = await getUserInterviews();
+        setInterviews(data);
+      } catch (error) {
+        console.error('Error fetching interviews:', error);
+      }
+    };
+
+    fetchInterviews();
   }, []);
+
+  useEffect(() => {
+    console.log(interviews);
+  }, [interviews]);
 
   useEffect(() => {
     // Filter interviews based on status
     setInterviewContainer({
       AwaitingFeedback: interviews
         .filter((interview) => interview.status === 'AwaitingFeedback')
-        .map((interview) => interview.InterviewId),
+        .map((interview) => interview.id),
 
       Scheduled: interviews
         .filter((interview) => interview.status === 'Scheduled')
-        .map((interview) => interview.InterviewId),
+        .map((interview) => interview.id),
 
       Canceled: interviews
         .filter((interview) => interview.status === 'Canceled')
-        .map((interview) => interview.InterviewId),
+        .map((interview) => interview.id),
 
       Completed: interviews
         .filter((interview) => interview.status === 'Completed')
-        .map((interview) => interview.InterviewId)
+        .map((interview) => interview.id)
     });
   }, [interviews]);
 
