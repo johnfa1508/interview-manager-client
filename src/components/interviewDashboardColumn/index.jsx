@@ -9,7 +9,7 @@ import DecisionModal from '../decisionModal';
 import ViewInterviewModal from '../ViewInterviewModal';
 import './style.css';
 import InterviewFormModal from '../InterviewFormModal';
-import { deleteUserInterview } from '../../service/apiClient';
+import { deleteUserInterviewAsync } from '../../service/apiClient';
 
 export default function InterviewColumn({
   id,
@@ -39,9 +39,9 @@ export default function InterviewColumn({
     openCenteredModal();
   };
 
-  const handleDelete = (interview) => {
+  const handleDelete = async (interview) => {
     console.log('Delete:', interview);
-    deleteUserInterview(interview.id);
+    deleteUserInterviewAsync(interview.id);
     setInterviews((prevInterviews) => prevInterviews.filter((i) => i.id !== interview.id));
     closePositionedModal();
   };
@@ -80,8 +80,6 @@ export default function InterviewColumn({
       <Droppable id={id}>
         {filteredInterviews.map((itemId, index) => {
           const interview = interviews.find((interview) => interview.id === itemId);
-
-          if (!interview) return null;
 
           return (
             <Draggable key={itemId} id={itemId} index={index}>

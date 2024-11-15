@@ -9,9 +9,9 @@ import {
 } from '../../service/dragUtils';
 import { MdOutlineAddCircleOutline } from 'react-icons/md';
 import useModal from '../../hooks/useModal';
-import AddInterviewModal from '../InterviewFormModal';
+import InterviewFormModal from '../InterviewFormModal';
 import './style.css';
-import { getUserInterviews } from '../../service/apiClient';
+import { getUserInterviewsAsync } from '../../service/apiClient';
 
 export default function InterviewDashboard() {
   const containers = ['AwaitingFeedback', 'Scheduled', 'Canceled', 'Completed'];
@@ -33,7 +33,14 @@ export default function InterviewDashboard() {
   const { openModal, setModal } = useModal();
 
   const showModal = () => {
-    setModal('Create an interview', <AddInterviewModal />);
+    setModal(
+      'Create an interview',
+      <InterviewFormModal
+        isEditing={false}
+        setInterviews={setInterviews}
+        fetchInterviews={fetchInterviews}
+      />
+    );
     openModal();
   };
 
@@ -47,7 +54,7 @@ export default function InterviewDashboard() {
 
   const fetchInterviews = async () => {
     try {
-      const data = await getUserInterviews();
+      const data = await getUserInterviewsAsync();
       setInterviews(data);
     } catch (error) {
       console.error('Error fetching interviews:', error);

@@ -3,14 +3,24 @@ import { API_URL } from './constants';
 
 // CUSTOM FUNCTIONS
 // TODO: When login/registration is implemented, update id here
-async function getUserInterviews() {
+async function getUserInterviewsAsync() {
   const res = await get('id/UserInterview/1/interviews');
   return res.$values;
 }
 
-async function deleteUserInterview(id) {
+async function deleteUserInterviewAsync(id) {
   const res = await del(`id/UserInterview/${id}`);
   return res;
+}
+
+async function updateUserInterviewAsync(id, data) {
+  const res = await put(`id/UserInterview/${id}`, data);
+  return res;
+}
+
+async function createUserInterviewAsync(data) {
+  const res = await post('id/UserInterview', data);
+  return res.interview;
 }
 
 // CRUD FUNCTIONS
@@ -24,6 +34,10 @@ async function get(endpoint, auth = false) {
 
 async function patch(endpoint, data, auth = false) {
   return await request('PATCH', endpoint, data, auth);
+}
+
+async function put(endpoint, data, auth = false) {
+  return await request('PUT', endpoint, data, auth);
 }
 
 async function del(endpoint, auth = false) {
@@ -56,4 +70,9 @@ async function request(method, endpoint, data, auth = false) {
   return await response.json();
 }
 
-export { getUserInterviews, deleteUserInterview };
+export {
+  getUserInterviewsAsync,
+  deleteUserInterviewAsync,
+  updateUserInterviewAsync,
+  createUserInterviewAsync
+};
