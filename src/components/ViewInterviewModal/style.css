@@ -186,3 +186,19 @@
   color: #ef4444;
 }
 
+.toggle-button {
+  background-color: var(--container-background-color);
+  color: var(--text-color);
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.toggle-button:hover {
+  background-color: #2563eb;
+  color: #ffffff;
+}
