@@ -13,6 +13,7 @@ const ViewInterviewModal = ({ interview }) => {
     { id: 2, content: 'Review company background' }
   ]);
   const [newNote, setNewNote] = useState('');
+  const [showAllNotes, setShowAllNotes] = useState(false);
 
   useEffect(() => {
     setCurrentInterview(interview);
@@ -92,14 +93,23 @@ const ViewInterviewModal = ({ interview }) => {
             </div>
 
             <div className="notes-grid">
-              {notes.map((note) => (
-                <div key={note.id} className="note-card">
-                  <div className="note-content">{note.content}</div>
-                  <button onClick={() => deleteNote(note.id)} className="delete-button">
-                    <Trash2 className="icon-small" />
-                  </button>
+              {notes.slice(0, showAllNotes ? notes.length : 3).map((note) => (
+                <div key={note.id} className="note-container">
+                  <div className="note-header">
+                    <div className="note-title">NOTE TITLE </div>
+                    <button onClick={() => deleteNote(note.id)} className="delete-button">
+                      <Trash2 className="icon-small" />
+                    </button>
+                  </div>
+                  <div className="note-description">{note.content}</div>
                 </div>
               ))}
+
+              {notes.length > 3 && (
+                <button className="toggle-button" onClick={() => setShowAllNotes(!showAllNotes)}>
+                  {showAllNotes ? 'See Less Notes' : 'See All Notes'}
+                </button>
+              )}
             </div>
           </div>
         </div>
