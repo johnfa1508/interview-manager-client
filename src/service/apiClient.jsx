@@ -74,5 +74,6 @@ export {
   getUserInterviewsAsync,
   deleteUserInterviewAsync,
   updateUserInterviewAsync,
-  createUserInterviewAsync
+  createUserInterviewAsync,
+  post
 };
