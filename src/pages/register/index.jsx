@@ -5,15 +5,21 @@ import './style.css';
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [mobile, setMobile] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [profileImage, setProfileImage] = useState(null);
   const navigate = useNavigate();
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setProfileImage(file);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      console.log('Registration successful');
+      console.log('Registration successful', { name, email, mobile, profileImage });
       navigate('/');
     } else {
       alert('Passwords do not match!');
@@ -48,13 +54,14 @@ const RegisterPage = () => {
           <div className="input-group">
             <label htmlFor="mobile">Mobile</label>
             <input
-              type="number"
-              id="confirmPassword"
+              type="text"
+              id="mobile"
               value={mobile}
               onChange={(e) => setMobile(e.target.value)}
-              placeholder="Mobile"
+              placeholder="Enter your mobile number"
             />
           </div>
+          
           <div className="input-group">
             <label htmlFor="password">Password</label>
             <input
@@ -73,6 +80,16 @@ const RegisterPage = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm your password"
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="profileImage">Profile Image</label>
+            <input
+              type="file"
+              id="profileImage"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="file-input"
             />
           </div>
           <button type="submit" className="login-button">
