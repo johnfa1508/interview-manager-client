@@ -38,6 +38,8 @@ const ViewInterviewModal = ({ interview }) => {
           <h2 className="modal-title">{currentInterview?.title}</h2>
           {/* ADD CLOSE BUTTON STUFF HERE */}
         </div>
+        
+        <h4 className="modal-company">{currentInterview?.companyName}</h4>
 
         <div className="content-container">
           <div className="info-item">
