@@ -35,12 +35,14 @@ const RegisterPage = () => {
       formData.append('email', email);
       formData.append('mobile', mobile);
       formData.append('password', password);
+      /*
       if (profileImage) {
         formData.append('profileImage', profileImage);
       }
+        */
 
       // Make POST request to the backend
-      const response = await post('register', formData, false);
+      const response = await post('Register', formData, false);
 
       if (response.success) {
         alert('Registration successful!');

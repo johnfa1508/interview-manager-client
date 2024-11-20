@@ -25,6 +25,7 @@ async function createUserInterviewAsync(data) {
 
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
+  console.log(API_URL);
   return await request('POST', endpoint, data, auth);
 }
 
