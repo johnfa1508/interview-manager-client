@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { post } from '../../service/apiClient'; // Import your API client
+import { registerUserAsync } from '../../service/apiClient'; // Import the new register function
 import './style.css';
 
 const RegisterPage = () => {
@@ -35,14 +35,11 @@ const RegisterPage = () => {
       formData.append('email', email);
       formData.append('mobile', mobile);
       formData.append('password', password);
-      /*
       if (profileImage) {
         formData.append('profileImage', profileImage);
       }
-        */
 
-      // Make POST request to the backend
-      const response = await post('Register', formData, false);
+      const response = await registerUserAsync(formData);
 
       if (response.success) {
         alert('Registration successful!');

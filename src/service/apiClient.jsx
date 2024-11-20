@@ -23,6 +23,12 @@ async function createUserInterviewAsync(data) {
   return res.interview;
 }
 
+async function registerUserAsync(data) {
+  const res = await post('Register', data);
+  return res; //Endre datatype her om nødvendig
+} 
+
+
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
   console.log(API_URL);
@@ -76,5 +82,5 @@ export {
   deleteUserInterviewAsync,
   updateUserInterviewAsync,
   createUserInterviewAsync,
-  post
+  registerUserAsync
 };
