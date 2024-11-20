@@ -9,8 +9,16 @@ import DecisionModal from '../decisionModal';
 import ViewInterviewModal from '../ViewInterviewModal';
 import './style.css';
 import InterviewFormModal from '../InterviewFormModal';
+import { deleteUserInterviewAsync } from '../../service/apiClient';
 
-export default function InterviewColumn({ id, interviews, interviewContainer, searchValue }) {
+export default function InterviewColumn({
+  id,
+  interviews,
+  setInterviews,
+  interviewContainer,
+  searchValue,
+  fetchInterviews
+}) {
   const {
     openModal: openCenteredModal,
     // closeModal: closeCenteredModal,
@@ -19,28 +27,33 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
   const { openModal: openPositionedModal, closeModal: closePositionedModal } = usePositionedModal();
 
   const filteredInterviews = interviewContainer[id].filter((itemId) =>
-    interviews.some((interview) => interview.InterviewId === itemId)
+    interviews.some((interview) => interview.id === itemId)
   );
 
   const handleEdit = (interview) => {
-    // TODO: EditInterviewModal implementation
     console.log('Edit:', interview);
     closePositionedModal();
+
     setCenteredModal(
       'Edit interview',
-      <InterviewFormModal interview={interview} isEditing={true} />
+      <InterviewFormModal
+        interview={interview}
+        isEditing={true}
+        fetchInterviews={fetchInterviews}
+      />
     );
+
     openCenteredModal();
   };
 
   const handleDelete = (interview) => {
-    // TODO: Delete request to backend
     console.log('Delete:', interview);
+    deleteUserInterviewAsync(interview.id);
+    setInterviews((prevInterviews) => prevInterviews.filter((i) => i.id !== interview.id));
     closePositionedModal();
   };
 
   const handleArchive = (interview) => {
-    // TODO: Send request to backend to archive interview
     console.log('Archive:', interview);
     closePositionedModal();
   };
@@ -73,7 +86,7 @@ export default function InterviewColumn({ id, interviews, interviewContainer, se
       <h3>{id}</h3>
       <Droppable id={id}>
         {filteredInterviews.map((itemId, index) => {
-          const interview = interviews.find((interview) => interview.InterviewId === itemId);
+          const interview = interviews.find((interview) => interview.id === itemId);
 
           return (
             <Draggable key={itemId} id={itemId} index={index}>

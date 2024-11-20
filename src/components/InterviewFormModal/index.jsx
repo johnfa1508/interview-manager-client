@@ -2,8 +2,9 @@
 import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
 import './style.css';
+import { createUserInterviewAsync, updateUserInterviewAsync } from '../../service/apiClient';
 
-export default function InterviewFormModal({ interview, isEditing }) {
+export default function InterviewFormModal({ interview, isEditing, fetchInterviews }) {
   const [formData, setFormData] = useState({
     title: '',
     companyName: '',
@@ -38,7 +39,8 @@ export default function InterviewFormModal({ interview, isEditing }) {
     });
   };
 
-  const handleSubmit = (e) => {
+  // TODO: Notification pop up
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formattedData = {
       ...formData,
@@ -47,11 +49,13 @@ export default function InterviewFormModal({ interview, isEditing }) {
 
     if (isEditing) {
       console.log('Updated interview:', formattedData);
-      // TODO: Send formattedData to backend for editing
+      await updateUserInterviewAsync(interview.id, formattedData);
+      await fetchInterviews();
     } else {
-      console.log('Created interview:', formattedData);
-      // TODO: Send formattedData to backend for creation
+      await createUserInterviewAsync(formattedData);
+      await fetchInterviews();
     }
+
     closeModal();
   };
 

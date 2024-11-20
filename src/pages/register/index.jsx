@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { post } from '../../service/apiClient'; // Import your API client
 import './style.css';
 
 const RegisterPage = () => {
@@ -9,6 +10,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [profileImage, setProfileImage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleImageChange = (e) => {
@@ -16,13 +18,43 @@ const RegisterPage = () => {
     setProfileImage(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      console.log('Registration successful', { name, email, mobile, profileImage });
-      navigate('/');
-    } else {
+
+    if (password !== confirmPassword) {
       alert('Passwords do not match!');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Prepare form data
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('mobile', mobile);
+      formData.append('password', password);
+      /*
+      if (profileImage) {
+        formData.append('profileImage', profileImage);
+      }
+        */
+
+      // Make POST request to the backend
+      const response = await post('Register', formData, false);
+
+      if (response.success) {
+        alert('Registration successful!');
+        navigate('/'); // Redirect on success
+      } else {
+        alert(response.message || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -39,6 +71,7 @@ const RegisterPage = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your name"
+              required
             />
           </div>
           <div className="input-group">
@@ -49,6 +82,7 @@ const RegisterPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
+              required
             />
           </div>
           <div className="input-group">
@@ -59,27 +93,7 @@ const RegisterPage = () => {
               value={mobile}
               onChange={(e) => setMobile(e.target.value)}
               placeholder="Enter your mobile number"
-            />
-          </div>
-          
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Confirm your password"
+              required
             />
           </div>
           <div className="input-group">
@@ -92,8 +106,30 @@ const RegisterPage = () => {
               className="file-input"
             />
           </div>
-          <button type="submit" className="login-button">
-            Register
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
+          <button type="submit" className="login-button" disabled={isSubmitting}>
+            {isSubmitting ? 'Registering...' : 'Register'}
           </button>
         </form>
       </div>

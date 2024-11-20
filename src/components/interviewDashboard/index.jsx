@@ -7,11 +7,11 @@ import {
   moveDraggable,
   moveDraggableBackToAwaiting
 } from '../../service/dragUtils';
-import { interviewsMockData } from '../../service/mockData';
 import { MdOutlineAddCircleOutline } from 'react-icons/md';
 import useModal from '../../hooks/useModal';
-import AddInterviewModal from '../InterviewFormModal';
+import InterviewFormModal from '../InterviewFormModal';
 import './style.css';
+import { getUserInterviewsAsync } from '../../service/apiClient';
 
 export default function InterviewDashboard() {
   const containers = ['AwaitingFeedback', 'Scheduled', 'Canceled', 'Completed'];
@@ -33,7 +33,11 @@ export default function InterviewDashboard() {
   const { openModal, setModal } = useModal();
 
   const showModal = () => {
-    setModal('Create an interview', <AddInterviewModal />);
+    setModal(
+      'Create an interview',
+      <InterviewFormModal isEditing={false} fetchInterviews={fetchInterviews} />
+    );
+
     openModal();
   };
 
@@ -45,29 +49,41 @@ export default function InterviewDashboard() {
     interview.title.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  // TODO: Connect to backend-API to fetch interviews
+  const fetchInterviews = async () => {
+    try {
+      const data = await getUserInterviewsAsync();
+      setInterviews(data);
+    } catch (error) {
+      console.error('Error fetching interviews:', error);
+    }
+  };
+
   useEffect(() => {
-    setInterviews(interviewsMockData);
+    fetchInterviews();
   }, []);
+
+  useEffect(() => {
+    console.log(interviews);
+  }, [interviews]);
 
   useEffect(() => {
     // Filter interviews based on status
     setInterviewContainer({
       AwaitingFeedback: interviews
         .filter((interview) => interview.status === 'AwaitingFeedback')
-        .map((interview) => interview.InterviewId),
+        .map((interview) => interview.id),
 
       Scheduled: interviews
         .filter((interview) => interview.status === 'Scheduled')
-        .map((interview) => interview.InterviewId),
+        .map((interview) => interview.id),
 
       Canceled: interviews
         .filter((interview) => interview.status === 'Canceled')
-        .map((interview) => interview.InterviewId),
+        .map((interview) => interview.id),
 
       Completed: interviews
         .filter((interview) => interview.status === 'Completed')
-        .map((interview) => interview.InterviewId)
+        .map((interview) => interview.id)
     });
   }, [interviews]);
 
@@ -118,6 +134,8 @@ export default function InterviewDashboard() {
               interviews={searchFilteredInterviews}
               interviewContainer={interviewContainer}
               searchValue={searchValue}
+              setInterviews={setInterviews}
+              fetchInterviews={fetchInterviews}
             />
           ))}
         </div>

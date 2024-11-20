@@ -1,4 +1,3 @@
-// LoginPage.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
@@ -6,6 +5,7 @@ import './style.css';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -37,10 +37,26 @@ const LoginPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
             />
+            <div className="options-row">
+              <label className="remember-me">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={() => setRememberMe(!rememberMe)}
+                />
+                Remember me
+              </label>
+              <a href="#" className="forgot-password-link">
+                Forgot Password?
+              </a>
+            </div>
           </div>
           <button type="submit" className="login-button">
             Log In
           </button>
+          <p className="create-account">
+            <a href="/register">Create a new account</a>
+          </p>
         </form>
       </div>
     </div>
