@@ -17,6 +17,7 @@
   border: none;
   color: white;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .image-upload-button:hover {
