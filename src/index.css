@@ -1,25 +1,39 @@
 :root {
-  --background-color: #ffffff; /* Clean white background */
-  --text-color: #333333; /* Dark gray for high contrast text */
-  --primary-background-color: #cccccc; /* Light gray for primary elements */
-  --secondary-background-color: #f7f7f7; /* Very light gray for subtle contrast */
-  --header-text-color: #333333; /* Dark gray for header text */
-  --container-background-color: #ffffff; /* White for containers */
-  --modal-text-color: #333333; /* Dark gray for modal text */
+  --background-color: #ffffff; 
+  --text-color: #333333; 
+  --primary-background-color: #cccccc; 
+  --secondary-background-color: #f7f7f7; 
+  --header-text-color: #333333; 
+  --container-background-color: #ffffff; 
+  --modal-text-color: #333333; 
 }
 
-  
-[data-theme='christmas']  {
-  --background-color: #49be2c;
-  --text-color: #000000;
-  --primary-background-color: #2cb469;
-  --secondary-background-color: 	#c72b2e;
-  --header-text-color: #ffffff;
-  --container-background-color: #ab1717;
-  --modal-text-color: #000000;
+[data-theme='christmas'] {
+  --background-color: #b22222; 
+  --text-color: #ffffff; 
+  --primary-background-color: #4caf50; 
+  --secondary-background-color: #8b0000; 
+  --header-text-color: #ffcccb;
+  --container-background-color: #f08080; 
+  --modal-text-color: #000000; 
   scrollbar-width: thin;
   scrollbar-color: var(--text-color) var(--primary-background-color);
 }
+/*
+[data-theme='christmas2'] {
+  --background-color: #e8f5e9; 
+  --text-color: #004d40; 
+  --primary-background-color: #c8e6c9; 
+  --secondary-background-color: #ff5252; 
+  --header-text-color: #004d40; 
+  --container-background-color: #ffffff; 
+  --modal-text-color: #004d40; 
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-color) var(--primary-background-color);
+}
+  */
+
+
 
 [data-theme='dark'] {
   --background-color: #11252d;

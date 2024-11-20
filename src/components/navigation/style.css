@@ -28,3 +28,13 @@ nav ul li {
   color: var(--text-color);
   cursor: pointer;
 }
+
+.xmas-icon {
+  margin-top: auto; /* Push the icon to the bottom */
+  align-self: center; /* Center horizontally if needed */
+  height: 35px; /* Ensure consistent size */
+  width: 35px;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
