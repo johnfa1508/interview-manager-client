@@ -12,6 +12,7 @@ const ProfilePage = () => {
   });
 
   const [isSaving, setIsSaving] = useState(false);
+  const [image, setImage] = useState(null); // Store image as a byte array (in base64 format for simplicity)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +37,17 @@ const ProfilePage = () => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); // Store the image as a base64 string
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="dashboard-layout">
       <Header />
@@ -43,6 +55,21 @@ const ProfilePage = () => {
       <main className="dashboard-content">
         <div className="profile-container">
           <h2 className="profile-title">Profile Information</h2>
+          
+          <div className="profile-image-container">
+            {image ? (
+              <img src={image} alt="Profile" className="profile-image" />
+            ) : (
+              <div className="profile-image-placeholder">No Image</div>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="image-upload-button"
+            />
+          </div>
+          
           <form onSubmit={handleSubmit} className="profile-form">
             <div className="form-group">
               <label>Username</label>
