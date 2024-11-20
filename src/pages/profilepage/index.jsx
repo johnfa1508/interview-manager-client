@@ -12,7 +12,7 @@ const ProfilePage = () => {
   });
 
   const [isSaving, setIsSaving] = useState(false);
-  const [image, setImage] = useState(null); // Store image as a byte array (in base64 format for simplicity)
+  const [image, setImage] = useState(null); // Store image as a byte array 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,10 +42,11 @@ const ProfilePage = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // Store the image as a base64 string
+        setImage(reader.result); 
       };
       reader.readAsDataURL(file);
     }
+    console.log(image)
   };
 
   return (
