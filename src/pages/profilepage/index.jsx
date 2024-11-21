@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
+import ProfileImage from '../../components/ProfileImage'; 
 import './style.css';
 
 const ProfilePage = () => {
@@ -12,6 +13,7 @@ const ProfilePage = () => {
   });
 
   const [isSaving, setIsSaving] = useState(false);
+  const [image, setImage] = useState(null); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +38,17 @@ const ProfilePage = () => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); 
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="dashboard-layout">
       <Header />
@@ -43,6 +56,16 @@ const ProfilePage = () => {
       <main className="dashboard-content">
         <div className="profile-container">
           <h2 className="profile-title">Profile Information</h2>
+
+          <ProfileImage image={image} size="140px" />
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="image-upload-button"
+          />
+          
           <form onSubmit={handleSubmit} className="profile-form">
             <div className="form-group">
               <label>Username</label>

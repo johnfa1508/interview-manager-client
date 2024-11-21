@@ -1,6 +1,6 @@
 const interviewsMockData = [
   {
-    InterviewId: '1',
+    id: '1',
     title: 'Software Engineer',
     companyName: 'Tech Corp',
     address: '123 Main St, City, Country',
@@ -10,7 +10,7 @@ const interviewsMockData = [
     status: 'AwaitingFeedback'
   },
   {
-    InterviewId: '2',
+    id: '2',
     title: 'Product Manager',
     companyName: 'Business Inc',
     address: '456 Elm St, City, Country',
@@ -20,7 +20,7 @@ const interviewsMockData = [
     status: 'Scheduled'
   },
   {
-    InterviewId: '3',
+    id: '3',
     title: 'Data Scientist',
     companyName: 'Data Solutions',
     address: '789 Oak St, City, Country',
@@ -30,7 +30,7 @@ const interviewsMockData = [
     status: 'Canceled'
   },
   {
-    InterviewId: '4',
+    id: '4',
     title: 'UX Designer',
     companyName: 'Design Studio',
     address: '101 Pine St, City, Country',
@@ -40,7 +40,7 @@ const interviewsMockData = [
     status: 'Completed'
   },
   {
-    InterviewId: '5',
+    id: '5',
     title: 'DevOps Engineer',
     companyName: 'Infrastructure Ltd',
     address: '202 Maple St, City, Country',
