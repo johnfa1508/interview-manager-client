@@ -4,24 +4,31 @@ import { registerUserAsync } from '../../service/apiClient'; // Import the new r
 import './style.css';
 
 const RegisterPage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [profileImage, setProfileImage] = useState(null);
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    mobile: '',
+    password: '',
+    confirmPassword: '',
+    profileImage: null
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setProfileImage(file);
+    setFormData((prev) => ({ ...prev, profileImage: file }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
@@ -29,21 +36,18 @@ const RegisterPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Prepare form data
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('mobile', mobile);
-      formData.append('password', password);
-      if (profileImage) {
-        formData.append('profileImage', profileImage);
-      }
+      const payload = {
+        username: formData.username,
+        password: formData.password,
+        email: formData.email,
+        mobile: formData.mobile
+      };
 
-      const response = await registerUserAsync(formData);
+      const response = await registerUserAsync(payload);
 
       if (response.success) {
         alert('Registration successful!');
-        navigate('/'); // Redirect on success
+        navigate('/'); 
       } else {
         alert(response.message || 'Registration failed');
       }
@@ -65,8 +69,9 @@ const RegisterPage = () => {
             <input
               type="text"
               id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
               placeholder="Enter your name"
               required
             />
@@ -76,8 +81,9 @@ const RegisterPage = () => {
             <input
               type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
               placeholder="Enter your email"
               required
             />
@@ -87,8 +93,9 @@ const RegisterPage = () => {
             <input
               type="text"
               id="mobile"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
+              name="mobile"
+              value={formData.mobile}
+              onChange={handleInputChange}
               placeholder="Enter your mobile number"
               required
             />
@@ -108,8 +115,9 @@ const RegisterPage = () => {
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
               placeholder="Enter your password"
               required
             />
@@ -119,8 +127,9 @@ const RegisterPage = () => {
             <input
               type="password"
               id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
               placeholder="Confirm your password"
               required
             />
