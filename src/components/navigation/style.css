@@ -30,11 +30,10 @@ nav ul li {
 }
 
 .xmas-icon {
-  margin-top: auto; /* Push the icon to the bottom */
-  align-self: center; /* Center horizontally if needed */
-  height: 35px; /* Ensure consistent size */
+  margin-top: 50px; 
+  align-self: center; 
+  height: 35px; 
   width: 35px;
   color: var(--text-color);
   cursor: pointer;
 }
-
