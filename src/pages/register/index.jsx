@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUserAsync } from '../../service/apiClient'; 
-import { useUser } from '../../context/UserContext';
+import { saveUserToLocalStorage } from '../../context/userStorage';
 import './style.css';
 
 const RegisterPage = () => {
@@ -16,8 +16,6 @@ const RegisterPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-  const { setUserData } = useUser();
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +24,6 @@ const RegisterPage = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    //make The image base64 or something here?
     setFormData((prev) => ({ ...prev, profileImage: file }));
   };
 
@@ -48,17 +45,13 @@ const RegisterPage = () => {
         mobile: formData.mobile
       };
 
-
       const response = await registerUserAsync(payload);
 
-      // Check if the response is successful
       if (response === 'User Registered Successfully') {
-        setUserData(formData);
-        console.log('User Data:', formData);
+        saveUserToLocalStorage(response); // Save the data to localStorage
         alert('Registration successful!');
         navigate('/'); 
       } else {
-        // Show error message from the response or fallback message
         alert(response?.message || 'Registration failed');
       }
     } catch (error) {
@@ -111,7 +104,7 @@ const RegisterPage = () => {
             />
           </div>
 
-          {/* MAKE SOME CHANGEZ HERE*/}
+          {/* Profile Image */}
           <div className="input-group">
             <label htmlFor="profileImage">Profile Image</label>
             <input
@@ -121,7 +114,7 @@ const RegisterPage = () => {
               onChange={handleImageChange}
               className="file-input"
             />
-          </div>
+          </div>  
           <div className="input-group">
             <label htmlFor="password">Password</label>
             <input
