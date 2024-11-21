@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
 import './style.css';
 import { createUserInterviewAsync, updateUserInterviewAsync } from '../../service/apiClient';
+import Snackbar from '../snackbar';
+import useSnackbar from '../../hooks/useSnackbar';
 
 export default function InterviewFormModal({ interview, isEditing, fetchInterviews }) {
   const [formData, setFormData] = useState({
@@ -14,6 +16,7 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
     description: ''
   });
   const { closeModal } = useModal();
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (interview) {
@@ -48,16 +51,19 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
     };
 
     if (isEditing) {
-      console.log('Updated interview:', formattedData);
       await updateUserInterviewAsync(interview.id, formattedData);
-      await fetchInterviews();
+      showSnackbar('Interview updated successfully!', 'success');
     } else {
       await createUserInterviewAsync(formattedData);
-      await fetchInterviews();
+      showSnackbar('Interview created successfully!', 'success');
     }
-    console.log('Updated interview:', formattedData);
 
-    closeModal();
+    await fetchInterviews();
+
+    // Wait for the Snackbar to finish closing before closing the modal
+    setTimeout(() => {
+      closeModal();
+    }, 3000); // Match the Snackbar display duration
   };
 
   return (
@@ -140,6 +146,9 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
           </button>
         </form>
       </div>
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 }
