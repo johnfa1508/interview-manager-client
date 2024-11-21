@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUserAsync } from '../../service/apiClient'; // Import the new register function
@@ -14,6 +15,7 @@ const RegisterPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,13 +45,18 @@ const RegisterPage = () => {
         mobile: formData.mobile
       };
 
-      const response = await registerUserAsync(payload);
+      console.log('Payload:', payload);
 
-      if (response.success) {
+      const response = await registerUserAsync(payload);
+      console.log('Response:', response);
+
+      // Check if the response is successful
+      if (response === 'User Registered Successfully') {
         alert('Registration successful!');
-        navigate('/'); 
+        navigate('/'); // Navigate to the home page
       } else {
-        alert(response.message || 'Registration failed');
+        // Show error message from the response or fallback message
+        alert(response?.message || 'Registration failed');
       }
     } catch (error) {
       console.error('Error during registration:', error);
@@ -65,12 +72,12 @@ const RegisterPage = () => {
         <h1>Create Account</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="username">Name</label>
             <input
               type="text"
-              id="name"
-              name="name"
-              value={formData.name}
+              id="username"
+              name="username" // Changed from "name" to "username"
+              value={formData.username} // Ensure this matches the formData key
               onChange={handleInputChange}
               placeholder="Enter your name"
               required
