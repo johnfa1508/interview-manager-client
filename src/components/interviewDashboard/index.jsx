@@ -11,7 +11,8 @@ import { MdOutlineAddCircleOutline } from 'react-icons/md';
 import useModal from '../../hooks/useModal';
 import InterviewFormModal from '../InterviewFormModal';
 import './style.css';
-import { getUserInterviewsAsync } from '../../service/apiClient';
+// import { getUserInterviewsAsync } from '../../service/apiClient';
+import { interviewsMockData } from '../../service/mockData';
 
 export default function InterviewDashboard() {
   const containers = ['AwaitingFeedback', 'Scheduled', 'Canceled', 'Completed'];
@@ -51,8 +52,8 @@ export default function InterviewDashboard() {
 
   const fetchInterviews = async () => {
     try {
-      const data = await getUserInterviewsAsync();
-      setInterviews(data);
+      // const data = await getUserInterviewsAsync();
+      setInterviews(interviewsMockData);
     } catch (error) {
       console.error('Error fetching interviews:', error);
     }
