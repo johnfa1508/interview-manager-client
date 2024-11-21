@@ -1,17 +1,33 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
+import ProfileImage from '../../components/ProfileImage'; 
+import { getUserFromLocalStorage, updateUserInLocalStorage } from '../../context/userStorage';
 import './style.css';
 
 const ProfilePage = () => {
   const [formData, setFormData] = useState({
-    username: 'JohnDoe',
-    email: 'john.doe@email.com',
-    mobile: '+1 234 567 8900'
+    username: '',
+    email: '',
+    mobile: '',
   });
 
   const [isSaving, setIsSaving] = useState(false);
+  const [image, setImage] = useState(null); 
+
+  // Load user data from localStorage when the component mounts
+  useEffect(() => {
+    const user = getUserFromLocalStorage();
+    if (user) {
+      setFormData({
+        username: user.username,
+        email: user.email,
+        mobile: user.mobile
+      });
+      setImage(user.profileImage || null); // Optionally, load profile image from localStorage
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,13 +42,26 @@ const ProfilePage = () => {
     setIsSaving(true);
 
     try {
-      // Simulate API call - replace with actual API endpoint
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Save updated user data to localStorage
+      const updatedUser = { ...formData, profileImage: image };
+      updateUserInLocalStorage(updatedUser); // Update localStorage with new data
+
       alert('Profile updated successfully!');
     } catch (error) {
       alert('Failed to update profile');
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); // Store the image as a base64 string
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -43,6 +72,16 @@ const ProfilePage = () => {
       <main className="dashboard-content">
         <div className="profile-container">
           <h2 className="profile-title">Profile Information</h2>
+
+          <ProfileImage image={image} size="140px" />
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="image-upload-button"
+          />
+          
           <form onSubmit={handleSubmit} className="profile-form">
             <div className="form-group">
               <label>Username</label>

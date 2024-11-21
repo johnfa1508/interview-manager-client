@@ -23,9 +23,14 @@ async function createUserInterviewAsync(data) {
   return res.interview;
 }
 
+async function registerUserAsync(data) {
+  const res = await post('api/User/Register', data);
+  return res; 
+} 
+
+
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
-  console.log(API_URL);
   return await request('POST', endpoint, data, auth);
 }
 
@@ -48,9 +53,9 @@ async function del(endpoint, auth = false) {
 async function request(method, endpoint, data, auth = false) {
   const opts = {
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    method
+    method,
   };
 
   if (method.toUpperCase() !== 'GET') {
@@ -58,23 +63,39 @@ async function request(method, endpoint, data, auth = false) {
   }
 
   if (auth) {
-    // Add authorization header if needed
     opts.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
   }
 
   const response = await fetch(`${API_URL}/${endpoint}`, opts);
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  // Handle the response based on the Content-Type header
+  const contentType = response.headers.get('Content-Type');
+  let responseData;
+
+  if (contentType && contentType.includes('application/json')) {
+    responseData = await response.json(); // Parse as JSON
+  } else {
+    responseData = await response.text(); // Parse as plain text
   }
 
-  return await response.json();
+  if (!response.ok) {
+    console.error(
+      `HTTP error! status: ${response.status}, response:`,
+      responseData
+    );
+    throw new Error(
+      responseData.message || responseData || `HTTP error! status: ${response.status}`
+    );
+  }
+
+  return responseData;
 }
+
 
 export {
   getUserInterviewsAsync,
   deleteUserInterviewAsync,
   updateUserInterviewAsync,
   createUserInterviewAsync,
-  post
+  registerUserAsync
 };

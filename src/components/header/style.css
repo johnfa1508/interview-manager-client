@@ -2,14 +2,23 @@ header {
   display: flex;
   background-color: var(--primary-background-color);
   color: var(--header-text-color);
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: space-between; /* Space between the logo and profile image */
+  align-items: center; /* Vertically center all items in the header */
   padding: 10px;
 }
 
-.header-icon {
-  height: 60px;
-  width: 60px;
-  color: var(--text-color);
-  margin-left: 5px;
+.profile-link {
+  display: flex;
+  justify-content: center; /* Horizontally center the profile image within the link */
+  align-items: center; /* Vertically center the profile image */
+  text-decoration: none; /* Remove default underline from Link */
+  height: 60px; /* Ensure the link is vertically aligned with the header */
+}
+
+.profile-link img {
+  display: block; /* Prevent any space below the image */
+}
+
+.header-logo {
+  flex-grow: 1; /* Allow the logo to take up remaining space */
 }
