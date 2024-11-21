@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUserAsync } from '../../service/apiClient'; // Import the new register function
+import { registerUserAsync } from '../../service/apiClient'; 
+import { useUser } from '../../context/UserContext';
 import './style.css';
 
 const RegisterPage = () => {
@@ -15,6 +16,7 @@ const RegisterPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { setUserData } = useUser();
 
 
   const handleInputChange = (e) => {
@@ -24,6 +26,7 @@ const RegisterPage = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    //make The image base64 or something here?
     setFormData((prev) => ({ ...prev, profileImage: file }));
   };
 
@@ -45,15 +48,15 @@ const RegisterPage = () => {
         mobile: formData.mobile
       };
 
-      console.log('Payload:', payload);
 
       const response = await registerUserAsync(payload);
-      console.log('Response:', response);
 
       // Check if the response is successful
       if (response === 'User Registered Successfully') {
+        setUserData(formData);
+        console.log('User Data:', formData);
         alert('Registration successful!');
-        navigate('/'); // Navigate to the home page
+        navigate('/'); 
       } else {
         // Show error message from the response or fallback message
         alert(response?.message || 'Registration failed');
@@ -76,8 +79,8 @@ const RegisterPage = () => {
             <input
               type="text"
               id="username"
-              name="username" // Changed from "name" to "username"
-              value={formData.username} // Ensure this matches the formData key
+              name="username" 
+              value={formData.username} 
               onChange={handleInputChange}
               placeholder="Enter your name"
               required
@@ -107,6 +110,8 @@ const RegisterPage = () => {
               required
             />
           </div>
+
+          {/* MAKE SOME CHANGEZ HERE*/}
           <div className="input-group">
             <label htmlFor="profileImage">Profile Image</label>
             <input
