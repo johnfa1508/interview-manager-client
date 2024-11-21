@@ -19,7 +19,12 @@ async function updateUserInterviewAsync(id, data) {
 }
 
 async function createUserInterviewAsync(data) {
-  const res = await post('id/UserInterview', data);
+  const res = await post('id/UserInterview/create-interview', data);
+  return res.interview;
+}
+
+async function updateUserInterviewStatusAsync(interviewId, status) {
+  const res = await put(`id/UserInterview/changeStatus/${interviewId}`, status);
   return res.interview;
 }
 
@@ -76,5 +81,6 @@ export {
   deleteUserInterviewAsync,
   updateUserInterviewAsync,
   createUserInterviewAsync,
+  updateUserInterviewStatusAsync,
   post
 };

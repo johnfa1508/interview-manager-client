@@ -55,6 +55,7 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
       await createUserInterviewAsync(formattedData);
       await fetchInterviews();
     }
+    console.log('Updated interview:', formattedData);
 
     closeModal();
   };
