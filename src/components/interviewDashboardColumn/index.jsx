@@ -10,6 +10,8 @@ import ViewInterviewModal from '../ViewInterviewModal';
 import './style.css';
 import InterviewFormModal from '../InterviewFormModal';
 import { deleteUserInterviewAsync } from '../../service/apiClient';
+import useSnackbar from '../../hooks/useSnackbar';
+import Snackbar from '../snackbar';
 
 export default function InterviewColumn({
   id,
@@ -25,6 +27,7 @@ export default function InterviewColumn({
     setModal: setCenteredModal
   } = useModal();
   const { openModal: openPositionedModal, closeModal: closePositionedModal } = usePositionedModal();
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   const filteredInterviews = interviewContainer[id].filter((itemId) =>
     interviews.some((interview) => interview.id === itemId)
@@ -51,6 +54,8 @@ export default function InterviewColumn({
     deleteUserInterviewAsync(interview.id);
     setInterviews((prevInterviews) => prevInterviews.filter((i) => i.id !== interview.id));
     closePositionedModal();
+
+    showSnackbar('Interview deleted successfully!', 'error');
   };
 
   const handleArchive = (interview) => {
@@ -107,6 +112,10 @@ export default function InterviewColumn({
         {searchValue !== '' && filteredInterviews.length === 0 && <p>No results found</p>}
         {filteredInterviews.length === 0 && searchValue === '' && <p>Drop here</p>}
       </Droppable>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 }
