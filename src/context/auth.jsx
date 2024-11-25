@@ -38,8 +38,8 @@ const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  const handleLogin = async (username, password) => {
-    const res = await loginUserAsync(username, password);
+  const handleLogin = async (data) => {
+    const res = await loginUserAsync(data);
 
     if (!res.token) {
       return navigate('/login');
@@ -52,24 +52,37 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem('loggedInUser', JSON.stringify(user));
     setLoggedInUser(user);
 
+    localStorage.setItem('redirectPath', '/dashboard');
+
     navigate('/dashboard');
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('loggedInUser');
+
     setToken(null);
+    setLoggedInUser(null);
+
     navigate('/login');
   };
 
-  // FIXME: Register email, password and profile fields?
-  const handleRegister = async (email, password) => {
-    // FIXME: apiclient
-    const res = await registerUserAsync({ email, password });
+  const handleRegister = async (data) => {
+    const res = await registerUserAsync(data);
+
+    if (!res.token) {
+      return navigate('/register');
+    }
+
     localStorage.setItem('token', res.token);
     setToken(res.token);
 
-    // FIXME: Path
     localStorage.setItem('redirectPath', '/dashboard');
+
+    const user = await getUserByIdAsync(jwtDecode(res.token).UserId);
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
+    setLoggedInUser(user);
+
     navigate('/dashboard');
   };
 

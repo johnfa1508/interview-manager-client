@@ -33,8 +33,8 @@ async function registerUserAsync(data) {
   return res;
 }
 
-async function loginUserAsync(username, password) {
-  const res = await post('api/User/login', { username, password });
+async function loginUserAsync(data) {
+  const res = await post('api/User/login', data);
   return res;
 }
 
@@ -70,6 +70,33 @@ async function del(endpoint, auth = false) {
   return await request('DELETE', endpoint, null, auth);
 }
 
+async function request(method, endpoint, data, auth = true) {
+  const opts = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method
+  };
+
+  if (method.toUpperCase() !== 'GET') {
+    opts.body = JSON.stringify(data);
+  }
+
+  if (auth) {
+    opts.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  }
+
+  const response = await fetch(`${API_URL}/${endpoint}`, opts);
+
+  if (!response.ok) {
+    console.error(`HTTP error! status: ${response.status}, response:`, response);
+    throw new Error(response.message || response || `HTTP error! status: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+/*
 async function request(method, endpoint, data, auth = false) {
   const opts = {
     headers: {
@@ -107,6 +134,7 @@ async function request(method, endpoint, data, auth = false) {
 
   return responseData;
 }
+*/
 
 export {
   getUserInterviewsAsync,

@@ -23,10 +23,10 @@ const ProfilePage = () => {
   // Load user data from localStorage when the component mounts
   useEffect(() => {
     setFormData({
-      username: loggedInUser.username,
-      email: loggedInUser.email,
-      mobile: loggedInUser.mobile,
-      profileImage: loggedInUser.profileImage
+      username: loggedInUser?.username,
+      email: loggedInUser?.email,
+      mobile: loggedInUser?.mobile,
+      profileImage: loggedInUser?.profileImage
     });
   }, [loggedInUser]);
 
@@ -77,7 +77,7 @@ const ProfilePage = () => {
         <div className="profile-container">
           <h2 className="profile-title">Profile Information</h2>
 
-          <ProfileImage image={formData.profileImage} size="140px" />
+          <ProfileImage image={formData?.profileImage} size="140px" />
 
           <input
             type="file"
@@ -92,17 +92,17 @@ const ProfilePage = () => {
               <input
                 type="text"
                 name="username"
-                value={formData.username}
+                value={formData?.username}
                 onChange={handleChange}
               />
             </div>
             <div className="form-group">
               <label>Email</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} />
+              <input type="email" name="email" value={formData?.email} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label>Mobile</label>
-              <input type="text" name="mobile" value={formData.mobile} onChange={handleChange} />
+              <input type="text" name="mobile" value={formData?.mobile} onChange={handleChange} />
             </div>
             <button type="submit" disabled={isSaving} className="save-button">
               {isSaving ? 'Saving...' : 'Save Changes'}

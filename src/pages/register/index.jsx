@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { saveUserToLocalStorage } from '../../service/loggedInUserUtils';
 import { registerUserAsync } from '../../service/apiClient';
+import useAuth from '../../hooks/useAuth';
 import './style.css';
 
 const RegisterPage = () => {
@@ -16,18 +17,13 @@ const RegisterPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState(null);
-
   const navigate = useNavigate();
+  const { onRegister } = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  useEffect(() => {
-    console.log(image);
-    console.log(formData);
-  }, [image, formData]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -41,6 +37,38 @@ const RegisterPage = () => {
     }
   };
 
+  const handleRegister = async (event) => {
+    // TODO: Implement validation
+    event.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const payload = {
+        username: formData.username,
+        password: formData.password,
+        email: formData.email,
+        mobile: formData.mobile,
+        profileImage: formData.profile
+      };
+
+      console.log(payload);
+
+      await onRegister(payload);
+    } catch (error) {
+      console.error('Error during register:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  /*
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -75,12 +103,13 @@ const RegisterPage = () => {
       setIsSubmitting(false);
     }
   };
+  */
 
   return (
     <div className="login-container">
       <div className="login-box">
         <h1>Create Account</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleRegister}>
           <div className="input-group">
             <label htmlFor="username">Name</label>
             <input
