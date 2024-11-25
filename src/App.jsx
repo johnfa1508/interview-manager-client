@@ -6,7 +6,7 @@ import LogbookPage from './pages/logbook/index.jsx';
 import ArchivePage from './pages/archive/index.jsx';
 import LoginPage from './pages/login/index.jsx';
 import RegisterPage from './pages/register/index.jsx';
-
+import AboutUs from './pages/aboutUs/index.jsx';
 function App() {
   return (
     <>
@@ -17,7 +17,8 @@ function App() {
         <Route path="/logbook" element={<LogbookPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-      </Routes>
+        <Route path = "/aboutUs" element ={<AboutUs/>} />
+      </Routes> 
     </>
   );
 }
