@@ -44,6 +44,7 @@ const ProfilePage = () => {
 
     try {
       updateUserInLocalStorage(formData); // Update localStorage with new data
+      // TODO: Update user data in the backend
 
       alert('Profile updated successfully!');
     } catch (error) {

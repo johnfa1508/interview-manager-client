@@ -43,6 +43,12 @@ async function getUserByIdAsync(id) {
   return res;
 }
 
+// FIXME: Implement updateUserByIdAsync backend
+async function updateUserByIdAsync(id, data) {
+  const res = await put(`api/User/${id}`, data);
+  return res;
+}
+
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
