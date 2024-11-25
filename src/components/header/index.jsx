@@ -13,7 +13,7 @@ export default function Header() {
       <HeaderLogo textColor={'#FFFFFF'} arrowColor={'#030311'} boxColor={'#20b2aa'} />
 
       <Link to="/profile" className="profile-link">
-        <ProfileImage image={userData.profileImage || null} size="60px" />
+        <ProfileImage image={userData?.profileImage} size="60px" />
       </Link>
     </header>
   );
