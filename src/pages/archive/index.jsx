@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
 import { getUserInterviewsAsync } from '../../service/apiClient';
@@ -32,8 +32,8 @@ export default function Archive() {
             <tbody>
               {interviews.map((interview, index) => (
                 <tr key={index}>
-                  <td>{interview.Description}</td>
-                  <td>{interview.Status}</td>
+                  <td>{interview.description}</td>
+                  <td>{interview.status}</td>
                 </tr>
               ))}
             </tbody>
