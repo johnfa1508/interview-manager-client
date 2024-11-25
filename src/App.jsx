@@ -7,7 +7,7 @@ import ArchivePage from './pages/archive/index.jsx';
 import LoginPage from './pages/login/index.jsx';
 import RegisterPage from './pages/register/index.jsx';
 import { AuthProvider, ProtectedRoute } from './context/auth.jsx';
-
+import AboutUs from './pages/aboutUs/index.jsx';
 function App() {
   return (
     <>
@@ -51,6 +51,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <ArchivePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/aboutUs"
+            element={
+              <ProtectedRoute>
+                <AboutUs />
               </ProtectedRoute>
             }
           />
