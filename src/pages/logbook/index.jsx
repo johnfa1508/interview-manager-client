@@ -6,23 +6,28 @@ import { useEffect, useState } from 'react';
 import LogbookTable from '../../components/logbookTable';
 import Searchbar from '../../components/searchbar';
 import { MdOutlineAddCircleOutline } from 'react-icons/md';
+import useModal from '../../hooks/useModal';
+import LogFormModal from '../../components/logFormModal';
 
 export default function LogbookPage() {
   const [logbookData, setLogbookData] = useState(logbooksMockData);
   const [searchValue, setSearchValue] = useState('');
+  const { openModal, setModal } = useModal();
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
-  };
-
-  const showModal = () => {
-    console.log('Show modal');
   };
 
   // TODO: Fetch logbook data from backend later
   useEffect(() => {
     setLogbookData(logbooksMockData);
   }, []);
+
+  const showModal = () => {
+    setModal('Create a new log', <LogFormModal isEditing={false} />);
+
+    openModal();
+  };
 
   return (
     <>

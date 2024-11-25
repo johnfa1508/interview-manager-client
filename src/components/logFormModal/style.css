@@ -1,0 +1,91 @@
+.log-form-modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-background-color);
+  border-radius: 10px;
+}
+
+.log-form-content-container {
+  background-color: var(--primary-background-color);
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%;
+  max-height: 50vh;
+  overflow-y: auto;
+
+  /* Scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-color) var(--primary-background-color);
+}
+
+.log-form-group {
+  margin-bottom: 15px;
+}
+
+.log-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.log-form-group input,
+.log-form-group textarea {
+  background-color: var(--container-background-color);
+  /* TODO: WTF is this? */
+  width: 96%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: var(--text-color);
+  font-family: inherit;
+}
+
+.log-form-group textarea {
+  resize: none;
+  height: 100px;
+}
+
+/* Style for the checkbox group */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.checkbox-group div {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-group input[type='checkbox'] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #4fd1c5;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.checkbox-group input[type='checkbox']:checked {
+  background-color: var(--secondary-background-color);
+  border-color: #4fd1c5;
+}
+
+.checkbox-group input[type='checkbox']:checked::after {
+  content: '✔';
+  display: block;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.checkbox-group label {
+  margin-left: 8px;
+  color: var(--text-color);
+  cursor: pointer;
+}
