@@ -1,0 +1,72 @@
+.about-us {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.team-member {
+  flex: 1;
+  margin: 10px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid var(--text-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(
+    135deg,
+    var(--primary-background-color),
+    var(--secondary-background-color)
+  );
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.team-member:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.team-member img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.team-member h3 {
+  margin: 10px 0;
+  font-size: 1.2em;
+  color: var(--text-color);
+}
+
+.team-member p {
+  margin: 5px 0;
+  color: var(--text-color);
+}
+
+.social-links {
+  margin-top: 10px;
+}
+
+.social-links div {
+  margin-bottom: 10px;
+}
+
+.social-links a {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 5px 10px;
+  color: var(--text-color);
+  background-color: var(--secondary-background-color);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.social-links a:hover {
+  background-color: var(--header-text-color);
+}
+
+.social-links i {
+  margin-right: 5px;
+}

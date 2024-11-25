@@ -24,6 +24,9 @@ export default function NavBar() {
           <Link to="/logbook">
             <li>Logbook</li>
           </Link>
+            <Link to="/aboutUs">
+            <li>About Us</li>
+          </Link>
         </ul>
 
         <MdDarkMode className="navbar-icon" onClick={toggleTheme} />
