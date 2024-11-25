@@ -1,16 +1,46 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { loginUserAsync } from '../../service/apiClient';
+import { saveUserToLocalStorage } from '../../context/userStorage';
 import './style.css';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/');
+    setIsSubmitting(true);
+
+    try {
+      const payload = {
+        username,
+        password
+      };
+
+      const response = await loginUserAsync(payload);
+
+      if (response?.token) {
+        // Save user info and token to local storage
+        if (rememberMe) {
+          saveUserToLocalStorage(response); // Store token and user info
+        }
+
+        alert('Login successful!');
+        navigate('/'); // Redirect to home or dashboard
+      } else {
+        alert(response?.message || 'Login failed! Check your credentials.');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -19,13 +49,14 @@ const LoginPage = () => {
         <h1>Welcome Back</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="username">Username</label>
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your username"
+              required
             />
           </div>
           <div className="input-group">
@@ -36,6 +67,7 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
+              required
             />
             <div className="options-row">
               <label className="remember-me">
@@ -51,8 +83,8 @@ const LoginPage = () => {
               </a>
             </div>
           </div>
-          <button type="submit" className="login-button">
-            Log In
+          <button type="submit" className="login-button" disabled={isSubmitting}>
+            {isSubmitting ? 'Logging in...' : 'Log In'}
           </button>
           <p className="create-account">
             <a href="/register">Create a new account</a>

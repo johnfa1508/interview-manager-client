@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUserAsync } from '../../service/apiClient'; 
 import { saveUserToLocalStorage } from '../../context/userStorage';
+import { registerUserAsync } from '../../service/apiClient';
 import './style.css';
 
 const RegisterPage = () => {
@@ -15,6 +15,8 @@ const RegisterPage = () => {
     profileImage: null
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [image, setImage] = useState(null);
+
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -22,9 +24,21 @@ const RegisterPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  useEffect(() => {
+    console.log(image);
+    console.log(formData);
+  }, [image, formData]);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setFormData((prev) => ({ ...prev, profileImage: file }));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); // Store the image as a base64 string
+        setFormData((prev) => ({ ...prev, profileImage: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -47,10 +61,10 @@ const RegisterPage = () => {
 
       const response = await registerUserAsync(payload);
 
-      if (response === 'User Registered Successfully') {
-        saveUserToLocalStorage(response); // Save the data to localStorage
+      if (response?.id && response?.username) {
+        saveUserToLocalStorage(formData); //FIXME: GET FROM BACKEND AT SOME POINT
         alert('Registration successful!');
-        navigate('/'); 
+        navigate('/');
       } else {
         alert(response?.message || 'Registration failed');
       }
@@ -72,8 +86,8 @@ const RegisterPage = () => {
             <input
               type="text"
               id="username"
-              name="username" 
-              value={formData.username} 
+              name="username"
+              value={formData.username}
               onChange={handleInputChange}
               placeholder="Enter your name"
               required
@@ -114,7 +128,7 @@ const RegisterPage = () => {
               onChange={handleImageChange}
               className="file-input"
             />
-          </div>  
+          </div>
           <div className="input-group">
             <label htmlFor="password">Password</label>
             <input
@@ -142,6 +156,9 @@ const RegisterPage = () => {
           <button type="submit" className="login-button" disabled={isSubmitting}>
             {isSubmitting ? 'Registering...' : 'Register'}
           </button>
+          <p className="create-account">
+            <a href="/register">Create a new account</a>
+          </p>
         </form>
       </div>
     </div>

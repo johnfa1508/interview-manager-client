@@ -33,6 +33,11 @@ async function registerUserAsync(data) {
   return res;
 }
 
+async function loginUserAsync(data) {
+  const res = await post('api/User/login', data);
+  return res;
+}
+
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
@@ -98,5 +103,6 @@ export {
   updateUserInterviewAsync,
   createUserInterviewAsync,
   updateUserInterviewStatusAsync,
-  registerUserAsync
+  registerUserAsync,
+  loginUserAsync
 };

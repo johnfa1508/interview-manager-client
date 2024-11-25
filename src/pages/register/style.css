@@ -1,17 +1,31 @@
 .file-input {
-    display: block;
-    width: 100%;
-    padding: 0.5rem;
-    background-color: var(--secondary-background-color);
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    color: var(--text-color);
-    cursor: pointer;
-  }
-  
-  .file-input:focus {
-    outline: none;
-    border-color: #4fd1c5;
-  }
-  
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--secondary-background-color);
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.file-input:focus {
+  outline: none;
+  border-color: #4fd1c5;
+}
+
+.login-nav {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.login-nav a {
+  color: #4fd1c5;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.login-nav a:hover {
+  text-decoration: underline;
+}
