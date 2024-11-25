@@ -19,15 +19,24 @@ async function updateUserInterviewAsync(id, data) {
 }
 
 async function createUserInterviewAsync(data) {
-  const res = await post('id/UserInterview', data);
+  const res = await post('id/UserInterview/create-interview', data);
+  return res.interview;
+}
+
+async function updateUserInterviewStatusAsync(interviewId, status) {
+  const res = await put(`id/UserInterview/changeStatus/${interviewId}`, status);
   return res.interview;
 }
 
 async function registerUserAsync(data) {
   const res = await post('api/User/Register', data);
-  return res; 
-} 
+  return res;
+}
 
+async function loginUserAsync(data) {
+  const res = await post('api/User/login', data);
+  return res;
+}
 
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
@@ -53,9 +62,9 @@ async function del(endpoint, auth = false) {
 async function request(method, endpoint, data, auth = false) {
   const opts = {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    method,
+    method
   };
 
   if (method.toUpperCase() !== 'GET') {
@@ -79,10 +88,7 @@ async function request(method, endpoint, data, auth = false) {
   }
 
   if (!response.ok) {
-    console.error(
-      `HTTP error! status: ${response.status}, response:`,
-      responseData
-    );
+    console.error(`HTTP error! status: ${response.status}, response:`, responseData);
     throw new Error(
       responseData.message || responseData || `HTTP error! status: ${response.status}`
     );
@@ -91,11 +97,12 @@ async function request(method, endpoint, data, auth = false) {
   return responseData;
 }
 
-
 export {
   getUserInterviewsAsync,
   deleteUserInterviewAsync,
   updateUserInterviewAsync,
   createUserInterviewAsync,
-  registerUserAsync
+  updateUserInterviewStatusAsync,
+  registerUserAsync,
+  loginUserAsync
 };
