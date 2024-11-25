@@ -1,19 +1,40 @@
+import React, { useEffect, useState } from 'react';
+import Header from '../../components/header';
+import NavBar from '../../components/navigation';
+import { getUserInterviewsAsync } from '../../service/apiClient';
 import './style.css';
 
-export default function ArchivePage() {
+export default function Archive() {
+  const [interviews, setInterviews] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getUserInterviewsAsync();
+      setInterviews(data);
+    }
+    fetchData();
+  }, []);
+
   return (
-    <div className="archive-container">
-      <h1>ARCHIVE PAGE</h1>
-      <p>Content coming soon...</p>
-      <div className="emoji">🚀</div>
-      <div className="emoji">🎉</div>
-      <div className="emoji">✨</div>
-      <div className="emoji">🔥</div>
-      <div className="emoji">💥</div>
-      <div className="emoji">🌟</div>
-      <div className="emoji">💫</div>
-      <div className="emoji">🎈</div>
-      <div className="emoji">🎵</div>
+    <div className="dashboard-layout">
+      <Header />
+      <NavBar />
+      <div className="dashboard-content">
+        <h1>Archive</h1>
+        <div className="archive">
+          {interviews.map((interview, index) => (
+            <div key={index} className="archive-item">
+              <h3>{interview.Title}</h3>
+              <p><strong>Description:</strong> {interview.Description}</p>
+              <p><strong>Time:</strong> {interview.Time}</p>
+              <p><strong>Address:</strong> {interview.Address}</p>
+              <p><strong>Duration:</strong> {interview.Duration}</p>
+              <p><strong>Status:</strong> {interview.Status}</p>
+              <p><strong>Company Name:</strong> {interview.CompanyName}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
