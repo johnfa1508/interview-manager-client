@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
 import { getUserInterviewsAsync } from '../../service/apiClient';
 import './style.css';
 
-export default function Archive() {
+export default function ArchivePage() {
   const [interviews, setInterviews] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await getUserInterviewsAsync();
+      async function fetchData() {
+        try {
+             const data = await getUserInterviewsAsync();
       setInterviews(data);
+          
+        } catch (error) {
+          console.error('Error fetching data: ', error);
+        }
+   
     }
+
+  useEffect(() => {
     fetchData();
   }, []);
 
