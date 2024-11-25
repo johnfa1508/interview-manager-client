@@ -2,7 +2,7 @@
 import { CiSearch } from 'react-icons/ci';
 import './style.css';
 
-export default function Searchbar({ searchValue, handleChange }) {
+export default function Searchbar({ searchValue, handleChange, placeholder }) {
   return (
     <>
       <div>
@@ -10,7 +10,7 @@ export default function Searchbar({ searchValue, handleChange }) {
           <input
             type="text"
             className="search-input"
-            placeholder="Search for an interview..."
+            placeholder={placeholder}
             value={searchValue}
             onChange={handleChange}
           />

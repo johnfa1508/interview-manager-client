@@ -97,54 +97,20 @@ const logbooksMockData = [
           status: 'Scheduled'
         },
         label: ['Behavioral', 'Managerial']
-      }
-    ]
-  },
-  {
-    id: 2,
-    userId: 2,
-    user: {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane.smith@example.com'
-    },
-    title: 'Career Development Logbook',
-    logs: [
+      },
       {
         id: 3,
-        logbookId: 2,
-        title: 'Design Interview with Design Studio',
-        content: 'Discussed UI/UX design principles and portfolio.',
-        interviewId: 4,
-        interview: {
-          id: 4,
-          title: 'UX Designer',
-          companyName: 'Design Studio',
-          address: '101 Pine St, City, Country',
-          time: '2024-11-15T08:30:00.000Z',
-          duration: 60,
-          description: 'Interview for the position of UX Designer.',
-          status: 'Completed'
-        },
-        label: ['Design', 'Presentation']
+        logbookId: 1,
+        title: 'Log 1',
+        content: 'Learned about interview preparation and key technical questions',
+        label: ['Technical', 'Behavioral']
       },
       {
         id: 4,
-        logbookId: 2,
-        title: 'Coding Interview with Infrastructure Ltd',
-        content: 'Discussed DevOps practices and coding challenges.',
-        interviewId: 5,
-        interview: {
-          id: 5,
-          title: 'DevOps Engineer',
-          companyName: 'Infrastructure Ltd',
-          address: '202 Maple St, City, Country',
-          time: '2024-11-15T13:30:00.000Z',
-          duration: 75,
-          description: 'Interview for the position of DevOps Engineer.',
-          status: 'AwaitingFeedback'
-        },
-        label: ['Technical', 'Coding']
+        logbookId: 1,
+        title: 'Log 2',
+        content: 'Studied Python and algorithms for the next interview',
+        label: ['Coding', 'Technical']
       }
     ]
   }
