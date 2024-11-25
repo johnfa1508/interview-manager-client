@@ -7,7 +7,6 @@
   .profile-image {
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 16px;
   }
   
   .profile-image-placeholder {

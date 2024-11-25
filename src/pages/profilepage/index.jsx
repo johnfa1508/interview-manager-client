@@ -25,7 +25,11 @@ const ProfilePage = () => {
         email: user.email,
         mobile: user.mobile
       });
-      setImage(user.profileImage || null); // Optionally, load profile image from localStorage
+      if (user.profileImage) {
+        setImage(user.profileImage); 
+      } else {
+        setImage(null); 
+      }
     }
   }, []);
 
