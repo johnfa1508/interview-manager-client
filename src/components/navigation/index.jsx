@@ -10,7 +10,7 @@ export default function NavBar() {
   return (
     <>
       <nav>
-        <Link to="/">
+        <Link to="/dashboard">
           <FaHome size={'50px'} />
         </Link>
 

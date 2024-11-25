@@ -33,8 +33,13 @@ async function registerUserAsync(data) {
   return res;
 }
 
-async function loginUserAsync(data) {
-  const res = await post('api/User/login', data);
+async function loginUserAsync(username, password) {
+  const res = await post('api/User/login', { username, password });
+  return res;
+}
+
+async function getUserByIdAsync(id) {
+  const res = await get(`api/User/${id}`);
   return res;
 }
 
@@ -104,5 +109,6 @@ export {
   createUserInterviewAsync,
   updateUserInterviewStatusAsync,
   registerUserAsync,
-  loginUserAsync
+  loginUserAsync,
+  getUserByIdAsync
 };

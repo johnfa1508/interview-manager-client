@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { saveUserToLocalStorage } from '../../context/userStorage';
+import { saveUserToLocalStorage } from '../../service/loggedInUserUtils';
 import { registerUserAsync } from '../../service/apiClient';
 import './style.css';
 

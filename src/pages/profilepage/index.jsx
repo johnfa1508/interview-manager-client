@@ -2,8 +2,10 @@
 import { useState, useEffect } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
-import ProfileImage from '../../components/ProfileImage'; 
-import { getUserFromLocalStorage, updateUserInLocalStorage } from '../../context/userStorage';
+import ProfileImage from '../../components/ProfileImage';
+// import { getUserFromLocalStorage, updateUserInLocalStorage } from '../../context/userStorage';
+import { updateUserInLocalStorage } from '../../service/loggedInUserUtils';
+import useAuth from '../../hooks/useAuth';
 import './style.css';
 
 const ProfilePage = () => {
@@ -11,27 +13,22 @@ const ProfilePage = () => {
     username: '',
     email: '',
     mobile: '',
+    profileImage: null
   });
 
   const [isSaving, setIsSaving] = useState(false);
-  const [image, setImage] = useState(null); 
+  // const [image, setImage] = useState(null);
+  const { loggedInUser } = useAuth();
 
   // Load user data from localStorage when the component mounts
   useEffect(() => {
-    const user = getUserFromLocalStorage();
-    if (user) {
-      setFormData({
-        username: user.username,
-        email: user.email,
-        mobile: user.mobile
-      });
-      if (user.profileImage) {
-        setImage(user.profileImage); 
-      } else {
-        setImage(null); 
-      }
-    }
-  }, []);
+    setFormData({
+      username: loggedInUser.username,
+      email: loggedInUser.email,
+      mobile: loggedInUser.mobile,
+      profileImage: loggedInUser.profileImage
+    });
+  }, [loggedInUser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,9 +43,7 @@ const ProfilePage = () => {
     setIsSaving(true);
 
     try {
-      // Save updated user data to localStorage
-      const updatedUser = { ...formData, profileImage: image };
-      updateUserInLocalStorage(updatedUser); // Update localStorage with new data
+      updateUserInLocalStorage(formData); // Update localStorage with new data
 
       alert('Profile updated successfully!');
     } catch (error) {
@@ -63,8 +58,12 @@ const ProfilePage = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // Store the image as a base64 string
+        setFormData((prevState) => ({
+          ...prevState,
+          profileImage: reader.result
+        }));
       };
+
       reader.readAsDataURL(file);
     }
   };
@@ -77,7 +76,7 @@ const ProfilePage = () => {
         <div className="profile-container">
           <h2 className="profile-title">Profile Information</h2>
 
-          <ProfileImage image={image} size="140px" />
+          <ProfileImage image={formData.profileImage} size="140px" />
 
           <input
             type="file"
@@ -85,7 +84,7 @@ const ProfilePage = () => {
             onChange={handleImageChange}
             className="image-upload-button"
           />
-          
+
           <form onSubmit={handleSubmit} className="profile-form">
             <div className="form-group">
               <label>Username</label>

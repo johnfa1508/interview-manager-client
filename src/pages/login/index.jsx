@@ -1,17 +1,41 @@
-import { useState } from 'react';
+/*
 import { useNavigate } from 'react-router-dom';
 import { loginUserAsync } from '../../service/apiClient';
 import { saveUserToLocalStorage } from '../../context/userStorage';
+*/
+import { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 import './style.css';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({ username: '', password: '' });
   const [rememberMe, setRememberMe] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { onLogin } = useAuth();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
+  const onChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleLogin = async (event) => {
+    // TODO: Implement validation
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      await onLogin(formData.username, formData.password);
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  /*
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -42,33 +66,40 @@ const LoginPage = () => {
       setIsSubmitting(false);
     }
   };
+  */
 
   return (
     <div className="login-container">
       <div className="login-box">
         <h1>Welcome Back</h1>
-        <form onSubmit={handleSubmit}>
+
+        <form onSubmit={handleLogin}>
           <div className="input-group">
             <label htmlFor="username">Username</label>
             <input
               type="text"
               id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="username"
+              value={formData.username}
+              onChange={onChange}
               placeholder="Enter your username"
               required
             />
           </div>
+
           <div className="input-group">
             <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={formData.password}
+              onChange={onChange}
               placeholder="Enter your password"
               required
             />
+
+            {/* FIXME: Implement remember me */}
             <div className="options-row">
               <label className="remember-me">
                 <input
@@ -78,14 +109,18 @@ const LoginPage = () => {
                 />
                 Remember me
               </label>
+
+              {/* FIXME: Implement forgot password */}
               <a href="#" className="forgot-password-link">
                 Forgot Password?
               </a>
             </div>
           </div>
+
           <button type="submit" className="login-button" disabled={isSubmitting}>
             {isSubmitting ? 'Logging in...' : 'Log In'}
           </button>
+
           <p className="create-account">
             <a href="/register">Create a new account</a>
           </p>
