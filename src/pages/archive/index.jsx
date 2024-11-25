@@ -4,21 +4,14 @@ import NavBar from '../../components/navigation';
 import { getUserInterviewsAsync } from '../../service/apiClient';
 import './style.css';
 
-export default function ArchivePage() {
+export default function Archive() {
   const [interviews, setInterviews] = useState([]);
 
-      async function fetchData() {
-        try {
-             const data = await getUserInterviewsAsync();
-      setInterviews(data);
-          
-        } catch (error) {
-          console.error('Error fetching data: ', error);
-        }
-   
-    }
-
   useEffect(() => {
+    async function fetchData() {
+      const data = await getUserInterviewsAsync();
+      setInterviews(data);
+    }
     fetchData();
   }, []);
 
@@ -29,17 +22,22 @@ export default function ArchivePage() {
       <div className="dashboard-content">
         <h1>Archive</h1>
         <div className="archive">
-          {interviews.map((interview, index) => (
-            <div key={index} className="archive-item">
-              <h3>{interview.Title}</h3>
-              <p><strong>Description:</strong> {interview.Description}</p>
-              <p><strong>Time:</strong> {interview.Time}</p>
-              <p><strong>Address:</strong> {interview.Address}</p>
-              <p><strong>Duration:</strong> {interview.Duration}</p>
-              <p><strong>Status:</strong> {interview.Status}</p>
-              <p><strong>Company Name:</strong> {interview.CompanyName}</p>
-            </div>
-          ))}
+          <table className="archive-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {interviews.map((interview, index) => (
+                <tr key={index}>
+                  <td>{interview.Description}</td>
+                  <td>{interview.Status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
