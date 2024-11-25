@@ -7,6 +7,7 @@ import './style.css';
 export default function Header() {
   const { loggedInUser } = useAuth();
 
+  // TODO: Find a way to render this when updating image in profile page
   return (
     <header>
       <HeaderLogo textColor={'#FFFFFF'} arrowColor={'#030311'} boxColor={'#20b2aa'} />
