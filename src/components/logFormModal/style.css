@@ -30,7 +30,7 @@
 }
 
 .log-form-group input,
-.log-form-group textarea {
+.log-form-group select {
   background-color: var(--container-background-color);
   width: 96%;
   padding: 10px;
@@ -41,9 +41,13 @@
   font-family: inherit;
 }
 
-.log-form-group textarea {
-  resize: none;
-  height: 100px;
+.log-form-group select {
+  cursor: pointer;
+  width: 100%;
+}
+
+.log-form-group select option {
+  padding: 10px;
 }
 
 /* Style for the checkbox group */

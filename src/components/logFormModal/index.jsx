@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
 import { logLabels } from '../../service/constants';
 import './style.css';
+import { getUserInterviewsAsync } from '../../service/apiClient';
+import useSnackbar from '../../hooks/useSnackbar';
+import Snackbar from '../snackbar';
 
 export default function LogFormModal({ log, isEditing }) {
   const [formData, setFormData] = useState({
@@ -12,7 +15,8 @@ export default function LogFormModal({ log, isEditing }) {
     labels: []
   });
   const { closeModal } = useModal();
-  // const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
+  const [interviews, setInterviews] = useState([]);
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (log) {
@@ -25,42 +29,53 @@ export default function LogFormModal({ log, isEditing }) {
     }
   }, [log]);
 
+  useEffect(() => {
+    fetchInterviews();
+  }, []);
+
+  const fetchInterviews = async () => {
+    setInterviews(await getUserInterviewsAsync());
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
     setFormData({
       ...formData,
-      [name]: value
+      [name]: name === 'interviewId' ? Number(value) : value // Convert interviewId to number
     });
   };
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
-    console.log(formData.labels);
-
-    setFormData((prev) => {
-      if (checked) {
-        return { ...prev, labels: [...prev.labels, name] };
-      } else {
-        return { ...prev, labels: prev.labels.filter((label) => label !== name) };
-      }
-    });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      labels: checked
+        ? [...prevFormData.labels, name]
+        : prevFormData.labels.filter((label) => label !== name)
+    }));
   };
 
-  // TODO: Notification pop up
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isEditing) {
-      console.log('Update log');
+    if (formData.labels.length === 0) {
+      showSnackbar('Please select at least one label', 'error');
     } else {
-      console.log('Create log');
-    }
+      if (isEditing) {
+        console.log('Update log');
+      } else {
+        console.log('Create log');
+        console.log(formData);
+      }
 
-    // Wait for the Snackbar to finish closing before closing the modal
-    setTimeout(() => {
-      closeModal();
-    }, 3000); // Match the Snackbar display duration
+      showSnackbar('Successfully created log', 'success');
+
+      // Wait for the Snackbar to finish closing before closing the modal
+      setTimeout(() => {
+        closeModal();
+      }, 3000); // Match the Snackbar display duration
+    }
   };
 
   return (
@@ -92,6 +107,30 @@ export default function LogFormModal({ log, isEditing }) {
           </div>
 
           <div className="log-form-group">
+            <label htmlFor="interviewId">Interview*</label>
+            <select
+              id="interviewId"
+              name="interviewId"
+              value={formData.interviewId}
+              onChange={handleChange}
+              required
+            >
+              {interviews.length === 0 ? (
+                <option value="">Loading...</option>
+              ) : (
+                <>
+                  <option value="">Select an interview</option>
+                  {interviews.map((interview) => (
+                    <option key={interview.id} value={interview.id}>
+                      {interview.title} at {interview.companyName}
+                    </option>
+                  ))}
+                </>
+              )}
+            </select>
+          </div>
+
+          <div className="log-form-group">
             <label>Labels</label>
             <div className="checkbox-group">
               {logLabels.map((label) => (
@@ -116,6 +155,10 @@ export default function LogFormModal({ log, isEditing }) {
           </button>
         </form>
       </div>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 }
