@@ -6,6 +6,8 @@
   --header-text-color: #333333; /* Dark gray for header text */
   --container-background-color: #ffffff; /* White for containers */
   --modal-text-color: #333333; /* Dark gray for modal text */
+  scrollbar-width: thick;
+  scrollbar-color: var(--text-color) var(--primary-background-color);
 }
 
 [data-theme='christmas'] {
