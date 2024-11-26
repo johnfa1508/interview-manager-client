@@ -38,6 +38,12 @@ async function loginUserAsync(data) {
   return res;
 }
 
+// TODO: When login/registration is implemented, update id here
+async function getLogbookByIdAsync() {
+  const res = await get('api/Logbook/1');
+  return res;
+}
+
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
@@ -104,5 +110,6 @@ export {
   createUserInterviewAsync,
   updateUserInterviewStatusAsync,
   registerUserAsync,
-  loginUserAsync
+  loginUserAsync,
+  getLogbookByIdAsync
 };
