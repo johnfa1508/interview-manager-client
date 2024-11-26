@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
+import { logLabels } from '../../service/constants';
 import './style.css';
 
 export default function LogFormModal({ log, isEditing }) {
@@ -11,18 +12,6 @@ export default function LogFormModal({ log, isEditing }) {
     labels: []
   });
   const { closeModal } = useModal();
-  const logLabels = [
-    'Technical',
-    'SoftSkill',
-    'Behavioral',
-    'Managerial',
-    'Coding',
-    'Design',
-    'Testing',
-    'Documentation',
-    'Research',
-    'Presentation'
-  ];
   // const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -114,7 +103,9 @@ export default function LogFormModal({ log, isEditing }) {
                     checked={formData.labels.includes(label)}
                     onChange={handleCheckboxChange}
                   />
-                  <label htmlFor={label}>{label}</label>
+                  <label htmlFor={label} className={`label-pill ${label.toLowerCase()}`}>
+                    {label}
+                  </label>
                 </div>
               ))}
             </div>

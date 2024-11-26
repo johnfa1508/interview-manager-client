@@ -1,33 +1,47 @@
-import './style.css';
-import { logbooksMockData } from '../../service/mockData';
+import { useState, useEffect } from 'react';
+import { MdOutlineAddCircleOutline } from 'react-icons/md';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
-import { useEffect, useState } from 'react';
-import LogbookTable from '../../components/logbookTable';
 import Searchbar from '../../components/searchbar';
-import { MdOutlineAddCircleOutline } from 'react-icons/md';
+import LogbookTable from '../../components/logbookTable';
 import useModal from '../../hooks/useModal';
 import LogFormModal from '../../components/logFormModal';
+import { logbooksMockData } from '../../service/mockData';
+import { logLabels } from '../../service/constants';
+import CheckboxDropdown from '../../components/checkboxDropdown';
+import './style.css';
 
 export default function LogbookPage() {
-  const [logbookData, setLogbookData] = useState(logbooksMockData);
+  const [logbookData, setLogbookData] = useState(logbooksMockData[0]);
   const [searchValue, setSearchValue] = useState('');
+  const [selectedLabels, setSelectedLabels] = useState([]);
   const { openModal, setModal } = useModal();
+
+  // TODO: Fetch logbook data from backend later
+  useEffect(() => {
+    setLogbookData(logbooksMockData[0]);
+  }, []);
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
   };
 
-  // TODO: Fetch logbook data from backend later
-  useEffect(() => {
-    setLogbookData(logbooksMockData);
-  }, []);
+  const handleLabelChange = (selectedOptions) => {
+    setSelectedLabels(selectedOptions);
+  };
 
   const showModal = () => {
     setModal('Create a new log', <LogFormModal isEditing={false} />);
-
     openModal();
   };
+
+  const searchFilteredLogs =
+    logbookData.logs.filter((log) => {
+      const matchesTitle = log.title.toLowerCase().includes(searchValue.toLowerCase());
+      const matchesLabels =
+        selectedLabels.length === 0 || selectedLabels.every((label) => log.label.includes(label));
+      return matchesTitle && matchesLabels;
+    }) || [];
 
   return (
     <>
@@ -40,12 +54,21 @@ export default function LogbookPage() {
             <Searchbar
               searchValue={searchValue}
               handleChange={handleSearchChange}
-              placeholder="Search for a log..."
+              placeholder="Search for a log title..."
             />
+
+            <CheckboxDropdown
+              options={logLabels}
+              selectedOptions={selectedLabels}
+              onChange={handleLabelChange}
+            />
+
             <MdOutlineAddCircleOutline className="add-interview-icon" onClick={showModal} />
           </div>
 
-          <LogbookTable data={logbookData} searchValue={searchValue} />
+          {logbookData && (
+            <LogbookTable logbookData={logbookData} filteredLogs={searchFilteredLogs} />
+          )}
         </div>
       </div>
     </>

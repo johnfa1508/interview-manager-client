@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
 import './style.css';
 
-export default function LogbookTable({ data }) {
+export default function LogbookTable({ logbookData, filteredLogs }) {
+  if (!logbookData) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div>
-      {data.map((logbook) => (
-        <div key={logbook.id} className="logbook">
-          <h2>{logbook.title}</h2>
+      <div key={logbookData.id} className="logbook">
+        <h2>{logbookData?.title}</h2>
 
+        {filteredLogs.length > 0 ? (
           <table className="logbook-table">
             <thead>
               <tr>
@@ -18,7 +22,7 @@ export default function LogbookTable({ data }) {
             </thead>
 
             <tbody>
-              {logbook.logs.map((log) => (
+              {filteredLogs.map((log) => (
                 <tr key={log.id}>
                   <td>{log.title}</td>
                   <td>{log.content}</td>
@@ -33,8 +37,10 @@ export default function LogbookTable({ data }) {
               ))}
             </tbody>
           </table>
-        </div>
-      ))}
+        ) : (
+          <p>No logs found...</p>
+        )}
+      </div>
     </div>
   );
 }
