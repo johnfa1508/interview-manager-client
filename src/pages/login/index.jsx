@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUserAsync } from '../../service/apiClient';
 import { saveUserToLocalStorage } from '../../context/userStorage';
+import Snackbar from '../../components/snackbar';
+import useSnackbar from '../../hooks/useSnackbar';
 import './style.css';
 
 const LoginPage = () => {
@@ -9,11 +11,30 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
 
+  const validateInputs = () => {
+    if (!username.trim()) {
+      showSnackbar('Username is required.', 'error');
+      return false;
+    }
+    if (password.length < 8) {
+      showSnackbar(
+        'Password must be at least 8 characters long and contain at least one number and one special character.',
+        'error'
+      );
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateInputs()) return;
+
     setIsSubmitting(true);
 
     try {
@@ -23,21 +44,20 @@ const LoginPage = () => {
       };
 
       const response = await loginUserAsync(payload);
-
       if (response?.token) {
-        // Save user info and token to local storage
         if (rememberMe) {
-          saveUserToLocalStorage(response); // Store token and user info
+          saveUserToLocalStorage(response);
         }
-
-        alert('Login successful!');
-        navigate('/'); // Redirect to home or dashboard
-      } else {
-        alert(response?.message || 'Login failed! Check your credentials.');
+        navigate('/');
+        //TODO: EDIT THIS WHEN REPSONSE FROM BACKEND CHANGES
+      } else if (response == 'Invalid Username' || response == 'Invalid Password') {
+        showSnackbar('Invalid username or password.', 'error');
       }
+      //TODO: EDIT THIS WHEN REPSONSE FROM BACKEND CHANGES
     } catch (error) {
       console.error('Error during login:', error);
-      alert('An error occurred. Please try again.');
+      //showSnackbar('An error occurred. Please try again.', 'error');
+      showSnackbar('Invalid username or password.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -69,6 +89,7 @@ const LoginPage = () => {
               placeholder="Enter your password"
               required
             />
+            <div className="password-criteria"></div>
             <div className="options-row">
               <label className="remember-me">
                 <input
@@ -91,6 +112,10 @@ const LoginPage = () => {
           </p>
         </form>
       </div>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 };

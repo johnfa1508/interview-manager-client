@@ -24,10 +24,7 @@ const RegisterPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  useEffect(() => {
-    console.log(image);
-    console.log(formData);
-  }, [image, formData]);
+  useEffect(() => {}, [image, formData]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -156,8 +153,8 @@ const RegisterPage = () => {
           <button type="submit" className="login-button" disabled={isSubmitting}>
             {isSubmitting ? 'Registering...' : 'Register'}
           </button>
-          <p className="create-account">
-            <a href="/register">Create a new account</a>
+          <p className="login-nav">
+            <a href="/login">Already have an account?</a>
           </p>
         </form>
       </div>
