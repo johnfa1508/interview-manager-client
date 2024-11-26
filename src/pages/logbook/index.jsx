@@ -37,9 +37,14 @@ export default function LogbookPage() {
 
   const searchFilteredLogs =
     logbookData.logs.filter((log) => {
+      // Finds logs matching title based on search value
       const matchesTitle = log.title.toLowerCase().includes(searchValue.toLowerCase());
+
+      // Finds logs matching selected labels
       const matchesLabels =
         selectedLabels.length === 0 || selectedLabels.every((label) => log.label.includes(label));
+
+      // Returns logs that match both title and labels
       return matchesTitle && matchesLabels;
     }) || [];
 
