@@ -23,8 +23,6 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
-    console.log('LOG DATA: ' + JSON.stringify(log));
-    console.log('logbookid: ' + log?.logbookId);
     if (log) {
       setFormData({
         title: log.title,
@@ -69,19 +67,15 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
       showSnackbar('Please select at least one label', 'error');
     } else {
       if (isEditing) {
-        console.log('Update log');
-        console.log(formData);
-
         await updateLogByIdAsync(log.id, formData);
         await fetchLogbookData();
+
         showSnackbar('Successfully updated log', 'success');
       } else {
-        console.log('Create log');
-        console.log(formData);
-
         // FIXME: 1 is hardcoded as logbookId, i think it will be same as loggedInUser id
         await createLogAsync(formData.interviewId, 1, formData);
         await fetchLogbookData();
+
         showSnackbar('Successfully created log', 'success');
       }
 
