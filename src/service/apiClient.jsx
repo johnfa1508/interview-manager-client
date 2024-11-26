@@ -54,6 +54,11 @@ async function createLogAsync(interviewId, logbookId, data) {
   return res;
 }
 
+async function deleteLogByIdAsync(id) {
+  const res = await del(`api/Log/${id}`);
+  return res;
+}
+
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
@@ -123,5 +128,6 @@ export {
   loginUserAsync,
   getLogbookByIdAsync,
   updateLogByIdAsync,
-  createLogAsync
+  createLogAsync,
+  deleteLogByIdAsync
 };

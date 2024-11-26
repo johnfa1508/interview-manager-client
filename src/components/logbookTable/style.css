@@ -24,14 +24,14 @@
   background-color: var(--secondary-background-color);
 }
 
-.log-title {
+/* FIXME: Horizontal align */
+.logbook-action-icon {
   cursor: pointer;
-}
-
-.log-title:hover {
-  background-color: var(--primary-background-color);
-  text-decoration: underline;
-  transition: text-decoration 0.3s, background-color 0.3s;
+  height: 25px;
+  width: 25px;
+  color: var(--text-color);
+  margin: 0 5px; /* Add horizontal space between icons */
+  vertical-align: middle; /* Center the content vertically */
 }
 
 .label-pill {
