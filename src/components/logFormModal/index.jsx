@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
 import { logLabels } from '../../service/constants';
 import './style.css';
-import { getUserInterviewsAsync } from '../../service/apiClient';
+import {
+  getUserInterviewsAsync,
+  createLogAsync,
+  updateLogByIdAsync
+} from '../../service/apiClient';
 import useSnackbar from '../../hooks/useSnackbar';
 import Snackbar from '../snackbar';
 
@@ -19,7 +23,8 @@ export default function LogFormModal({ log, isEditing }) {
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
-    console.log(log);
+    console.log('LOG DATA: ' + JSON.stringify(log));
+    console.log('logbookid: ' + log?.logbookId);
     if (log) {
       setFormData({
         title: log.title,
@@ -66,10 +71,15 @@ export default function LogFormModal({ log, isEditing }) {
       if (isEditing) {
         console.log('Update log');
         console.log(formData);
+
+        await updateLogByIdAsync(log.id, formData);
         showSnackbar('Successfully updated log', 'success');
       } else {
         console.log('Create log');
         console.log(formData);
+
+        // FIXME: 1 is hardcoded as logbookId, i think it will be same as loggedInUser id
+        await createLogAsync(formData.interviewId, 1, formData);
         showSnackbar('Successfully created log', 'success');
       }
 

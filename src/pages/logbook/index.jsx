@@ -38,10 +38,6 @@ export default function LogbookPage() {
     }
   };
 
-  useEffect(() => {
-    console.log('Logbook data updated:', logbookData);
-  }, [logbookData]);
-
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
   };

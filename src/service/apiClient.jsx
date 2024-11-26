@@ -44,6 +44,16 @@ async function getLogbookByIdAsync() {
   return res;
 }
 
+async function updateLogByIdAsync(id, data) {
+  const res = await put(`api/Log/${id}`, data);
+  return res;
+}
+
+async function createLogAsync(interviewId, logbookId, data) {
+  const res = await post(`api/Log/${interviewId}/${logbookId}`, data);
+  return res;
+}
+
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
@@ -111,5 +121,7 @@ export {
   updateUserInterviewStatusAsync,
   registerUserAsync,
   loginUserAsync,
-  getLogbookByIdAsync
+  getLogbookByIdAsync,
+  updateLogByIdAsync,
+  createLogAsync
 };

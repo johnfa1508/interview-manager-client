@@ -7,7 +7,6 @@ export default function LogbookTable({ logbookData, filteredLogs }) {
   const { openModal, setModal } = useModal();
 
   const showModal = (log) => {
-    console.log(log);
     setModal('Update log', <LogFormModal log={log} isEditing={true} />);
     openModal();
   };
