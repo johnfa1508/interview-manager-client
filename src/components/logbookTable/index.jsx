@@ -36,7 +36,9 @@ export default function LogbookTable({ logbookData, filteredLogs, fetchLogbookDa
             <tbody>
               {filteredLogs.map((log) => (
                 <tr key={log.id}>
-                  <td onClick={() => showModal(log)}>{log.title}</td>
+                  <td onClick={() => showModal(log)} className="log-title">
+                    {log.title}
+                  </td>
                   <td>{log.content}</td>
                   <td className="label-column">
                     {log.label.map((label, index) => (

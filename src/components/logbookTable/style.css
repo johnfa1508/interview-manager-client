@@ -24,6 +24,16 @@
   background-color: var(--secondary-background-color);
 }
 
+.log-title {
+  cursor: pointer;
+}
+
+.log-title:hover {
+  background-color: var(--primary-background-color);
+  text-decoration: underline;
+  transition: text-decoration 0.3s, background-color 0.3s;
+}
+
 .label-pill {
   display: inline-block;
   padding: 5px 10px;
