@@ -34,6 +34,10 @@
   font-size: 12px;
 }
 
+.label-column {
+  max-width: 200px;
+}
+
 /* Label colors */
 .label-pill.technical {
   background-color: #4caf50; /* Green */

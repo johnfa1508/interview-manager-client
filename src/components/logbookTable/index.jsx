@@ -22,7 +22,7 @@ export default function LogbookTable({ data }) {
                 <tr key={log.id}>
                   <td>{log.title}</td>
                   <td>{log.content}</td>
-                  <td>
+                  <td className="label-column">
                     {log.label.map((label, index) => (
                       <span key={index} className={`label-pill ${label.toLowerCase()}`}>
                         {label}
