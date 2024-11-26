@@ -47,7 +47,10 @@ export default function LogbookPage() {
   };
 
   const showModal = () => {
-    setModal('Create a new log', <LogFormModal isEditing={false} />);
+    setModal(
+      'Create a new log',
+      <LogFormModal isEditing={false} fetchLogbookData={fetchLogbookData} />
+    );
     openModal();
   };
 
