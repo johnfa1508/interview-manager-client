@@ -1,7 +1,17 @@
 /* eslint-disable react/prop-types */
+import useModal from '../../hooks/useModal';
+import LogFormModal from '../logFormModal';
 import './style.css';
 
 export default function LogbookTable({ logbookData, filteredLogs }) {
+  const { openModal, setModal } = useModal();
+
+  const showModal = (log) => {
+    console.log(log);
+    setModal('Update log', <LogFormModal log={log} isEditing={true} />);
+    openModal();
+  };
+
   if (!logbookData) {
     return <p>Loading...</p>;
   }
@@ -24,7 +34,7 @@ export default function LogbookTable({ logbookData, filteredLogs }) {
             <tbody>
               {filteredLogs.map((log) => (
                 <tr key={log.id}>
-                  <td>{log.title}</td>
+                  <td onClick={() => showModal(log)}>{log.title}</td>
                   <td>{log.content}</td>
                   <td className="label-column">
                     {log.label.map((label, index) => (

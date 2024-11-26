@@ -12,19 +12,20 @@ export default function LogFormModal({ log, isEditing }) {
     title: '',
     content: '',
     interviewId: '',
-    labels: []
+    label: []
   });
   const { closeModal } = useModal();
   const [interviews, setInterviews] = useState([]);
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
+    console.log(log);
     if (log) {
       setFormData({
         title: log.title,
         content: log.content,
         interviewId: log.interviewId,
-        labels: log.labels
+        label: log.label || []
       });
     }
   }, [log]);
@@ -50,26 +51,27 @@ export default function LogFormModal({ log, isEditing }) {
     const { name, checked } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
-      labels: checked
-        ? [...prevFormData.labels, name]
-        : prevFormData.labels.filter((label) => label !== name)
+      label: checked
+        ? [...prevFormData.label, name]
+        : prevFormData.label.filter((label) => label !== name)
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.labels.length === 0) {
+    if (formData.label.length === 0) {
       showSnackbar('Please select at least one label', 'error');
     } else {
       if (isEditing) {
         console.log('Update log');
+        console.log(formData);
+        showSnackbar('Successfully updated log', 'success');
       } else {
         console.log('Create log');
         console.log(formData);
+        showSnackbar('Successfully created log', 'success');
       }
-
-      showSnackbar('Successfully created log', 'success');
 
       // Wait for the Snackbar to finish closing before closing the modal
       setTimeout(() => {
@@ -140,7 +142,7 @@ export default function LogFormModal({ log, isEditing }) {
                     type="checkbox"
                     id={label}
                     name={label}
-                    checked={formData.labels.includes(label)}
+                    checked={formData.label.includes(label)}
                     onChange={handleCheckboxChange}
                   />
                   <label htmlFor={label} className={`label-pill ${label.toLowerCase()}`}>

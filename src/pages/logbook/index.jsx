@@ -71,9 +71,7 @@ export default function LogbookPage() {
             <MdOutlineAddCircleOutline className="add-interview-icon" onClick={showModal} />
           </div>
 
-          {logbookData && (
-            <LogbookTable logbookData={logbookData} filteredLogs={searchFilteredLogs} />
-          )}
+          <LogbookTable logbookData={logbookData} filteredLogs={searchFilteredLogs} />
         </div>
       </div>
     </>
