@@ -114,6 +114,7 @@ export default function LogFormModal({ log, isEditing }) {
               value={formData.interviewId}
               onChange={handleChange}
               required
+              disabled={interviews.length === 0}
             >
               {interviews.length === 0 ? (
                 <option value="">Loading...</option>
@@ -131,7 +132,7 @@ export default function LogFormModal({ log, isEditing }) {
           </div>
 
           <div className="log-form-group">
-            <label>Labels</label>
+            <label>Labels*</label>
             <div className="checkbox-group">
               {logLabels.map((label) => (
                 <div key={label}>
