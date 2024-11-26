@@ -11,7 +11,7 @@ import {
 import useSnackbar from '../../hooks/useSnackbar';
 import Snackbar from '../snackbar';
 
-export default function LogFormModal({ log, isEditing }) {
+export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -73,6 +73,7 @@ export default function LogFormModal({ log, isEditing }) {
         console.log(formData);
 
         await updateLogByIdAsync(log.id, formData);
+        await fetchLogbookData();
         showSnackbar('Successfully updated log', 'success');
       } else {
         console.log('Create log');
@@ -80,6 +81,7 @@ export default function LogFormModal({ log, isEditing }) {
 
         // FIXME: 1 is hardcoded as logbookId, i think it will be same as loggedInUser id
         await createLogAsync(formData.interviewId, 1, formData);
+        await fetchLogbookData();
         showSnackbar('Successfully created log', 'success');
       }
 

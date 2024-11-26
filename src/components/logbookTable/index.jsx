@@ -3,11 +3,14 @@ import useModal from '../../hooks/useModal';
 import LogFormModal from '../logFormModal';
 import './style.css';
 
-export default function LogbookTable({ logbookData, filteredLogs }) {
+export default function LogbookTable({ logbookData, filteredLogs, fetchLogbookData }) {
   const { openModal, setModal } = useModal();
 
   const showModal = (log) => {
-    setModal('Update log', <LogFormModal log={log} isEditing={true} />);
+    setModal(
+      'Update log',
+      <LogFormModal log={log} isEditing={true} fetchLogbookData={fetchLogbookData} />
+    );
     openModal();
   };
 

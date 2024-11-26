@@ -88,7 +88,11 @@ export default function LogbookPage() {
           </div>
 
           {logbookData ? (
-            <LogbookTable logbookData={logbookData} filteredLogs={searchFilteredLogs} />
+            <LogbookTable
+              logbookData={logbookData}
+              filteredLogs={searchFilteredLogs}
+              fetchLogbookData={fetchLogbookData}
+            />
           ) : (
             <p>Loading logbook...</p>
           )}
