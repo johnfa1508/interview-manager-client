@@ -33,6 +33,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('redirectPath');
         navigate(redirectPath);
       } else {
+        localStorage.setItem('redirectPath', '/login');
         navigate('/login');
       }
     }
@@ -64,6 +65,7 @@ const AuthProvider = ({ children }) => {
     setToken(null);
     setLoggedInUser(null);
 
+    localStorage.setItem('redirectPath', '/login');
     navigate('/login');
   };
 
@@ -77,12 +79,11 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem('token', res.token);
     setToken(res.token);
 
-    localStorage.setItem('redirectPath', '/dashboard');
-
     const user = await getUserByIdAsync(jwtDecode(res.token).UserId);
     localStorage.setItem('loggedInUser', JSON.stringify(user));
     setLoggedInUser(user);
 
+    localStorage.setItem('redirectPath', '/dashboard');
     navigate('/dashboard');
   };
 
