@@ -2,9 +2,8 @@
 import { API_URL } from './constants';
 
 // CUSTOM FUNCTIONS
-// TODO: When login/registration is implemented, update id here
-async function getUserInterviewsAsync() {
-  const res = await get('id/UserInterview/1/interviews');
+async function getUserInterviewsByUserIdAsync(id) {
+  const res = await get(`id/UserInterview/${id}/interviews`);
   return res.$values;
 }
 
@@ -49,9 +48,8 @@ async function updateUserByIdAsync(id, data) {
   return res;
 }
 
-// TODO: When login/registration is implemented, update id here
-async function getLogbookByIdAsync() {
-  const res = await get('api/Logbook/1');
+async function getLogbookByIdAsync(id) {
+  const res = await get(`api/Logbook/${id}`);
   return res;
 }
 
@@ -158,7 +156,7 @@ async function request(method, endpoint, data, auth = false) {
 */
 
 export {
-  getUserInterviewsAsync,
+  getUserInterviewsByUserIdAsync,
   deleteUserInterviewAsync,
   updateUserInterviewAsync,
   createUserInterviewAsync,

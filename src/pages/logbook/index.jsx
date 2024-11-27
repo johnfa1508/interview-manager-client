@@ -11,12 +11,14 @@ import { logLabels } from '../../service/constants';
 import CheckboxDropdown from '../../components/checkboxDropdown';
 import './style.css';
 import { getLogbookByIdAsync } from '../../service/apiClient';
+import useAuth from '../../hooks/useAuth';
 
 export default function LogbookPage() {
   const [logbookData, setLogbookData] = useState(null);
   const [searchValue, setSearchValue] = useState('');
   const [selectedLabels, setSelectedLabels] = useState([]);
   const { openModal, setModal } = useModal();
+  const { loggedInUser } = useAuth();
 
   useEffect(() => {
     fetchLogbookData();
@@ -24,7 +26,7 @@ export default function LogbookPage() {
 
   const fetchLogbookData = async () => {
     try {
-      const data = await getLogbookByIdAsync();
+      const data = await getLogbookByIdAsync(loggedInUser.logbookId);
 
       // Extract $values arrays
       const logs = data.logs.$values.map((log) => ({

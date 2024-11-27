@@ -4,12 +4,13 @@ import useModal from '../../hooks/useModal';
 import { logLabels } from '../../service/constants';
 import './style.css';
 import {
-  getUserInterviewsAsync,
+  getUserInterviewsByUserIdAsync,
   createLogAsync,
   updateLogByIdAsync
 } from '../../service/apiClient';
 import useSnackbar from '../../hooks/useSnackbar';
 import Snackbar from '../snackbar';
+import useAuth from '../../hooks/useAuth';
 
 export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
   const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
   const { closeModal } = useModal();
   const [interviews, setInterviews] = useState([]);
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
+  const { loggedInUser } = useAuth();
 
   useEffect(() => {
     if (log) {
@@ -38,7 +40,7 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
   }, []);
 
   const fetchInterviews = async () => {
-    setInterviews(await getUserInterviewsAsync());
+    setInterviews(await getUserInterviewsByUserIdAsync(loggedInUser.id));
   };
 
   const handleChange = (event) => {
