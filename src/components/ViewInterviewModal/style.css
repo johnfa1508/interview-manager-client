@@ -14,7 +14,6 @@
   text-align: left;
 }
 
-
 /* FIXME: Quick fix */
 .content-container {
   max-height: 50vh;
@@ -106,6 +105,7 @@
   font-size: 0.875rem;
   color: var(--text-color);
   background-color: var(--container-background-color);
+  font-family: inherit;
 }
 
 .note-input:focus {
