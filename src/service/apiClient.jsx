@@ -49,6 +49,27 @@ async function updateUserByIdAsync(id, data) {
   return res;
 }
 
+// TODO: When login/registration is implemented, update id here
+async function getLogbookByIdAsync() {
+  const res = await get('api/Logbook/1');
+  return res;
+}
+
+async function updateLogByIdAsync(id, data) {
+  const res = await put(`api/Log/${id}`, data);
+  return res;
+}
+
+async function createLogAsync(interviewId, logbookId, data) {
+  const res = await post(`api/Log/${interviewId}/${logbookId}`, data);
+  return res;
+}
+
+async function deleteLogByIdAsync(id) {
+  const res = await del(`api/Log/${id}`);
+  return res;
+}
+
 // CRUD FUNCTIONS
 async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
@@ -144,5 +165,9 @@ export {
   updateUserInterviewStatusAsync,
   registerUserAsync,
   loginUserAsync,
-  getUserByIdAsync
+  getUserByIdAsync,
+  getLogbookByIdAsync,
+  updateLogByIdAsync,
+  createLogAsync,
+  deleteLogByIdAsync
 };

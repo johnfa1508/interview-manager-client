@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Aldrich';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/aldrich/v21/MCoTzAn-1s3IGyJMVacY3w.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
 :root {
   --background-color: #ffffff; /* Clean white background */
   --text-color: #333333; /* Dark gray for high contrast text */
@@ -6,14 +16,15 @@
   --header-text-color: #333333; /* Dark gray for header text */
   --container-background-color: #ffffff; /* White for containers */
   --modal-text-color: #333333; /* Dark gray for modal text */
+  scrollbar-width: thick;
+  scrollbar-color: var(--text-color) var(--primary-background-color);
 }
 
-  
-[data-theme='christmas']  {
+[data-theme='christmas'] {
   --background-color: #49be2c;
   --text-color: #000000;
   --primary-background-color: #2cb469;
-  --secondary-background-color: 	#c72b2e;
+  --secondary-background-color: #c72b2e;
   --header-text-color: #ffffff;
   --container-background-color: #ab1717;
   --modal-text-color: #000000;
@@ -34,7 +45,7 @@
 body {
   background-color: var(--background-color);
   color: var(--text-color);
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Aldrich', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -42,4 +53,5 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 1s, color 1s;
 }
