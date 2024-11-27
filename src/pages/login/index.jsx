@@ -7,6 +7,8 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { FaRegEye } from 'react-icons/fa';
 import { FaRegEyeSlash } from 'react-icons/fa';
+import Snackbar from '../../components/Snackbar';
+import useSnackbar from '../../hooks/useSnackbar';
 import './style.css';
 
 const LoginPage = () => {
@@ -15,8 +17,7 @@ const LoginPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { onLogin } = useAuth();
-
-  // const navigate = useNavigate();
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   const onChange = (event) => {
     const { name, value } = event.target;
@@ -24,18 +25,40 @@ const LoginPage = () => {
   };
 
   const handleLogin = async (event) => {
-    // TODO: Implement validation
     event.preventDefault();
+    if (!validateInputs()) return;
+
     setIsSubmitting(true);
 
     try {
       await onLogin(formData);
     } catch (error) {
       console.error('Error during login:', error);
-      alert('An error occurred. Please try again.');
+      showSnackbar('Invalid username or password.', 'error');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // TODO: Move to services folder and user RegEx for validation instead
+  const validateInputs = () => {
+    if (!formData.username.trim()) {
+      showSnackbar('Username is required.', 'error');
+      return false;
+    }
+
+    /* FIXME: Change this to a more secure password validation
+    if (formData.password.length < 8) {
+      showSnackbar(
+        'Password must be at least 8 characters long and contain at least one number and one special character.',
+        'error'
+      );
+
+      return false;
+    }
+    */
+
+    return true;
   };
 
   /*
@@ -136,6 +159,10 @@ const LoginPage = () => {
           </p>
         </form>
       </div>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 };
