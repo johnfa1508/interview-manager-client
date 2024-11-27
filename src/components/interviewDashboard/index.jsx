@@ -123,7 +123,11 @@ export default function InterviewDashboard() {
   return (
     <div>
       <div className="container-above-interview">
-        <Searchbar searchValue={searchValue} handleChange={handleSearchChange} />
+        <Searchbar
+          searchValue={searchValue}
+          handleChange={handleSearchChange}
+          placeholder="Search for an interview..."
+        />
         <MdOutlineAddCircleOutline className="add-interview-icon" onClick={showModal} />
       </div>
 
