@@ -7,7 +7,12 @@ export const getUserFromLocalStorage = () => {
   return user ? JSON.parse(user) : null; // Return user data if exists, else return null
 };
 
-export const updateUserInLocalStorage = (updatedUser) => {
+export const updateUserInLocalStorage = (updatedFields) => {
+  const existingUser = JSON.parse(localStorage.getItem('loggedInUser')) || {};
+
+  // Update only the fields that are sent
+  const updatedUser = { ...existingUser, ...updatedFields };
+
   localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
 };
 
