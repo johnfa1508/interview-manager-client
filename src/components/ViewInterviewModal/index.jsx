@@ -4,18 +4,17 @@ import { useEffect, useState } from 'react';
 import './style.css';
 import { Clock, MapPin, Timer, FileText, X, Plus, Trash2 } from 'lucide-react';
 import { formatDateTime } from '../../service/formatDate';
+import { getinterviewNotesAsync, getNoteByIdAsync, addInterviewNoteAsync, deleteNoteByIdAsync } from '../../service/apiClient';
 
 const ViewInterviewModal = ({ interview }) => {
   const [currentInterview, setCurrentInterview] = useState(null);
   // TODO: Replace using backend data later
-  const [notes, setNotes] = useState([
-    { id: 1, content: 'Prepare technical questions' },
-    { id: 2, content: 'Review company background' }
-  ]);
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [showAllNotes, setShowAllNotes] = useState(false);
 
   useEffect(() => {
+    console.log(interview)
     setCurrentInterview(interview);
   }, [interview]);
 
