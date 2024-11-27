@@ -8,33 +8,33 @@ export default function AboutUs() {
       name: 'Ali Haider Khan',
       role: 'Backend Developer',
       description: 'Participated in the development the backend of the project.',
-      github: 'https://github.com/johndoe',
-      linkedin: 'https://linkedin.com/in/johndoe',
-      image: 'src/images/image1.jpg'
+      github: 'https://github.com/alihaiderkhannn',
+      linkedin: 'https://www.linkedin.com/in/ali-haider-khan-b34752223/',
+      image: 'src/images/portrettali.jpg'
     },
     {
       name: 'Muaath Zerouga',
       role: 'Backend Developer',
       description: 'Modelled, prototyped and developed the core features of the project.',
-      github: 'https://github.com/janesmith',
-      linkedin: 'https://linkedin.com/in/johndoe',
+      github: 'https://github.com/Muzea001',
+      linkedin: 'https://www.linkedin.com/in/muaath-zerouga-8a56092b3/',
       image: 'src/images/image1.jpg'
     },
     {
       name: 'John Ferdie Abueg',
       role: 'Frontend Developer',
       description: 'Prototyped and developed the user interface of the project.',
-      github: 'https://github.com/alicejohnson',
-      linkedin: 'https://linkedin.com/in/johndoe',
-      image: 'src/images/image1.jpg'
+      github: 'https://github.com/johnfa1508',
+      linkedin: 'https://www.linkedin.com/in/johnfabueg/',
+      image: 'src/images/john.jpg'
     },
     {
       name: 'Magnus Brandsegg',
       role: 'Frontend Developer',
       description: 'Developed the user interface of the project.',
-      github: 'https://github.com/bobbrown',
-      linkedin: 'https://linkedin.com/in/johndoe',
-      image: 'src/images/image1.jpg'
+      github: 'https://github.com/Brandsegg',
+      linkedin: 'https://www.linkedin.com/in/magnus-brandsegg-b62392266/',
+      image: 'src/images/magnus.jpg'
     }
   ];
 
