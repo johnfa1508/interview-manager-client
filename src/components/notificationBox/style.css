@@ -1,28 +1,3 @@
-header {
-  display: flex;
-  background-color: var(--primary-background-color);
-  color: var(--header-text-color);
-  justify-content: space-between; /* Space between the logo and profile image */
-  align-items: center; /* Vertically center all items in the header */
-  padding: 20px;
-}
-
-.profile-link {
-  display: flex;
-  justify-content: center; /* Horizontally center the profile image within the link */
-  align-items: center; /* Vertically center the profile image */
-  text-decoration: none; /* Remove default underline from Link */
-  height: 60px; /* Ensure the link is vertically aligned with the header */
-}
-
-.profile-link img {
-  display: block; /* Prevent any space below the image */
-}
-
-.header-logo {
-  flex-grow: 1; /* Allow the logo to take up remaining space */
-}
-
 .notification-bell {
   position: relative;
   cursor: pointer;
@@ -39,7 +14,7 @@ header {
   color: white;
   border-radius: 50%;
   padding: 5px 10px;
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .dropdown-container {
@@ -81,11 +56,9 @@ header {
 .notification-box li {
   margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid var(--text-color); 
-  border-radius: 4px;
   background-color: var(--secondary-background-color);
   font-size: 14px; /* Smaller text */
-  position: relative; /* For positioning the dot */
+  position: relative; /* For positioning the dot and "x" button */
 }
 
 .notification-box li::before {
@@ -98,4 +71,15 @@ header {
   height: 8px;
   background-color: var(--text-color);
   border-radius: 50%;
+}
+
+.remove-notification {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
 }
