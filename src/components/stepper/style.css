@@ -1,0 +1,10 @@
+.stepper-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  justify-content: space-between;
+}
+.stepper-buttons .nextButton {
+  grid-column: 2;
+  justify-self: end;
+}
