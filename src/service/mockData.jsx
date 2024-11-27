@@ -51,4 +51,91 @@ const interviewsMockData = [
   }
 ];
 
-export { interviewsMockData };
+const logbooksMockData = [
+  {
+    id: 1,
+    userId: 1,
+    user: {
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@example.com'
+    },
+    title: 'Job Search Logbook',
+    logs: [
+      {
+        id: 1,
+        logbookId: 1,
+        title: 'Technical Interview with Tech Corp',
+        content: 'Discussed algorithms and data structures.',
+        interviewId: 1,
+        interview: {
+          id: 1,
+          title: 'Software Engineer',
+          companyName: 'Tech Corp',
+          address: '123 Main St, City, Country',
+          time: '2024-11-15T12:00:00.000Z',
+          duration: 60,
+          description: 'Interview for the position of Software Engineer.',
+          status: 'AwaitingFeedback'
+        },
+        label: ['Technical', 'Coding']
+      },
+      {
+        id: 2,
+        logbookId: 1,
+        title: 'Behavioral Interview with Business Inc',
+        content: 'Discussed past experiences and team collaboration.',
+        interviewId: 2,
+        interview: {
+          id: 2,
+          title: 'Product Manager',
+          companyName: 'Business Inc',
+          address: '456 Elm St, City, Country',
+          time: '2024-11-15T09:30:00.000Z',
+          duration: 45,
+          description: 'Interview for the position of Product Manager.',
+          status: 'Scheduled'
+        },
+        label: ['Behavioral', 'Managerial']
+      },
+      {
+        id: 3,
+        logbookId: 1,
+        title: 'Prepare for interview',
+        content: 'Learned about interview preparation and key technical questions',
+        interviewId: 2,
+        interview: {
+          id: 2,
+          title: 'Product Manager',
+          companyName: 'Business Inc',
+          address: '456 Elm St, City, Country',
+          time: '2024-11-15T09:30:00.000Z',
+          duration: 45,
+          description: 'Interview for the position of Product Manager.',
+          status: 'Scheduled'
+        },
+        label: ['Technical', 'Behavioral']
+      },
+      {
+        id: 4,
+        logbookId: 1,
+        title: 'Coding Practice',
+        content: 'Studied Python and algorithms for the next interview',
+        interviewId: 1,
+        interview: {
+          id: 1,
+          title: 'Software Engineer',
+          companyName: 'Tech Corp',
+          address: '123 Main St, City, Country',
+          time: '2024-11-15T12:00:00.000Z',
+          duration: 60,
+          description: 'Interview for the position of Software Engineer.',
+          status: 'AwaitingFeedback'
+        },
+        label: ['Coding', 'Technical', 'Research', 'Documentation', 'Testing']
+      }
+    ]
+  }
+];
+
+export { interviewsMockData, logbooksMockData };
