@@ -13,24 +13,26 @@
   color: var(--text-color);
   cursor: pointer;
   font-family: inherit;
+  margin-left: 50px;
 }
 
 .dropdown-menu {
   position: absolute;
-  max-height: 300px; /* Set a maximum height */
-  overflow-y: auto; /* Enable vertical scrolling */
-  /* Scrollbar styling */
-  scrollbar-width: thin;
-  scrollbar-color: var(--text-color) var(--primary-background-color);
+  max-height: 300px;
+  overflow-y: auto;
   top: 100%;
-  left: 0;
-  width: 100%;
+  left: 50px; /* Has to match dropdown-button margin-left*/
+  width: 200px; /* Has to match dropdown-button width */
   border: 1px solid var(--text-color);
   border-radius: 4px;
   background-color: var(--secondary-background-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 1;
   transition: border 1s;
+
+  /* Scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-color) var(--primary-background-color);
 }
 
 .dropdown-item {
