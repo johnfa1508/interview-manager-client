@@ -10,6 +10,7 @@ import { ProtectedRoute } from './context/auth.jsx';
 import AboutUs from './pages/aboutUs/index.jsx';
 import useTheme from './hooks/useTheme.jsx';
 import { useEffect } from 'react';
+import WelcomeSignupForm from './pages/welcome/index.jsx';
 
 function App() {
   const { theme } = useTheme();
@@ -25,6 +26,7 @@ function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="welcome" element={<WelcomeSignupForm />} />
 
         {/* Protected routes, needs token in local storage */}
         <Route
