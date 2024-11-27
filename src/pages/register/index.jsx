@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { saveUserToLocalStorage } from '../../service/loggedInUserUtils';
 import { registerUserAsync } from '../../service/apiClient';
 import useAuth from '../../hooks/useAuth';
@@ -185,9 +185,10 @@ const RegisterPage = () => {
           <button type="submit" className="login-button" disabled={isSubmitting}>
             {isSubmitting ? 'Registering...' : 'Register'}
           </button>
-          <p className="create-account">
-            <a href="/register">Create a new account</a>
-          </p>
+
+          <Link to="/login" className="navigate-to-login">
+            Already have an account?
+          </Link>
         </form>
       </div>
     </div>
