@@ -1,10 +1,30 @@
-.stepper-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  justify-content: space-between;
+.steps-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
-.stepper-buttons .nextButton {
-  grid-column: 2;
-  justify-self: end;
+
+.stepper-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.stepper-buttons .offwhite {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.stepper-buttons .blue {
+  background-color: #4fd1c5;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.stepper-buttons .blue.nextButton {
+  margin-left: auto;
 }

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import Steps from './steps';
-import './style.css';
 import { useState } from 'react';
+import './style.css';
+import Steps from './steps';
 import useSnackbar from '../../hooks/useSnackbar';
 import Snackbar from '../Snackbar';
 
@@ -16,7 +16,7 @@ const Stepper = ({ header, children, onComplete, stepIsValid }) => {
   };
 
   const onNextClick = () => {
-    if (stepIsValid) {
+    if (stepIsValid()) {
       if (currentStep === children.length - 1) {
         onComplete();
         return;
@@ -24,7 +24,6 @@ const Stepper = ({ header, children, onComplete, stepIsValid }) => {
 
       setCurrentStep(currentStep + 1);
     } else {
-      // setShowErrorText(true);
       showSnackbar('Please fill out all required fields', 'error');
     }
   };

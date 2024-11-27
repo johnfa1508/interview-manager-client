@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { saveUserToLocalStorage } from '../../service/loggedInUserUtils';
 import useAuth from '../../hooks/useAuth';
 import Snackbar from '../../components/Snackbar';
 import useSnackbar from '../../hooks/useSnackbar';
+import Stepper from '../../components/Stepper';
+import ProfileImage from '../../components/ProfileImage';
+import { FaRegEye } from 'react-icons/fa';
+import { FaRegEyeSlash } from 'react-icons/fa';
 import './style.css';
 
 const RegisterPage = () => {
@@ -19,6 +22,7 @@ const RegisterPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { onRegister } = useAuth();
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,15 +40,7 @@ const RegisterPage = () => {
     }
   };
 
-  const handleRegister = async (event) => {
-    // TODO: Implement validation
-    event.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      showSnackbar('Passwords do not match!', 'error');
-      return;
-    }
-
+  const handleRegister = async () => {
     setIsSubmitting(true);
 
     try {
@@ -65,128 +61,121 @@ const RegisterPage = () => {
     }
   };
 
-  /*
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const stepIsValid = () => {
+    // Validations
 
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const payload = {
-        username: formData.username,
-        password: formData.password,
-        email: formData.email,
-        mobile: formData.mobile
-      };
-
-      const response = await registerUserAsync(payload);
-
-      if (response?.id && response?.username) {
-        saveUserToLocalStorage(formData); //FIXME: GET FROM BACKEND AT SOME POINT
-        alert('Registration successful!');
-        navigate('/');
-      } else {
-        alert(response?.message || 'Registration failed');
-      }
-    } catch (error) {
-      console.error('Error during registration:', error);
-      alert('An error occurred. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    return true;
   };
-  */
 
   return (
     <div className="login-container">
       <div className="login-box">
-        <h1>Create Account</h1>
-        <form onSubmit={handleRegister}>
-          <div className="input-group">
-            <label htmlFor="username">Name</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              placeholder="Enter your name"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="mobile">Mobile</label>
-            <input
-              type="text"
-              id="mobile"
-              name="mobile"
-              value={formData.mobile}
-              onChange={handleInputChange}
-              placeholder="Enter your mobile number"
-              required
-            />
+        <Stepper
+          header={<h2>Register account</h2>}
+          onComplete={handleRegister}
+          stepIsValid={stepIsValid}
+        >
+          {/* Step 1 */}
+          <div>
+            <div className="input-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="password">Password</label>
+              <div className="password-container">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="Enter your password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  className="show-password-button"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                </button>
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                placeholder="Confirm your password"
+                required
+              />
+            </div>
           </div>
 
-          {/* Profile Image */}
-          <div className="input-group">
-            <label htmlFor="profileImage">Profile Image</label>
-            <input
-              type="file"
-              id="profileImage"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="file-input"
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              placeholder="Confirm your password"
-              required
-            />
-          </div>
-          <button type="submit" className="login-button" disabled={isSubmitting}>
-            {isSubmitting ? 'Registering...' : 'Register'}
-          </button>
+          {/* Step 2 */}
+          <div>
+            <div className="input-group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                placeholder="Enter your name"
+                required
+              />
+            </div>
 
-          <Link to="/login" className="navigate-to-login">
-            Already have an account?
-          </Link>
-        </form>
+            <div className="input-group">
+              <label htmlFor="mobile">Mobile</label>
+              <input
+                type="text"
+                id="mobile"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleInputChange}
+                placeholder="Enter your mobile number"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Step 3 */}
+          <div>
+            <div className="input-group">
+              <ProfileImage image={formData.profileImage} />
+
+              <label htmlFor="profileImage">Profile Image</label>
+              <input
+                type="file"
+                id="profileImage"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="file-input"
+              />
+            </div>
+          </div>
+        </Stepper>
+
+        <Link to="/login" className="navigate-to-login">
+          Already have an account?
+        </Link>
       </div>
 
       {snackbar.isOpen && (
