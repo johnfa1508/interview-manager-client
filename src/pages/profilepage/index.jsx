@@ -6,7 +6,7 @@ import ProfileImage from '../../components/ProfileImage';
 // import { getUserFromLocalStorage, updateUserInLocalStorage } from '../../context/userStorage';
 import { updateUserInLocalStorage } from '../../service/loggedInUserUtils';
 import useAuth from '../../hooks/useAuth';
-import Snackbar from '../../components/Snackbar';
+import Snackbar from '../../components/snackbar';
 import useSnackbar from '../../hooks/useSnackbar';
 import './style.css';
 
