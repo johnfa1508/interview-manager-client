@@ -7,17 +7,20 @@ import { PositionedModalProvider } from './context/positionedModal.jsx';
 import Modal from './components/modal/index.jsx';
 import PositionedModal from './components/positionedModal/index.jsx';
 import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './context/auth.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <ModalProvider>
-        <PositionedModalProvider>
-          <App />
-          <Modal />
-          <PositionedModal />
-        </PositionedModalProvider>
-      </ModalProvider>
+      <AuthProvider>
+        <ModalProvider>
+          <PositionedModalProvider>
+            <App />
+            <Modal />
+            <PositionedModal />
+          </PositionedModalProvider>
+        </ModalProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>
 );
