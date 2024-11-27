@@ -1,10 +1,11 @@
-import  { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HeaderLogo from '../headerLogo';
 import { Link } from 'react-router-dom';
 import ProfileImage from '../ProfileImage';
 import { getUserFromLocalStorage } from '../../context/userStorage';
 import NotificationBox from '../notificationBox';
 import './style.css';
+import * as signalR from '@microsoft/signalr';
 
 export default function Header() {
   const userData = getUserFromLocalStorage();
@@ -16,9 +17,37 @@ export default function Header() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [unreadCount, setUnreadCount] = useState(notifications.length);
 
+  useEffect(() => {
+    if (!userData) {
+      console.error('User data is null');
+      return;
+    }
+
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl(`https://localhost:7087/notificationHub?userId=${userData.userId}`, {
+        accessTokenFactory: () => userData.token // Assuming you have a token for authentication
+      })
+      .withAutomaticReconnect()
+      .build();
+
+    connection.start()
+      .then(() => {
+        console.log('Connected to SignalR hub');
+        connection.on('ReceiveNotification', (notification) => {
+          setNotifications((prevNotifications) => [...prevNotifications, notification]);
+          setUnreadCount((prevCount) => prevCount + 1);
+        });
+      })
+      .catch((error) => console.error('SignalR Connection Error: ', error));
+
+    return () => {
+      connection.stop().then(() => console.log('Disconnected from SignalR hub'));
+    };
+  }, [userData]);
+
   const handleBellClick = () => {
     setShowNotifications(!showNotifications);
-    setUnreadCount(0); // Reset unread count when the bell is clicked
+    setUnreadCount(0); 
   };
 
   const handleRemoveNotification = (index) => {
