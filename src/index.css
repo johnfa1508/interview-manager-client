@@ -9,15 +9,18 @@
 }
 
 :root {
-  --background-color: #ffffff;
-  --text-color: #333333;
-  --primary-background-color: #cccccc;
-  --secondary-background-color: #f7f7f7;
-  --header-text-color: #333333;
+  --background-color: #f5f5f5;
+  --text-color: #2f2f2f;
+  --primary-background-color: #a3b18a;
+  --secondary-background-color: #e8e8e8;
+  --header-text-color: #1f1f1f;
   --container-background-color: #ffffff;
-  --modal-text-color: #333333;
-  scrollbar-width: thick;
-  scrollbar-color: var(--text-color) var(--primary-background-color);
+  --modal-text-color: #2d2d2d;
+  --border-color: #d1d1d1;
+  --highlight-color: #6c7b5b;
+  --button-color: #6c7b5b;
+  scrollbar-width: thin;
+  scrollbar-color: var(--highlight-color) var(--secondary-background-color);
 }
 
 [data-theme='christmas'] {
