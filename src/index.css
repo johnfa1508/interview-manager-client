@@ -16,33 +16,21 @@
   --header-text-color: #333333;
   --container-background-color: #ffffff;
   --modal-text-color: #333333;
+  scrollbar-width: thick;
+  scrollbar-color: var(--text-color) var(--primary-background-color);
 }
 
 [data-theme='christmas'] {
-  --background-color: #b22222;
-  --text-color: #ffffff;
-  --primary-background-color: #4caf50;
-  --secondary-background-color: #8b0000;
-  --header-text-color: #ffcccb;
-  --container-background-color: #f08080;
+  --background-color: #49be2c;
+  --text-color: #000000;
+  --primary-background-color: #2cb469;
+  --secondary-background-color: #c72b2e;
+  --header-text-color: #ffffff;
+  --container-background-color: #ab1717;
   --modal-text-color: #000000;
   scrollbar-width: thin;
   scrollbar-color: var(--text-color) var(--primary-background-color);
 }
-
-/*
-[data-theme='christmas2'] {
-  --background-color: #e8f5e9; 
-  --text-color: #004d40; 
-  --primary-background-color: #c8e6c9; 
-  --secondary-background-color: #ff5252; 
-  --header-text-color: #004d40; 
-  --container-background-color: #ffffff; 
-  --modal-text-color: #004d40; 
-  scrollbar-width: thin;
-  scrollbar-color: var(--text-color) var(--primary-background-color);
-}
-  */
 
 [data-theme='dark'] {
   --background-color: #11252d;
