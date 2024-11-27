@@ -71,6 +71,22 @@
   background: #764ba2;
 }
 
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.show-password-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
 /* Link styles */
 .forgot-password-link {
   display: block;

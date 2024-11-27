@@ -5,12 +5,15 @@ import { saveUserToLocalStorage } from '../../context/userStorage';
 */
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
+import { FaRegEye } from 'react-icons/fa';
+import { FaRegEyeSlash } from 'react-icons/fa';
 import './style.css';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [rememberMe, setRememberMe] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { onLogin } = useAuth();
 
   // const navigate = useNavigate();
@@ -89,32 +92,39 @@ const LoginPage = () => {
 
           <div className="input-group">
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={onChange}
-              placeholder="Enter your password"
-              required
-            />
-
-            {/* FIXME: Implement remember me */}
-            <div className="options-row">
-              <label className="remember-me">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={() => setRememberMe(!rememberMe)}
-                />
-                Remember me
-              </label>
-
-              {/* FIXME: Implement forgot password */}
-              <a href="#" className="forgot-password-link">
-                Forgot Password?
-              </a>
+            <div className="password-container">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={onChange}
+                placeholder="Enter your password"
+                required
+              />
+              <button
+                type="button"
+                className="show-password-button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+              </button>
             </div>
+          </div>
+
+          <div className="options-row">
+            <label className="remember-me">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+              />
+              Remember me
+            </label>
+
+            <a href="#" className="forgot-password-link">
+              Forgot Password?
+            </a>
           </div>
 
           <button type="submit" className="login-button" disabled={isSubmitting}>
