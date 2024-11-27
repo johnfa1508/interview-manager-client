@@ -1,0 +1,90 @@
+.logbook h2 {
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.logbook-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.logbook-table th,
+.logbook-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.logbook-table th {
+  background-color: var(--primary-background-color);
+  color: var(--text-color);
+}
+
+.logbook-table tr {
+  background-color: var(--secondary-background-color);
+}
+
+/* FIXME: Horizontal align */
+.logbook-action-icon {
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  color: var(--text-color);
+  margin: 0 5px; /* Add horizontal space between icons */
+  vertical-align: middle; /* Center the content vertically */
+}
+
+.label-pill {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 15px;
+  background-color: var(--primary-background-color);
+  color: var(--text-color);
+  font-size: 12px;
+}
+
+.label-column {
+  max-width: 200px;
+}
+
+/* Label colors */
+.label-pill.technical {
+  background-color: #4caf50; /* Green */
+}
+
+.label-pill.softskill {
+  background-color: #ff9800; /* Orange */
+}
+
+.label-pill.behavioral {
+  background-color: #2196f3; /* Blue */
+}
+
+.label-pill.managerial {
+  background-color: #9c27b0; /* Purple */
+}
+
+.label-pill.coding {
+  background-color: #f44336; /* Red */
+}
+
+.label-pill.design {
+  background-color: #e91e63; /* Pink */
+}
+
+.label-pill.testing {
+  background-color: #3f51b5; /* Indigo */
+}
+
+.label-pill.documentation {
+  background-color: #00bcd4; /* Cyan */
+}
+
+.label-pill.research {
+  background-color: #009688; /* Teal */
+}
+
+.label-pill.presentation {
+  background-color: #795548; /* Brown */
+}
