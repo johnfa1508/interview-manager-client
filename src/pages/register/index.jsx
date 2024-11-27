@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { saveUserToLocalStorage } from '../../service/loggedInUserUtils';
-import { registerUserAsync } from '../../service/apiClient';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+// import { saveUserToLocalStorage } from '../../service/loggedInUserUtils';
 import useAuth from '../../hooks/useAuth';
+import Snackbar from '../../components/Snackbar';
+import useSnackbar from '../../hooks/useSnackbar';
 import './style.css';
 
 const RegisterPage = () => {
@@ -13,12 +14,11 @@ const RegisterPage = () => {
     mobile: '',
     password: '',
     confirmPassword: '',
-    profileImage: null
+    profileImage: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [image, setImage] = useState(null);
-  const navigate = useNavigate();
   const { onRegister } = useAuth();
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +30,6 @@ const RegisterPage = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // Store the image as a base64 string
         setFormData((prev) => ({ ...prev, profileImage: reader.result }));
       };
       reader.readAsDataURL(file);
@@ -42,7 +41,7 @@ const RegisterPage = () => {
     event.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
+      showSnackbar('Passwords do not match!', 'error');
       return;
     }
 
@@ -54,15 +53,13 @@ const RegisterPage = () => {
         password: formData.password,
         email: formData.email,
         mobile: formData.mobile,
-        profileImage: formData.profile
+        profileImage: formData.profileImage
       };
-
-      console.log(payload);
 
       await onRegister(payload);
     } catch (error) {
       console.error('Error during register:', error);
-      alert('An error occurred. Please try again.');
+      showSnackbar('An error occurred. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -191,6 +188,10 @@ const RegisterPage = () => {
           </Link>
         </form>
       </div>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 };

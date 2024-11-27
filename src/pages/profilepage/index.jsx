@@ -6,6 +6,8 @@ import ProfileImage from '../../components/ProfileImage';
 // import { getUserFromLocalStorage, updateUserInLocalStorage } from '../../context/userStorage';
 import { updateUserInLocalStorage } from '../../service/loggedInUserUtils';
 import useAuth from '../../hooks/useAuth';
+import Snackbar from '../../components/Snackbar';
+import useSnackbar from '../../hooks/useSnackbar';
 import './style.css';
 
 const ProfilePage = () => {
@@ -19,6 +21,7 @@ const ProfilePage = () => {
   const [isSaving, setIsSaving] = useState(false);
   // const [image, setImage] = useState(null);
   const { loggedInUser } = useAuth();
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   // Load user data from localStorage when the component mounts
   useEffect(() => {
@@ -43,12 +46,12 @@ const ProfilePage = () => {
     setIsSaving(true);
 
     try {
-      updateUserInLocalStorage(formData); // Update localStorage with new data
+      updateUserInLocalStorage(formData);
       // TODO: Update user data in the backend
 
-      alert('Profile updated successfully!');
+      showSnackbar('Profile updated successfully!', 'success');
     } catch (error) {
-      alert('Failed to update profile');
+      showSnackbar('Failed to update profile', 'error');
     } finally {
       setIsSaving(false);
     }
@@ -110,6 +113,10 @@ const ProfilePage = () => {
           </form>
         </div>
       </main>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 };
