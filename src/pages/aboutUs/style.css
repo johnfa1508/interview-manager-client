@@ -27,10 +27,13 @@
 }
 
 .team-member img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
   margin-bottom: 10px;
+  object-fit: cover;
+  padding: 5px;
+  
 }
 
 .team-member h3 {
@@ -60,11 +63,12 @@
   background-color: var(--secondary-background-color);
   border-radius: 4px;
   text-decoration: none;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s color 0.2s;
 }
 
 .social-links a:hover {
   background-color: var(--header-text-color);
+  color: var(--background-color)
 }
 
 .social-links i {
