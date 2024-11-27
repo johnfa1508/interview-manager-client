@@ -42,12 +42,12 @@ header {
   font-size: 8px;
 }
 
-.dropdown-container {
+.notification-dropdown-container {
   position: relative;
   display: inline-block;
 }
 
-.dropdown-menu {
+.notification-dropdown-menu {
   position: absolute;
   top: 40px; /* Adjusted to move the box further down */
   right: 0;
@@ -62,40 +62,4 @@ header {
   /* Scrollbar styling */
   scrollbar-width: thin;
   scrollbar-color: var(--text-color) var(--primary-background-color);
-}
-
-.notification-box {
-  padding: 20px;
-}
-
-.notification-box h2 {
-  margin-bottom: 10px;
-  color: var(--text-color);
-}
-
-.notification-box ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.notification-box li {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid var(--text-color); 
-  border-radius: 4px;
-  background-color: var(--secondary-background-color);
-  font-size: 14px; /* Smaller text */
-  position: relative; /* For positioning the dot */
-}
-
-.notification-box li::before {
-  content: '';
-  position: absolute;
-  left: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  background-color: var(--text-color);
-  border-radius: 50%;
 }

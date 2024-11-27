@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import HeaderLogo from '../headerLogo';
+/*
 import { Link } from 'react-router-dom';
 import ProfileImage from '../ProfileImage';
 import { getUserFromLocalStorage } from '../../context/userStorage';
+*/
 import NotificationBox from '../notificationBox';
 import useAuth from '../../hooks/useAuth';
 import ProfileDropdown from '../profileDropdown';
@@ -24,19 +26,20 @@ export default function Header() {
   const [unreadCount, setUnreadCount] = useState(notifications.length);
 
   useEffect(() => {
-    if (!userData) {
+    if (!loggedInUser) {
       console.error('User data is null');
       return;
     }
 
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(`https://localhost:7087/notificationHub?userId=${userData.userId}`, {
-        accessTokenFactory: () => userData.token // Assuming you have a token for authentication
+      .withUrl(`https://localhost:7087/notificationHub?userId=${loggedInUser.userId}`, {
+        accessTokenFactory: () => loggedInUser.token // Assuming you have a token for authentication
       })
       .withAutomaticReconnect()
       .build();
 
-    connection.start()
+    connection
+      .start()
       .then(() => {
         console.log('Connected to SignalR hub');
         connection.on('ReceiveNotification', (notification) => {
@@ -49,11 +52,11 @@ export default function Header() {
     return () => {
       connection.stop().then(() => console.log('Disconnected from SignalR hub'));
     };
-  }, [userData]);
+  }, [loggedInUser]);
 
   const handleBellClick = () => {
     setShowNotifications(!showNotifications);
-    setUnreadCount(0); 
+    setUnreadCount(0);
   };
 
   const handleRemoveNotification = (index) => {
@@ -64,21 +67,22 @@ export default function Header() {
     <header>
       <HeaderLogo textColor={'#FFFFFF'} arrowColor={'#030311'} boxColor={'#20b2aa'} />
 
-      <div className="dropdown-container">
+      <div className="notification-dropdown-container">
         <div className="notification-bell" onClick={handleBellClick}>
           <i className="fas fa-bell"></i>
           {unreadCount > 0 && <span className="notification-count">{unreadCount}</span>}
         </div>
         {showNotifications && (
-          <div className="dropdown-menu">
-            <NotificationBox notifications={notifications} onRemoveNotification={handleRemoveNotification} />
+          <div className="notification-dropdown-menu">
+            <NotificationBox
+              notifications={notifications}
+              onRemoveNotification={handleRemoveNotification}
+            />
           </div>
         )}
       </div>
 
-      <Link to="/profile" className="profile-link">
-        <ProfileImage image={userData?.profileImage} size="60px" />
-      </Link>
+      <ProfileDropdown image={loggedInUser?.profileImage} onLogout={handleLogout} />
     </header>
   );
 }
