@@ -8,7 +8,16 @@ import LoginPage from './pages/login/index.jsx';
 import RegisterPage from './pages/register/index.jsx';
 import { AuthProvider, ProtectedRoute } from './context/auth.jsx';
 import AboutUs from './pages/aboutUs/index.jsx';
+import useTheme from './hooks/useTheme.jsx';
+import { useEffect } from 'react';
+
 function App() {
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
   return (
     <>
       <AuthProvider>
