@@ -9,6 +9,7 @@ import { FaRegEye } from 'react-icons/fa';
 import { FaRegEyeSlash } from 'react-icons/fa';
 import Snackbar from '../../components/Snackbar';
 import useSnackbar from '../../hooks/useSnackbar';
+import { Link } from 'react-router-dom';
 import './style.css';
 
 const LoginPage = () => {
@@ -154,9 +155,9 @@ const LoginPage = () => {
             {isSubmitting ? 'Logging in...' : 'Log In'}
           </button>
 
-          <p className="create-account">
-            <a href="/register">Create a new account</a>
-          </p>
+          <Link to="/register" className="navigate-to-register">
+            Create a new account?
+          </Link>
         </form>
       </div>
 

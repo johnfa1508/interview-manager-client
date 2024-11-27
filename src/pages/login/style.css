@@ -156,3 +156,14 @@
 .create-account a:hover {
   text-decoration: underline;
 }
+
+.navigate-to-register {
+  text-decoration: none;
+  color: var(--text-color);
+  margin-top: 1rem;
+}
+
+.navigate-to-register:hover {
+  text-decoration: underline;
+  transition: text-decoration 5s;
+}
