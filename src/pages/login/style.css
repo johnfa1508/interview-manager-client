@@ -58,17 +58,19 @@
 .login-button {
   width: 100%;
   padding: 0.75rem;
-  background: #4fd1c5;
+  background: green;
   color: white;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  margin: 10px 0px;
 }
 
 .login-button:hover {
-  background: #764ba2;
+  background: darkgreen;
+  transform: translateY(-2px); /* Move up by 2 pixels */
 }
 
 .password-container {
