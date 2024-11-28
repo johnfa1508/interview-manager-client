@@ -4,25 +4,25 @@ import { API_URL } from './constants';
 // CUSTOM FUNCTIONS
 async function getUserInterviewsByUserIdAsync(id) {
   const res = await get(`id/UserInterview/${id}/interviews`);
-// TODO: When login/registration is implemented, update id here
+  return res.$values;
 }
 
-async function getinterviewNotesAsync(userInterviewId){
+async function getinterviewNotesAsync(userInterviewId) {
   const res = await get(`api/Note/InterviewNotes/${userInterviewId}`);
   return res;
 }
 
-async function getNoteByIdAsync(noteId){
+async function getNoteByIdAsync(noteId) {
   const res = await get(`api/Note/Note/${noteId}`);
   return res;
 }
 
-async function addInterviewNoteAsync(userInterviewId, data){ 
+async function addInterviewNoteAsync(userInterviewId, data) {
   const res = await post(`api/Note/Note/${userInterviewId}`, data);
   return res;
 }
 
-async function deleteNoteByIdAsync(noteId){
+async function deleteNoteByIdAsync(noteId) {
   const res = await del(`api/Note/${noteId}`);
   return res;
 }
@@ -72,7 +72,6 @@ async function getUserByIdAsync(id) {
   return res;
 }
 
-// FIXME: Implement updateUserByIdAsync backend
 async function updateUserByIdAsync(id, data) {
   const res = await put(`api/User/${id}`, data);
   return res;
@@ -108,8 +107,6 @@ async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
 }
 
-
-
 async function get(endpoint, auth = false) {
   return await request('GET', endpoint, null, auth);
 }
@@ -125,8 +122,6 @@ async function put(endpoint, data, auth = false) {
 async function del(endpoint, auth = false) {
   return await request('DELETE', endpoint, null, auth);
 }
-
-
 
 async function request(method, endpoint, data, auth = true) {
   const opts = {
