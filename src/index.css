@@ -10,12 +10,13 @@
 
 :root {
   --background-color: #ffffff;
-  --text-color: #fafafa;
+  --text-color: #000000;
+  /*--placeholder-color: #b0b0b0;*/
   --primary-background-color: #11252d;
   --secondary-background-color: #f2fbfd;
   --header-text-color: #030d11;
   --container-background-color: #e1eef1;
-  --modal-text-color: #11252d;
+  --modal-text-color: #fafafa;
   --button-color: #31d9e6;
   scrollbar-width: thin;
   scrollbar-color: var(--highlight-color) var(--secondary-background-color);

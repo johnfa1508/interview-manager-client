@@ -7,11 +7,11 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: var(--modal-text-color);
+  color: var(--text-color);
 }
 
-.home-button {
-  color: var(--text-color);
+.home-icon {
+  color: var(--modal-text-color);
 }
 
 nav ul {
@@ -29,7 +29,7 @@ nav ul li {
 .navbar-icon {
   height: 40px;
   width: 40px;
-  color: var(---text-color);
+  color: var(--modal-text-color);
   cursor: pointer;
 }
 
@@ -38,6 +38,6 @@ nav ul li {
   align-self: center;
   height: 35px;
   width: 35px;
-  color: var(--text-color);
+  color: var(--modal-text-color);
   cursor: pointer;
 }

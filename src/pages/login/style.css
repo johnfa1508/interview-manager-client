@@ -18,7 +18,7 @@
 
 .login-box h1 {
   text-align: center;
-  color: var(--text-color);
+  color: var(--modal-text-color);
   margin-bottom: 2rem;
 }
 
@@ -29,7 +29,7 @@
 .input-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: var(--text-color);
+  color: var(--modal-text-color);
 }
 
 .input-group input {
@@ -47,25 +47,20 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
-<<<<<<< HEAD
-=======
   font-family: inherit;
->>>>>>> 47-authentication-implementation
 }
 
 .input-group input:focus {
   outline: none;
-  border-color: #4fd1c5;
+  border-color: var(--button-color);
 }
 
 .login-button {
   width: 100%;
   padding: 0.75rem;
-<<<<<<< HEAD
-  background: var(--button-color);
-=======
+  margin-top: 20px;
+  margin-bottom: 20px;
   background: #4fd1c5;
->>>>>>> 47-authentication-implementation
   color: white;
   border: none;
   border-radius: 4px;
@@ -75,11 +70,10 @@
 }
 
 .login-button:hover {
+  /*Better color maybe?*/
   background: #764ba2;
 }
 
-<<<<<<< HEAD
-=======
 .password-container {
   position: relative;
   display: flex;
@@ -92,11 +86,10 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--text-color);
+  color: var(--modal-text-color);
   font-size: 1rem;
 }
 
->>>>>>> 47-authentication-implementation
 /* Link styles */
 .forgot-password-link {
   display: block;
@@ -123,7 +116,7 @@
   display: flex;
   align-items: center; /* Ensures both items are vertically aligned */
   font-size: 0.875rem;
-  color: var(--text-color);
+  color: var(--modal-text-color);
   line-height: 1; /* Ensures proper vertical alignment of text */
 }
 
@@ -169,8 +162,9 @@
 
 .navigate-to-register {
   text-decoration: none;
-  color: var(--text-color);
+  color: var(--button-color);
   margin-top: 1rem;
+  font-size: 13px;
 }
 
 .navigate-to-register:hover {
