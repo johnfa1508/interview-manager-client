@@ -2,23 +2,45 @@
 import { API_URL } from './constants';
 
 // CUSTOM FUNCTIONS
+// USER INTERVIEWS
+async function createUserInterviewAsync(data) {
+  const res = await post('id/UserInterview/create-interview', data);
+  return res.interview;
+}
+
 async function getUserInterviewsByUserIdAsync(id) {
   const res = await get(`id/UserInterview/${id}/interviews`);
   return res.$values;
 }
 
-async function getinterviewNotesAsync(userInterviewId) {
+async function updateUserInterviewAsync(id, data) {
+  const res = await put(`id/UserInterview/${id}`, data);
+  return res.interview;
+}
+
+async function updateUserInterviewStatusAsync(interviewId, status) {
+  const res = await put(`id/UserInterview/changeStatus/${interviewId}`, status);
+  return res.interview;
+}
+
+async function deleteUserInterviewAsync(id) {
+  const res = await del(`id/UserInterview/${id}`);
+  return res;
+}
+
+// USER INTERVIEWS - NOTES
+async function addInterviewNoteAsync(userInterviewId, data) {
+  const res = await post(`api/Note/Note/${userInterviewId}`, data);
+  return res;
+}
+
+async function getNotesByUserInterviewIdAsync(userInterviewId) {
   const res = await get(`api/Note/InterviewNotes/${userInterviewId}`);
   return res;
 }
 
-async function getNoteByIdAsync(noteId) {
+async function getNoteByNoteIdAsync(noteId) {
   const res = await get(`api/Note/Note/${noteId}`);
-  return res;
-}
-
-async function addInterviewNoteAsync(userInterviewId, data) {
-  const res = await post(`api/Note/Note/${userInterviewId}`, data);
   return res;
 }
 
@@ -27,34 +49,48 @@ async function deleteNoteByIdAsync(noteId) {
   return res;
 }
 
-async function getUserInterviewsAsync() {
-  const res = await get('id/UserInterview/1/interviews');
-  return res.$values;
-}
-
-async function deleteUserInterviewAsync(id) {
-  const res = await del(`id/UserInterview/${id}`);
+// LOGBOOK
+async function getLogbookByIdAsync(id) {
+  const res = await get(`api/Logbook/${id}`);
   return res;
 }
 
-async function updateUserInterviewAsync(id, data) {
-  const res = await put(`id/UserInterview/${id}`, data);
-  return res.interview;
+// LOGBOOK - LOGS
+async function createLogAsync(interviewId, logbookId, data) {
+  const res = await post(`api/Log/${interviewId}/${logbookId}`, data);
+  return res;
 }
 
-async function createUserInterviewAsync(data) {
-  const res = await post('id/UserInterview/create-interview', data);
-  return res.interview;
+async function updateLogByIdAsync(id, data) {
+  const res = await put(`api/Log/${id}`, data);
+  return res;
 }
 
+async function deleteLogByIdAsync(id) {
+  const res = await del(`api/Log/${id}`);
+  return res;
+}
+
+// FORGOT PASSWORD
 async function resetPasswordAsync(data) {
   const res = await post('api/User/resetPassword', data);
   return res;
 }
 
-async function updateUserInterviewStatusAsync(interviewId, status) {
-  const res = await put(`id/UserInterview/changeStatus/${interviewId}`, status);
-  return res.interview;
+async function forgotPasswordAsync(email) {
+  const res = await post('api/User/forgotPassword', email);
+  return res;
+}
+
+// USER
+async function updateUserByIdAsync(id, data) {
+  const res = await put(`api/User/${id}`, data);
+  return res;
+}
+
+async function getUserByIdAsync(id) {
+  const res = await get(`api/User/${id}`);
+  return res;
 }
 
 async function registerUserAsync(data) {
@@ -64,41 +100,6 @@ async function registerUserAsync(data) {
 
 async function loginUserAsync(data) {
   const res = await post('api/User/login', data);
-  return res;
-}
-
-async function getUserByIdAsync(id) {
-  const res = await get(`api/User/${id}`);
-  return res;
-}
-
-async function updateUserByIdAsync(id, data) {
-  const res = await put(`api/User/${id}`, data);
-  return res;
-}
-
-async function getLogbookByIdAsync(id) {
-  const res = await get(`api/Logbook/${id}`);
-  return res;
-}
-
-async function updateLogByIdAsync(id, data) {
-  const res = await put(`api/Log/${id}`, data);
-  return res;
-}
-
-async function createLogAsync(interviewId, logbookId, data) {
-  const res = await post(`api/Log/${interviewId}/${logbookId}`, data);
-  return res;
-}
-
-async function forgotPasswordAsync(email) {
-  const res = await post('api/User/forgotPassword', email);
-  return res;
-}
-
-async function deleteLogByIdAsync(id) {
-  const res = await del(`api/Log/${id}`);
   return res;
 }
 
@@ -149,46 +150,6 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-/*
-async function request(method, endpoint, data, auth = false) {
-  const opts = {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    method
-  };
-
-  if (method.toUpperCase() !== 'GET') {
-    opts.body = JSON.stringify(data);
-  }
-
-  if (auth) {
-    opts.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-  }
-
-  const response = await fetch(`${API_URL}/${endpoint}`, opts);
-
-  // Handle the response based on the Content-Type header
-  const contentType = response.headers.get('Content-Type');
-  let responseData;
-
-  if (contentType && contentType.includes('application/json')) {
-    responseData = await response.json(); // Parse as JSON
-  } else {
-    responseData = await response.text(); // Parse as plain text
-  }
-
-  if (!response.ok) {
-    console.error(`HTTP error! status: ${response.status}, response:`, responseData);
-    throw new Error(
-      responseData.message || responseData || `HTTP error! status: ${response.status}`
-    );
-  }
-
-  return responseData;
-}
-*/
-
 export {
   getUserInterviewsByUserIdAsync,
   deleteUserInterviewAsync,
@@ -204,8 +165,8 @@ export {
   updateLogByIdAsync,
   createLogAsync,
   deleteLogByIdAsync,
-  getinterviewNotesAsync,
-  getNoteByIdAsync,
+  getNotesByUserInterviewIdAsync,
+  getNoteByNoteIdAsync,
   addInterviewNoteAsync,
   deleteNoteByIdAsync
 };
