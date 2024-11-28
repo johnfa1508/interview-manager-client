@@ -43,7 +43,6 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
     });
   };
 
-  // TODO: Notification pop up
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formattedData = {
