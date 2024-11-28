@@ -3,6 +3,27 @@ import { API_URL } from './constants';
 
 // CUSTOM FUNCTIONS
 // TODO: When login/registration is implemented, update id here
+
+async function getinterviewNotesAsync(userInterviewId){
+  const res = await get(`api/Note/InterviewNotes/${userInterviewId}`);
+  return res;
+}
+
+async function getNoteByIdAsync(noteId){
+  const res = await get(`api/Note/Note/${noteId}`);
+  return res;
+}
+
+async function addInterviewNoteAsync(userInterviewId, data){ 
+  const res = await post(`api/Note/Note/${userInterviewId}`, data);
+  return res;
+}
+
+async function deleteNoteByIdAsync(noteId){
+  const res = await del(`api/Note/${noteId}`);
+  return res;
+}
+
 async function getUserInterviewsAsync() {
   const res = await get('id/UserInterview/1/interviews');
   return res.$values;
@@ -145,5 +166,9 @@ export {
   getLogbookByIdAsync,
   updateLogByIdAsync,
   createLogAsync,
-  deleteLogByIdAsync
+  deleteLogByIdAsync,
+  getinterviewNotesAsync,
+  getNoteByIdAsync,
+  addInterviewNoteAsync,
+  deleteNoteByIdAsync
 };
