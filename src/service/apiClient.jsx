@@ -5,7 +5,7 @@ import { API_URL } from './constants';
 // TODO: When login/registration is implemented, update id here
 
 async function getinterviewNotesAsync(userInterviewId){
-  const res = await get(`api/Note/InterviewNotes${userInterviewId}`);
+  const res = await get(`api/Note/InterviewNotes/${userInterviewId}`);
   return res;
 }
 
