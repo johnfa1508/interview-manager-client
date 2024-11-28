@@ -39,7 +39,7 @@ async function getNotesByUserInterviewIdAsync(userInterviewId) {
   return res;
 }
 
-async function getNoteByNoteIdAsync(noteId) {
+async function getNoteByIdAsync(noteId) {
   const res = await get(`api/Note/Note/${noteId}`);
   return res;
 }
@@ -166,7 +166,7 @@ export {
   createLogAsync,
   deleteLogByIdAsync,
   getNotesByUserInterviewIdAsync,
-  getNoteByNoteIdAsync,
+  getNoteByIdAsync,
   addInterviewNoteAsync,
   deleteNoteByIdAsync
 };
