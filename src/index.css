@@ -8,10 +8,12 @@
     U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/*--placeholder-color: #b0b0b0;*/
+/*
 :root {
   --background-color: #ffffff;
   --text-color: #000000;
-  /*--placeholder-color: #b0b0b0;*/
+  
   --primary-background-color: #11252d;
   --secondary-background-color: #f2fbfd;
   --header-text-color: #030d11;
@@ -20,6 +22,19 @@
   --button-color: #31d9e6;
   scrollbar-width: thin;
   scrollbar-color: var(--highlight-color) var(--secondary-background-color);
+}
+*/
+:root {
+  --background-color: #ffffff; /* Pure white base */
+  --text-color: #1f2a38; /* Deep navy blue for clear, sharp text */
+  --primary-background-color: #d4ebf9; /* Very light pastel blue for subtle accents */
+  --secondary-background-color: #f2f9fc; /* Near-white with a soft blue tint */
+  --header-text-color: #0a3a5d; /* Strong navy blue for headers */
+  --container-background-color: #f7fcff; /* Almost white, with the faintest blue tone */
+  --modal-text-color: #1f2a38; /* Navy blue for modals */
+  --button-color: #31d9e6; /* Classic bright blue for actionable elements */
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-color) var(--secondary-background-color);
 }
 
 [data-theme='christmas'] {

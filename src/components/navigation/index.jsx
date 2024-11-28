@@ -1,12 +1,11 @@
 import { FaHome } from 'react-icons/fa';
-import { FaRegSnowflake } from 'react-icons/fa';
+import { MdDarkMode } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import useTheme from '../../hooks/useTheme';
 import './style.css';
-import { Link } from 'react-router-dom';
-import { MdDarkMode } from 'react-icons/md';
 
 export default function NavBar() {
-  const { toggleTheme, toggleChristmas } = useTheme();
+  const { toggleTheme } = useTheme();
 
   return (
     <>
@@ -31,7 +30,8 @@ export default function NavBar() {
         </ul>
 
         <MdDarkMode className="navbar-icon" onClick={toggleTheme} />
-        <FaRegSnowflake className="xmas-icon" onClick={toggleChristmas} />
+
+        {/*<FaRegSnowflake className="xmas-icon" onClick={toggleChristmas} />*/}
       </nav>
     </>
   );
