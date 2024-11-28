@@ -1,8 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { saveUserToLocalStorage } from '../../context/userStorage';
-import { registerUserAsync } from '../../service/apiClient';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import Snackbar from '../../components/Snackbar';
+import useSnackbar from '../../hooks/useSnackbar';
+import Stepper from '../../components/Stepper';
+import ProfileImage from '../../components/ProfileImage';
+import { FaRegEye } from 'react-icons/fa';
+import { FaRegEyeSlash } from 'react-icons/fa';
 import './style.css';
 
 const RegisterPage = () => {
@@ -12,43 +17,31 @@ const RegisterPage = () => {
     mobile: '',
     password: '',
     confirmPassword: '',
-    profileImage: null
+    profileImage: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [image, setImage] = useState(null);
-
-  const navigate = useNavigate();
+  const { onRegister } = useAuth();
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  useEffect(() => {
-    console.log(image);
-    console.log(formData);
-  }, [image, formData]);
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // Store the image as a base64 string
         setFormData((prev) => ({ ...prev, profileImage: reader.result }));
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
-
+  const handleRegister = async () => {
     setIsSubmitting(true);
 
     try {
@@ -56,111 +49,199 @@ const RegisterPage = () => {
         username: formData.username,
         password: formData.password,
         email: formData.email,
-        mobile: formData.mobile
+        mobile: formData.mobile,
+        profileImage: formData.profileImage
       };
 
-      const response = await registerUserAsync(payload);
-
-      if (response?.id && response?.username) {
-        saveUserToLocalStorage(formData); //FIXME: GET FROM BACKEND AT SOME POINT
-        alert('Registration successful!');
-        navigate('/');
-      } else {
-        alert(response?.message || 'Registration failed');
-      }
+      await onRegister(payload);
     } catch (error) {
-      console.error('Error during registration:', error);
-      alert('An error occurred. Please try again.');
+      console.error('Error during register:', error);
+      showSnackbar('An error occurred. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // FIXME: Temporary validations, should be moved to service folder
+  const stepIsValid = (currentStep) => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const usernameRegex = /^[a-zA-Z0-9]{3,15}$/;
+
+    switch (currentStep) {
+      // Step 1
+      case 0:
+        if (!emailRegex.test(formData.email)) {
+          newErrors.email = 'Invalid email format.';
+        }
+
+        if (formData.password.length < 8) {
+          newErrors.password = 'Password must be at least 8 characters long.';
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+          newErrors.confirmPassword = 'Passwords do not match!';
+        }
+        break;
+
+      // Step 2
+      case 1:
+        if (!usernameRegex.test(formData.username)) {
+          newErrors.username = 'Must be alphanumeric and 3-15 characters.';
+        }
+
+        if (formData.username === '') {
+          newErrors.username = 'Username cannot be empty.';
+        }
+
+        if (/\s/.test(formData.username)) {
+          newErrors.username = 'Username cannot contain whitespace.';
+        }
+
+        if (formData.mobile.length !== 8) {
+          newErrors.mobile = 'Mobile number must be 8 digits long.';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
+    return Object.keys(newErrors).length === 0;
+  };
+
   return (
     <div className="login-container">
       <div className="login-box">
-        <h1>Create Account</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="username">Name</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              placeholder="Enter your name"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="mobile">Mobile</label>
-            <input
-              type="text"
-              id="mobile"
-              name="mobile"
-              value={formData.mobile}
-              onChange={handleInputChange}
-              placeholder="Enter your mobile number"
-              required
-            />
+        <Stepper
+          header={<h2>Register account</h2>}
+          onComplete={handleRegister}
+          stepIsValid={stepIsValid}
+          isSubmitting={isSubmitting}
+        >
+          {/* Step 1 */}
+          <div>
+            <div className="input-group">
+              <label htmlFor="email">Email*</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="Enter your email"
+                required
+              />
+
+              {errors.email && <p className="error-message">{errors.email}</p>}
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="password">Password*</label>
+              <div className="password-container">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="Enter your password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  className="show-password-button"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                </button>
+              </div>
+
+              {errors.password && <p className="error-message">{errors.password}</p>}
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="confirmPassword">Confirm Password*</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                placeholder="Confirm your password"
+                required
+              />
+            </div>
+
+            {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
           </div>
 
-          {/* Profile Image */}
-          <div className="input-group">
-            <label htmlFor="profileImage">Profile Image</label>
-            <input
-              type="file"
-              id="profileImage"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="file-input"
-            />
+          {/* Step 2 */}
+          <div>
+            <div className="input-group">
+              <label htmlFor="username">Username*</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                placeholder="Enter your name"
+                required
+              />
+
+              {errors.username && <p className="error-message">{errors.username}</p>}
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="mobile">Mobile*</label>
+              <input
+                type="text"
+                id="mobile"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleInputChange}
+                onKeyPress={(e) => {
+                  if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
+                placeholder="Enter your mobile number"
+                pattern="[0-9]*"
+                required
+              />
+
+              {errors.mobile && <p className="error-message">{errors.mobile}</p>}
+            </div>
           </div>
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Enter your password"
-              required
-            />
+
+          {/* Step 3 */}
+          <div>
+            <div className="input-group">
+              <ProfileImage image={formData.profileImage} />
+
+              <label htmlFor="profileImage">Profile Image</label>
+              <input
+                type="file"
+                id="profileImage"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="file-input"
+              />
+            </div>
           </div>
-          <div className="input-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              placeholder="Confirm your password"
-              required
-            />
-          </div>
-          <button type="submit" className="login-button" disabled={isSubmitting}>
-            {isSubmitting ? 'Registering...' : 'Register'}
-          </button>
-          <p className="create-account">
-            <a href="/register">Create a new account</a>
-          </p>
-        </form>
+        </Stepper>
+
+        <Link to="/login" className="navigate-to-login">
+          Already have an account?
+        </Link>
       </div>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 };

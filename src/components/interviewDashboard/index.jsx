@@ -11,7 +11,11 @@ import { MdOutlineAddCircleOutline } from 'react-icons/md';
 import useModal from '../../hooks/useModal';
 import InterviewFormModal from '../InterviewFormModal';
 import './style.css';
-import { getUserInterviewsAsync, updateUserInterviewStatusAsync } from '../../service/apiClient';
+import {
+  getUserInterviewsByUserIdAsync,
+  updateUserInterviewStatusAsync
+} from '../../service/apiClient';
+import useAuth from '../../hooks/useAuth';
 
 export default function InterviewDashboard() {
   const containers = ['AwaitingFeedback', 'Scheduled', 'Canceled', 'Completed'];
@@ -31,6 +35,7 @@ export default function InterviewDashboard() {
     })
   );
   const { openModal, setModal } = useModal();
+  const { loggedInUser } = useAuth();
 
   const showModal = () => {
     setModal(
@@ -51,7 +56,7 @@ export default function InterviewDashboard() {
 
   const fetchInterviews = async () => {
     try {
-      const data = await getUserInterviewsAsync();
+      const data = await getUserInterviewsByUserIdAsync(loggedInUser.id);
       setInterviews(data);
     } catch (error) {
       console.error('Error fetching interviews:', error);
@@ -106,12 +111,14 @@ export default function InterviewDashboard() {
         // If Draggable-container is dropped in a different container
         console.log(`Moved ${active.id} from ${sourceContainer} to ${destinationContainer}`);
         updateUserInterviewStatusAsync(active.id, destinationContainer);
+
         return moveDraggable(prevItems, active.id, sourceContainer, destinationContainer);
       } else {
         // If Draggable-container is dropped outside of any Droppable-containers
         if (!prevItems.AwaitingFeedback.includes(active.id)) {
           console.log(`Moved ${active.id} from ${sourceContainer} back to AwaitingFeedback`);
           updateUserInterviewStatusAsync(active.id, 'AwaitingFeedback');
+
           return moveDraggableBackToAwaiting(prevItems, active.id, sourceContainer);
         } else {
           return prevItems;

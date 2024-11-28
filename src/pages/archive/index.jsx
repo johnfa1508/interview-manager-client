@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
-import { getUserInterviewsAsync } from '../../service/apiClient';
+import { getArchivedUserInterviewsByUserIdAsync} from '../../service/apiClient';
+import useAuth from '../../hooks/useAuth';
 import './style.css';
 
 export default function Archive() {
   const [interviews, setInterviews] = useState([]);
+  const { loggedInUser } = useAuth();
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getUserInterviewsAsync();
+      const data = await getArchivedUserInterviewsByUserIdAsync(loggedInUser.id);
       setInterviews(data);
     }
     fetchData();
-  }, []);
+  }, [loggedInUser.id]);
 
   return (
     <div className="dashboard-layout">

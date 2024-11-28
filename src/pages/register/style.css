@@ -15,17 +15,19 @@
   border-color: #4fd1c5;
 }
 
-.login-nav {
-  text-align: center;
+.navigate-to-login {
+  text-decoration: none;
+  color: var(--text-color);
   margin-top: 1rem;
 }
 
-.login-nav a {
-  color: #4fd1c5;
-  text-decoration: none;
-  font-size: 0.875rem;
+.navigate-to-login:hover {
+  text-decoration: underline;
+  transition: text-decoration 5s;
 }
 
-.login-nav a:hover {
-  text-decoration: underline;
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 }

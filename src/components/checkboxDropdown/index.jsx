@@ -19,6 +19,7 @@ export default function CheckboxDropdown({ options, selectedOptions, onChange })
       <button type="button" className="dropdown-button" onClick={() => setIsOpen(!isOpen)}>
         Filter by labels
       </button>
+
       {isOpen && (
         <div className="dropdown-menu">
           {options.map((option) => (

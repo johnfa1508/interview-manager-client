@@ -4,16 +4,19 @@ import { useEffect, useState } from 'react';
 import './style.css';
 import { Clock, MapPin, Timer, FileText, X, Plus, Trash2 } from 'lucide-react';
 import { formatDateTime } from '../../service/formatDate';
-import { getinterviewNotesAsync, getNoteByIdAsync, addInterviewNoteAsync, deleteNoteByIdAsync } from '../../service/apiClient';
+import {
+  getNotesByUserInterviewIdAsync,
+  addInterviewNoteAsync,
+  deleteNoteByIdAsync
+} from '../../service/apiClient';
 
 const ViewInterviewModal = ({ interview }) => {
   const [currentInterview, setCurrentInterview] = useState(null);
-  // TODO: Replace using backend data later
   const [notes, setNotes] = useState([]);
   const [showAllNotes, setShowAllNotes] = useState(false);
-  const [noteFormData, setNoteFormData] = useState({ 
-    title: '', 
-    content: '' 
+  const [noteFormData, setNoteFormData] = useState({
+    title: '',
+    content: ''
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,7 +27,7 @@ const ViewInterviewModal = ({ interview }) => {
     const fetchNotes = async () => {
       try {
         setLoading(true);
-        const notesData = await getinterviewNotesAsync(interview.id);
+        const notesData = await getNotesByUserInterviewIdAsync(interview.id);
         console.log('NOTES HAAMHOAMHOAMHPAMAOHA: ', notesData.$values);
         setNotes(notesData.$values);
       } catch (err) {
@@ -32,18 +35,18 @@ const ViewInterviewModal = ({ interview }) => {
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     fetchNotes();
   }, [interview]);
 
   const addNote = async () => {
-    if (noteFormData.title.trim() && noteFormData.content.trim()){
+    if (noteFormData.title.trim() && noteFormData.content.trim()) {
       try {
         const addedNote = await addInterviewNoteAsync(interview.id, noteFormData);
         setNotes([addedNote, ...notes]);
         setNoteFormData({ title: '', content: '' });
-      } catch(err) {
+      } catch (err) {
         setError('Failed to add note');
         console.error('Failed to add note', err);
       }
@@ -56,7 +59,7 @@ const ViewInterviewModal = ({ interview }) => {
       await deleteNoteByIdAsync(noteId);
       setNotes(notes.filter((note) => note.id !== noteId));
       console.log(`Note with ID: ${noteId} deleted successfully`);
-    } catch(err) {
+    } catch (err) {
       setError('Failed to delete note');
       console.error('Failed to delete note with ID: ${noteId}', err);
     }
@@ -79,7 +82,7 @@ const ViewInterviewModal = ({ interview }) => {
           <h2 className="modal-title">{currentInterview?.title}</h2>
           {/* ADD CLOSE BUTTON STUFF HERE */}
         </div>
-        
+
         <h4 className="modal-company">{currentInterview?.companyName}</h4>
 
         <div className="content-container">
@@ -130,7 +133,7 @@ const ViewInterviewModal = ({ interview }) => {
                 name="title"
                 placeholder="Add a new Title"
                 className="note-input"
-                />
+              />
               <input
                 value={noteFormData.content}
                 onChange={handleChange}
@@ -144,17 +147,17 @@ const ViewInterviewModal = ({ interview }) => {
             </div>
 
             <div className="notes-grid">
-            {getFilteredNotes().map((note) => (
-              <div key={note.id} className="note-container">
-                <div className="note-header">
-                  <div className="note-title">{note.title}</div>
-                  <button onClick={() => deleteNote(note.id)} className="delete-button">
-                    <Trash2 className="icon-small" />
-                  </button>
+              {getFilteredNotes().map((note) => (
+                <div key={note.id} className="note-container">
+                  <div className="note-header">
+                    <div className="note-title">{note.title}</div>
+                    <button onClick={() => deleteNote(note.id)} className="delete-button">
+                      <Trash2 className="icon-small" />
+                    </button>
+                  </div>
+                  <div className="note-description">{note.content}</div>
                 </div>
-                <div className="note-description">{note.content}</div>
-              </div>
-            ))}
+              ))}
 
               {notes.length > 3 && (
                 <button className="toggle-button" onClick={() => setShowAllNotes(!showAllNotes)}>
