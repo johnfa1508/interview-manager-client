@@ -10,11 +10,28 @@ const ForgotPasswordPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const [tokenSent, setTokenSent] = useState(false);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+    return passwordRegex.test(password);
+  };
 
   const handleSendResetLink = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    if (!validateEmail(email)) {
+      setErrors({ email: 'Invalid email address' });
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const response = await forgotPasswordAsync(email);
@@ -22,6 +39,7 @@ const ForgotPasswordPage = () => {
       if (response?.success) {
         alert('Password reset link sent to your email!');
         setTokenSent(true);
+        setErrors({});
       } else {
         alert(response?.message || 'Failed to send password reset link. Please try again.');
       }
@@ -37,12 +55,25 @@ const ForgotPasswordPage = () => {
     e.preventDefault();
     setIsResetting(true);
 
+    if (!resetToken) {
+      setErrors({ resetToken: 'Reset token is required' });
+      setIsResetting(false);
+      return;
+    }
+
+    if (!validatePassword(newPassword)) {
+      setErrors({ newPassword: 'Password must be at least 8 characters long and contain at least one number and one special character.' });
+      setIsResetting(false);
+      return;
+    }
+
     try {
       const response = await resetPasswordAsync({ resetToken, newPassword });
 
       if (response?.success) {
         alert('Password has been reset successfully!');
         navigate('/login'); // Redirect to login page
+        setErrors({});
       } else {
         alert(response?.message || 'Failed to reset password. Please try again.');
       }
@@ -69,6 +100,7 @@ const ForgotPasswordPage = () => {
               placeholder="Enter your email"
               required
             />
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
           <button type="submit" className="login-button" disabled={isSubmitting}>
             {isSubmitting ? 'Sending...' : 'Send Reset Link'}
@@ -86,6 +118,7 @@ const ForgotPasswordPage = () => {
                 placeholder="Enter the reset token"
                 required
               />
+              {errors.resetToken && <p className="error-message">{errors.resetToken}</p>}
             </div>
             <div className="input-group">
               <label htmlFor="newPassword">New Password</label>
@@ -97,6 +130,7 @@ const ForgotPasswordPage = () => {
                 placeholder="Enter your new password"
                 required
               />
+              {errors.newPassword && <p className="error-message">{errors.newPassword}</p>}
             </div>
             <button type="submit" className="login-button" disabled={isResetting}>
               {isResetting ? 'Resetting...' : 'Reset Password'}
