@@ -5,6 +5,7 @@ import { API_URL } from './constants';
 async function getUserInterviewsByUserIdAsync(id) {
   const res = await get(`id/UserInterview/${id}/interviews`);
 // TODO: When login/registration is implemented, update id here
+}
 
 async function getinterviewNotesAsync(userInterviewId){
   const res = await get(`api/Note/InterviewNotes/${userInterviewId}`);
