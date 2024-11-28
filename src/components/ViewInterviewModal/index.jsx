@@ -9,6 +9,8 @@ import {
   addInterviewNoteAsync,
   deleteNoteByIdAsync
 } from '../../service/apiClient';
+import useSnackbar from '../../hooks/useSnackbar';
+import Snackbar from '../snackbar';
 
 const ViewInterviewModal = ({ interview }) => {
   const [currentInterview, setCurrentInterview] = useState(null);
@@ -19,12 +21,17 @@ const ViewInterviewModal = ({ interview }) => {
     content: ''
   });
   const [error, setError] = useState(null);
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
     setCurrentInterview(interview);
 
     fetchNotes();
   }, [interview]);
+
+  useEffect(() => {
+    console.log(notes);
+  }, [notes]);
 
   const fetchNotes = async () => {
     try {
@@ -33,7 +40,7 @@ const ViewInterviewModal = ({ interview }) => {
       setNotes(notesData.$values);
     } catch (err) {
       setError(err.message);
-      // TODO: Snackbar
+      showSnackbar('Failed to fetch notes', 'error');
     }
   };
 
@@ -42,14 +49,15 @@ const ViewInterviewModal = ({ interview }) => {
       try {
         const addedNote = await addInterviewNoteAsync(interview.id, noteFormData);
 
-        setNotes([addedNote, ...notes]);
+        fetchNotes();
         setNoteFormData({ title: '', content: '' });
       } catch (err) {
         setError('Failed to add note');
         console.error('Failed to add note', err);
-        // TODO: Snackbar
+
+        showSnackbar('Failed to add note', 'error');
       } finally {
-        // TODO: Snackbar
+        showSnackbar('Note created successfully', 'success');
       }
     }
   };
@@ -57,14 +65,14 @@ const ViewInterviewModal = ({ interview }) => {
   const deleteNote = async (noteId) => {
     try {
       await deleteNoteByIdAsync(noteId);
-
-      setNotes(notes.filter((note) => note.id !== noteId));
     } catch (err) {
       setError('Failed to delete note');
       console.error('Failed to delete note with ID: ${noteId}', err);
-      // TODO: Snackbar
+
+      fetchNotes();
+      showSnackbar('Failed to delete note', 'error');
     } finally {
-      // TODO: Snackbar
+      showSnackbar('Note deleted successfully', 'success');
     }
   };
 
@@ -167,6 +175,10 @@ const ViewInterviewModal = ({ interview }) => {
             </div>
           </div>
         </div>
+
+        {snackbar.isOpen && (
+          <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+        )}
       </div>
     </>
   );
