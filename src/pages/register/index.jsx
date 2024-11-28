@@ -23,6 +23,7 @@ const RegisterPage = () => {
   const { onRegister } = useAuth();
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -61,10 +62,53 @@ const RegisterPage = () => {
     }
   };
 
-  const stepIsValid = () => {
-    // Validations
+  // FIXME: Temporary validations, should be moved to service folder
+  const stepIsValid = (currentStep) => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const usernameRegex = /^[a-zA-Z0-9]{3,15}$/;
 
-    return true;
+    switch (currentStep) {
+      // Step 1
+      case 0:
+        if (!emailRegex.test(formData.email)) {
+          newErrors.email = 'Invalid email format.';
+        }
+
+        if (formData.password.length < 8) {
+          newErrors.password = 'Password must be at least 8 characters long.';
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+          newErrors.confirmPassword = 'Passwords do not match!';
+        }
+        break;
+
+      // Step 2
+      case 1:
+        if (!usernameRegex.test(formData.username)) {
+          newErrors.username = 'Must be alphanumeric and 3-15 characters.';
+        }
+
+        if (formData.username === '') {
+          newErrors.username = 'Username cannot be empty.';
+        }
+
+        if (/\s/.test(formData.username)) {
+          newErrors.username = 'Username cannot contain whitespace.';
+        }
+
+        if (formData.mobile.length !== 8) {
+          newErrors.mobile = 'Mobile number must be 8 digits long.';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
+    return Object.keys(newErrors).length === 0;
   };
 
   return (
@@ -74,11 +118,12 @@ const RegisterPage = () => {
           header={<h2>Register account</h2>}
           onComplete={handleRegister}
           stepIsValid={stepIsValid}
+          isSubmitting={isSubmitting}
         >
           {/* Step 1 */}
           <div>
             <div className="input-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email*</label>
               <input
                 type="email"
                 id="email"
@@ -88,10 +133,12 @@ const RegisterPage = () => {
                 placeholder="Enter your email"
                 required
               />
+
+              {errors.email && <p className="error-message">{errors.email}</p>}
             </div>
 
             <div className="input-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Password*</label>
               <div className="password-container">
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -111,10 +158,12 @@ const RegisterPage = () => {
                   {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                 </button>
               </div>
+
+              {errors.password && <p className="error-message">{errors.password}</p>}
             </div>
 
             <div className="input-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
+              <label htmlFor="confirmPassword">Confirm Password*</label>
               <input
                 type="password"
                 id="confirmPassword"
@@ -125,12 +174,14 @@ const RegisterPage = () => {
                 required
               />
             </div>
+
+            {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
           </div>
 
           {/* Step 2 */}
           <div>
             <div className="input-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">Username*</label>
               <input
                 type="text"
                 id="username"
@@ -140,19 +191,29 @@ const RegisterPage = () => {
                 placeholder="Enter your name"
                 required
               />
+
+              {errors.username && <p className="error-message">{errors.username}</p>}
             </div>
 
             <div className="input-group">
-              <label htmlFor="mobile">Mobile</label>
+              <label htmlFor="mobile">Mobile*</label>
               <input
                 type="text"
                 id="mobile"
                 name="mobile"
                 value={formData.mobile}
                 onChange={handleInputChange}
+                onKeyPress={(e) => {
+                  if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
                 placeholder="Enter your mobile number"
+                pattern="[0-9]*"
                 required
               />
+
+              {errors.mobile && <p className="error-message">{errors.mobile}</p>}
             </div>
           </div>
 

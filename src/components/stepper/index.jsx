@@ -5,7 +5,7 @@ import Steps from './steps';
 import useSnackbar from '../../hooks/useSnackbar';
 import Snackbar from '../Snackbar';
 
-const Stepper = ({ header, children, onComplete, stepIsValid }) => {
+const Stepper = ({ header, children, onComplete, stepIsValid, isSubmitting }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
@@ -16,7 +16,7 @@ const Stepper = ({ header, children, onComplete, stepIsValid }) => {
   };
 
   const onNextClick = () => {
-    if (stepIsValid()) {
+    if (stepIsValid(currentStep)) {
       if (currentStep === children.length - 1) {
         onComplete();
         return;
@@ -39,13 +39,13 @@ const Stepper = ({ header, children, onComplete, stepIsValid }) => {
 
       <div className="stepper-buttons">
         {currentStep > 0 && (
-          <button className="offwhite" onClick={onBackClick}>
+          <button className="offwhite" onClick={onBackClick} disabled={isSubmitting}>
             Back
           </button>
         )}
 
-        <button onClick={onNextClick} className="blue nextButton">
-          {currentStep === children.length - 1 ? 'Submit' : 'Next'}
+        <button onClick={onNextClick} className="blue nextButton" disabled={isSubmitting}>
+          {isSubmitting ? 'Submitting...' : currentStep === children.length - 1 ? 'Submit' : 'Next'}
         </button>
       </div>
 

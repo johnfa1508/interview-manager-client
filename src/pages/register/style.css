@@ -25,3 +25,9 @@
   text-decoration: underline;
   transition: text-decoration 5s;
 }
+
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
