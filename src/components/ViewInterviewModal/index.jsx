@@ -10,23 +10,65 @@ const ViewInterviewModal = ({ interview }) => {
   const [currentInterview, setCurrentInterview] = useState(null);
   // TODO: Replace using backend data later
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState('');
   const [showAllNotes, setShowAllNotes] = useState(false);
+  const [noteFormData, setNoteFormData] = useState({ 
+    title: '', 
+    content: '' 
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log(interview)
     setCurrentInterview(interview);
+
+    const fetchNotes = async () => {
+      try {
+        setLoading(true);
+        const notesData = await getinterviewNotesAsync(interview.id);
+        console.log('NOTES HAAMHOAMHOAMHPAMAOHA: ', notesData.$values);
+        setNotes(notesData.$values);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchNotes();
   }, [interview]);
 
-  const addNote = () => {
-    if (newNote.trim()) {
-      setNotes([...notes, { id: Date.now(), content: newNote.trim() }]);
-      setNewNote('');
+  const addNote = async () => {
+    if (noteFormData.title.trim() && noteFormData.content.trim()){
+      try {
+        const addedNote = await addInterviewNoteAsync(interview.id, noteFormData);
+        setNotes([addedNote, ...notes]);
+        setNoteFormData({ title: '', content: '' });
+      } catch(err) {
+        setError('Failed to add note');
+        console.error('Failed to add note', err);
+      }
     }
   };
 
-  const deleteNote = (noteId) => {
-    setNotes(notes.filter((note) => note.id !== noteId));
+  const deleteNote = async (noteId) => {
+    try {
+      console.log(`Deleting note with ID: ${JSON.stringify(noteId)}`);
+      await deleteNoteByIdAsync(noteId);
+      setNotes(notes.filter((note) => note.id !== noteId));
+      console.log(`Note with ID: ${noteId} deleted successfully`);
+    } catch(err) {
+      setError('Failed to delete note');
+      console.error('Failed to delete note with ID: ${noteId}', err);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNoteFormData({ ...noteFormData, [name]: value });
+  };
+
+  const getFilteredNotes = () => {
+    return showAllNotes ? notes : notes.slice(0, 3);
   };
 
   return (
@@ -83,8 +125,16 @@ const ViewInterviewModal = ({ interview }) => {
 
             <div className="add-note">
               <input
-                value={newNote}
-                onChange={(e) => setNewNote(e.target.value)}
+                value={noteFormData.title}
+                onChange={handleChange}
+                name="title"
+                placeholder="Add a new Title"
+                className="note-input"
+                />
+              <input
+                value={noteFormData.content}
+                onChange={handleChange}
+                name="content"
                 placeholder="Add a new note..."
                 className="note-input"
               />
@@ -94,17 +144,17 @@ const ViewInterviewModal = ({ interview }) => {
             </div>
 
             <div className="notes-grid">
-              {notes.slice(0, showAllNotes ? notes.length : 3).map((note) => (
-                <div key={note.id} className="note-container">
-                  <div className="note-header">
-                    <div className="note-title">NOTE TITLE </div>
-                    <button onClick={() => deleteNote(note.id)} className="delete-button">
-                      <Trash2 className="icon-small" />
-                    </button>
-                  </div>
-                  <div className="note-description">{note.content}</div>
+            {getFilteredNotes().map((note) => (
+              <div key={note.id} className="note-container">
+                <div className="note-header">
+                  <div className="note-title">{note.title}</div>
+                  <button onClick={() => deleteNote(note.id)} className="delete-button">
+                    <Trash2 className="icon-small" />
+                  </button>
                 </div>
-              ))}
+                <div className="note-description">{note.content}</div>
+              </div>
+            ))}
 
               {notes.length > 3 && (
                 <button className="toggle-button" onClick={() => setShowAllNotes(!showAllNotes)}>
