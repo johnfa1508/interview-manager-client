@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { saveUserToLocalStorage } from '../../context/userStorage';
-import { registerUserAsync } from '../../service/apiClient';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+// import { saveUserToLocalStorage } from '../../service/loggedInUserUtils';
+import useAuth from '../../hooks/useAuth';
+import Snackbar from '../../components/snackbar';
+import useSnackbar from '../../hooks/useSnackbar';
 import './style.css';
 
 const RegisterPage = () => {
@@ -12,35 +14,58 @@ const RegisterPage = () => {
     mobile: '',
     password: '',
     confirmPassword: '',
-    profileImage: null
+    profileImage: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [image, setImage] = useState(null);
-
-  const navigate = useNavigate();
+  const { onRegister } = useAuth();
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  useEffect(() => {
-    console.log(image);
-    console.log(formData);
-  }, [image, formData]);
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // Store the image as a base64 string
         setFormData((prev) => ({ ...prev, profileImage: reader.result }));
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const handleRegister = async (event) => {
+    // TODO: Implement validation
+    event.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      showSnackbar('Passwords do not match!', 'error');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const payload = {
+        username: formData.username,
+        password: formData.password,
+        email: formData.email,
+        mobile: formData.mobile,
+        profileImage: formData.profileImage
+      };
+
+      await onRegister(payload);
+    } catch (error) {
+      console.error('Error during register:', error);
+      showSnackbar('An error occurred. Please try again.', 'error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  /*
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -75,12 +100,13 @@ const RegisterPage = () => {
       setIsSubmitting(false);
     }
   };
+  */
 
   return (
     <div className="login-container">
       <div className="login-box">
         <h1>Create Account</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleRegister}>
           <div className="input-group">
             <label htmlFor="username">Name</label>
             <input
@@ -156,11 +182,16 @@ const RegisterPage = () => {
           <button type="submit" className="login-button" disabled={isSubmitting}>
             {isSubmitting ? 'Registering...' : 'Register'}
           </button>
-          <p className="create-account">
-            <a href="/register">Create a new account</a>
-          </p>
+
+          <Link to="/login" className="navigate-to-login">
+            Already have an account?
+          </Link>
         </form>
       </div>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 };

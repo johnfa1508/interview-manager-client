@@ -11,8 +11,7 @@ export default function NavBar() {
   return (
     <>
       <nav>
-        <div className="home-button"></div>
-        <Link to="/">
+        <Link to="/dashboard">
           <FaHome size={'50px'} />
         </Link>
 

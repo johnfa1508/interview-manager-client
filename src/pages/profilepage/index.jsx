@@ -2,8 +2,12 @@
 import { useState, useEffect } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
-import ProfileImage from '../../components/ProfileImage'; 
-import { getUserFromLocalStorage, updateUserInLocalStorage } from '../../context/userStorage';
+import ProfileImage from '../../components/ProfileImage';
+// import { getUserFromLocalStorage, updateUserInLocalStorage } from '../../context/userStorage';
+import { updateUserInLocalStorage } from '../../service/loggedInUserUtils';
+import useAuth from '../../hooks/useAuth';
+import Snackbar from '../../components/snackbar';
+import useSnackbar from '../../hooks/useSnackbar';
 import './style.css';
 
 const ProfilePage = () => {
@@ -11,27 +15,23 @@ const ProfilePage = () => {
     username: '',
     email: '',
     mobile: '',
+    profileImage: null
   });
 
   const [isSaving, setIsSaving] = useState(false);
-  const [image, setImage] = useState(null); 
+  // const [image, setImage] = useState(null);
+  const { loggedInUser } = useAuth();
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   // Load user data from localStorage when the component mounts
   useEffect(() => {
-    const user = getUserFromLocalStorage();
-    if (user) {
-      setFormData({
-        username: user.username,
-        email: user.email,
-        mobile: user.mobile
-      });
-      if (user.profileImage) {
-        setImage(user.profileImage); 
-      } else {
-        setImage(null); 
-      }
-    }
-  }, []);
+    setFormData({
+      username: loggedInUser?.username,
+      email: loggedInUser?.email,
+      mobile: loggedInUser?.mobile,
+      profileImage: loggedInUser?.profileImage
+    });
+  }, [loggedInUser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,13 +46,12 @@ const ProfilePage = () => {
     setIsSaving(true);
 
     try {
-      // Save updated user data to localStorage
-      const updatedUser = { ...formData, profileImage: image };
-      updateUserInLocalStorage(updatedUser); // Update localStorage with new data
+      updateUserInLocalStorage(formData);
+      // TODO: Update user data in the backend
 
-      alert('Profile updated successfully!');
+      showSnackbar('Profile updated successfully!', 'success');
     } catch (error) {
-      alert('Failed to update profile');
+      showSnackbar('Failed to update profile', 'error');
     } finally {
       setIsSaving(false);
     }
@@ -63,8 +62,12 @@ const ProfilePage = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // Store the image as a base64 string
+        setFormData((prevState) => ({
+          ...prevState,
+          profileImage: reader.result
+        }));
       };
+
       reader.readAsDataURL(file);
     }
   };
@@ -77,7 +80,7 @@ const ProfilePage = () => {
         <div className="profile-container">
           <h2 className="profile-title">Profile Information</h2>
 
-          <ProfileImage image={image} size="140px" />
+          <ProfileImage image={formData?.profileImage} size="140px" />
 
           <input
             type="file"
@@ -85,24 +88,24 @@ const ProfilePage = () => {
             onChange={handleImageChange}
             className="image-upload-button"
           />
-          
+
           <form onSubmit={handleSubmit} className="profile-form">
             <div className="form-group">
               <label>Username</label>
               <input
                 type="text"
                 name="username"
-                value={formData.username}
+                value={formData?.username}
                 onChange={handleChange}
               />
             </div>
             <div className="form-group">
               <label>Email</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} />
+              <input type="email" name="email" value={formData?.email} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label>Mobile</label>
-              <input type="text" name="mobile" value={formData.mobile} onChange={handleChange} />
+              <input type="text" name="mobile" value={formData?.mobile} onChange={handleChange} />
             </div>
             <button type="submit" disabled={isSaving} className="save-button">
               {isSaving ? 'Saving...' : 'Save Changes'}
@@ -110,6 +113,10 @@ const ProfilePage = () => {
           </form>
         </div>
       </main>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 };

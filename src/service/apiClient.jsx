@@ -2,9 +2,8 @@
 import { API_URL } from './constants';
 
 // CUSTOM FUNCTIONS
-// TODO: When login/registration is implemented, update id here
-async function getUserInterviewsAsync() {
-  const res = await get('id/UserInterview/1/interviews');
+async function getUserInterviewsByUserIdAsync(id) {
+  const res = await get(`id/UserInterview/${id}/interviews`);
   return res.$values;
 }
 
@@ -38,9 +37,19 @@ async function loginUserAsync(data) {
   return res;
 }
 
-// TODO: When login/registration is implemented, update id here
-async function getLogbookByIdAsync() {
-  const res = await get('api/Logbook/1');
+async function getUserByIdAsync(id) {
+  const res = await get(`api/User/${id}`);
+  return res;
+}
+
+// FIXME: Implement updateUserByIdAsync backend
+async function updateUserByIdAsync(id, data) {
+  const res = await put(`api/User/${id}`, data);
+  return res;
+}
+
+async function getLogbookByIdAsync(id) {
+  const res = await get(`api/Logbook/${id}`);
   return res;
 }
 
@@ -80,6 +89,33 @@ async function del(endpoint, auth = false) {
   return await request('DELETE', endpoint, null, auth);
 }
 
+async function request(method, endpoint, data, auth = true) {
+  const opts = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method
+  };
+
+  if (method.toUpperCase() !== 'GET') {
+    opts.body = JSON.stringify(data);
+  }
+
+  if (auth) {
+    opts.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  }
+
+  const response = await fetch(`${API_URL}/${endpoint}`, opts);
+
+  if (!response.ok) {
+    console.error(`HTTP error! status: ${response.status}, response:`, response);
+    throw new Error(response.message || response || `HTTP error! status: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+/*
 async function request(method, endpoint, data, auth = false) {
   const opts = {
     headers: {
@@ -117,15 +153,17 @@ async function request(method, endpoint, data, auth = false) {
 
   return responseData;
 }
+*/
 
 export {
-  getUserInterviewsAsync,
+  getUserInterviewsByUserIdAsync,
   deleteUserInterviewAsync,
   updateUserInterviewAsync,
   createUserInterviewAsync,
   updateUserInterviewStatusAsync,
   registerUserAsync,
   loginUserAsync,
+  getUserByIdAsync,
   getLogbookByIdAsync,
   updateLogByIdAsync,
   createLogAsync,

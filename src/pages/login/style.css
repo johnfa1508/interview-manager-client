@@ -47,6 +47,10 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
+<<<<<<< HEAD
+=======
+  font-family: inherit;
+>>>>>>> 47-authentication-implementation
 }
 
 .input-group input:focus {
@@ -57,7 +61,11 @@
 .login-button {
   width: 100%;
   padding: 0.75rem;
+<<<<<<< HEAD
   background: var(--button-color);
+=======
+  background: #4fd1c5;
+>>>>>>> 47-authentication-implementation
   color: white;
   border: none;
   border-radius: 4px;
@@ -70,6 +78,25 @@
   background: #764ba2;
 }
 
+<<<<<<< HEAD
+=======
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.show-password-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+>>>>>>> 47-authentication-implementation
 /* Link styles */
 .forgot-password-link {
   display: block;
@@ -138,4 +165,15 @@
 
 .create-account a:hover {
   text-decoration: underline;
+}
+
+.navigate-to-register {
+  text-decoration: none;
+  color: var(--text-color);
+  margin-top: 1rem;
+}
+
+.navigate-to-register:hover {
+  text-decoration: underline;
+  transition: text-decoration 5s;
 }

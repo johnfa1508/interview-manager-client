@@ -15,11 +15,13 @@
   border-color: var(--button-color);
 }
 
-.login-nav {
-  text-align: center;
+.navigate-to-login {
+  text-decoration: none;
+  color: var(--text-color);
   margin-top: 1rem;
 }
 
+<<<<<<< HEAD
 .login-nav a {
   color: var(--button-color);
   text-decoration: none;
@@ -27,5 +29,9 @@
 }
 
 .login-nav a:hover {
+=======
+.navigate-to-login:hover {
+>>>>>>> 47-authentication-implementation
   text-decoration: underline;
+  transition: text-decoration 5s;
 }
