@@ -1,5 +1,5 @@
 import { FaHome } from 'react-icons/fa';
-import { FaRegSnowflake } from "react-icons/fa";
+import { FaRegSnowflake } from 'react-icons/fa';
 import useTheme from '../../hooks/useTheme';
 import './style.css';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ export default function NavBar() {
   return (
     <>
       <nav>
+        <div className="home-button"></div>
         <Link to="/">
           <FaHome size={'50px'} />
         </Link>
@@ -25,13 +26,13 @@ export default function NavBar() {
           <Link to="/logbook">
             <li>Logbook</li>
           </Link>
-            <Link to="/aboutUs">
+          <Link to="/aboutUs">
             <li>About Us</li>
           </Link>
         </ul>
 
         <MdDarkMode className="navbar-icon" onClick={toggleTheme} />
-        <FaRegSnowflake className='xmas-icon' onClick={toggleChristmas}/>
+        <FaRegSnowflake className="xmas-icon" onClick={toggleChristmas} />
       </nav>
     </>
   );
