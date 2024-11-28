@@ -86,7 +86,8 @@ export default function InterviewColumn({
   };
 
   const showInterviewModal = (interview) => {
-    setCenteredModal(<ViewInterviewModal interview={interview} />);
+    setCenteredModal(interview.title, <ViewInterviewModal interview={interview} />);
+
     openCenteredModal();
   };
 

@@ -18,50 +18,53 @@ const ViewInterviewModal = ({ interview }) => {
     title: '',
     content: ''
   });
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setCurrentInterview(interview);
 
-    const fetchNotes = async () => {
-      try {
-        setLoading(true);
-        const notesData = await getNotesByUserInterviewIdAsync(interview.id);
-        console.log('NOTES HAAMHOAMHOAMHPAMAOHA: ', notesData.$values);
-        setNotes(notesData.$values);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchNotes();
   }, [interview]);
+
+  const fetchNotes = async () => {
+    try {
+      const notesData = await getNotesByUserInterviewIdAsync(interview.id);
+
+      setNotes(notesData.$values);
+    } catch (err) {
+      setError(err.message);
+      // TODO: Snackbar
+    }
+  };
 
   const addNote = async () => {
     if (noteFormData.title.trim() && noteFormData.content.trim()) {
       try {
         const addedNote = await addInterviewNoteAsync(interview.id, noteFormData);
+
         setNotes([addedNote, ...notes]);
         setNoteFormData({ title: '', content: '' });
       } catch (err) {
         setError('Failed to add note');
         console.error('Failed to add note', err);
+        // TODO: Snackbar
+      } finally {
+        // TODO: Snackbar
       }
     }
   };
 
   const deleteNote = async (noteId) => {
     try {
-      console.log(`Deleting note with ID: ${JSON.stringify(noteId)}`);
       await deleteNoteByIdAsync(noteId);
+
       setNotes(notes.filter((note) => note.id !== noteId));
-      console.log(`Note with ID: ${noteId} deleted successfully`);
     } catch (err) {
       setError('Failed to delete note');
       console.error('Failed to delete note with ID: ${noteId}', err);
+      // TODO: Snackbar
+    } finally {
+      // TODO: Snackbar
     }
   };
 
@@ -76,53 +79,46 @@ const ViewInterviewModal = ({ interview }) => {
 
   return (
     <>
-      <div className="modal-container">
-        <div className="modal-header">
-          {/* TODO: Update using correct backend property later */}
-          <h2 className="modal-title">{currentInterview?.title}</h2>
-          {/* ADD CLOSE BUTTON STUFF HERE */}
-        </div>
+      <div className="interview-modal-container">
+        <div className="interview-modal-content-container">
+          <h4 className="modal-company">{currentInterview?.companyName}</h4>
 
-        <h4 className="modal-company">{currentInterview?.companyName}</h4>
-
-        <div className="content-container">
           <div className="info-item">
             <Clock className="icon" />
+
             <div className="info-content">
               <div className="info-label">Time</div>
-              {/* TODO: Update using correct backend property later */}
               <div className="info-text">{formatDateTime(currentInterview?.time)}</div>
             </div>
           </div>
 
           <div className="info-item">
             <MapPin className="icon" />
+
             <div className="info-content">
               <div className="info-label">Address</div>
-              {/* TODO: Update using correct backend property later */}
               <div className="info-text">{currentInterview?.address}</div>
             </div>
           </div>
 
           <div className="info-item">
             <FileText className="icon" />
+
             <div className="info-content">
               <div className="info-label">Description</div>
-              {/* TODO: Update using correct backend property later */}
               <div className="info-text">{currentInterview?.description}</div>
             </div>
           </div>
 
           <div className="info-item">
             <Timer className="icon" />
+
             <div className="info-content">
               <div className="info-label">Duration</div>
-              {/* TODO: Update using correct backend property later */}
               <div className="info-text">{currentInterview?.duration} mins</div>
             </div>
           </div>
 
-          {/* TODO: Update using backend data later */}
           <div className="notes-section">
             <div className="info-label">Notes</div>
 
@@ -131,9 +127,10 @@ const ViewInterviewModal = ({ interview }) => {
                 value={noteFormData.title}
                 onChange={handleChange}
                 name="title"
-                placeholder="Add a new Title"
+                placeholder="Add a new title..."
                 className="note-input"
               />
+
               <input
                 value={noteFormData.content}
                 onChange={handleChange}
@@ -141,6 +138,7 @@ const ViewInterviewModal = ({ interview }) => {
                 placeholder="Add a new note..."
                 className="note-input"
               />
+
               <button onClick={addNote} className="add-button">
                 <Plus className="icon-small" />
               </button>
@@ -151,10 +149,12 @@ const ViewInterviewModal = ({ interview }) => {
                 <div key={note.id} className="note-container">
                   <div className="note-header">
                     <div className="note-title">{note.title}</div>
+
                     <button onClick={() => deleteNote(note.id)} className="delete-button">
-                      <Trash2 className="icon-small" />
+                      <Trash2 className="icon-small delete-button" />
                     </button>
                   </div>
+
                   <div className="note-description">{note.content}</div>
                 </div>
               ))}
