@@ -145,7 +145,7 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
             <label>Labels*</label>
             <div className="checkbox-group">
               {logLabels.map((label) => (
-                <div key={label}>
+                <div key={label} className="checkbox-label-pill-container">
                   <input
                     type="checkbox"
                     id={label}
