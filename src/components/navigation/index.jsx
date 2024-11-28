@@ -7,9 +7,10 @@ import { CgProfile } from 'react-icons/cg';
 import { FiArchive } from 'react-icons/fi';
 import { FaBook } from 'react-icons/fa';
 import { MdGroups } from 'react-icons/md';
+import { FaRegSnowflake } from 'react-icons/fa';
 
 export default function NavBar() {
-  const { toggleTheme } = useTheme();
+  const { toggleTheme, toggleChristmas } = useTheme();
 
   return (
     <>
@@ -49,6 +50,7 @@ export default function NavBar() {
         </ul>
 
         <MdDarkMode className="navbar-darkmode-icon" onClick={toggleTheme} />
+        <FaRegSnowflake className="xmas-icon" onClick={toggleChristmas} />
       </nav>
     </>
   );
