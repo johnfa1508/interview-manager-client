@@ -3,6 +3,17 @@ import { API_URL } from './constants';
 
 // CUSTOM FUNCTIONS
 // USER INTERVIEWS
+
+async function getArchivedUserInterviewsByUserIdAsync(id) {
+  const res = await get(`id/UserInterview/Archived/${id}`);
+  return res.$values;
+}
+
+async function archiveUserInterviewByIdAsync(id) {
+  const res = await put(`id/UserInterview/ArchiveInterview${id}`);
+  return res.interview;
+}
+
 async function createUserInterviewAsync(data) {
   const res = await post('id/UserInterview/create-interview', data);
   return res.interview;
@@ -168,5 +179,6 @@ export {
   getNotesByUserInterviewIdAsync,
   getNoteByIdAsync,
   addInterviewNoteAsync,
-  deleteNoteByIdAsync
+  deleteNoteByIdAsync,
+  getArchivedUserInterviewsByUserIdAsync,
 };

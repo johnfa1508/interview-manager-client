@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
-import { getUserInterviewsByUserIdAsync } from '../../service/apiClient';
+import { getArchivedUserInterviewsByUserIdAsync} from '../../service/apiClient';
 import useAuth from '../../hooks/useAuth';
 import './style.css';
 
@@ -11,11 +11,11 @@ export default function Archive() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getUserInterviewsByUserIdAsync(loggedInUser.id);
+      const data = await getArchivedUserInterviewsByUserIdAsync(loggedInUser.id);
       setInterviews(data);
     }
     fetchData();
-  }, []);
+  }, [loggedInUser.id]);
 
   return (
     <div className="dashboard-layout">
