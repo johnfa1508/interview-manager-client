@@ -82,6 +82,7 @@ const RegisterPage = () => {
         if (formData.password !== formData.confirmPassword) {
           newErrors.confirmPassword = 'Passwords do not match!';
         }
+
         break;
 
       // Step 2
@@ -101,6 +102,7 @@ const RegisterPage = () => {
         if (formData.mobile.length !== 8) {
           newErrors.mobile = 'Mobile number must be 8 digits long.';
         }
+
         break;
 
       default:
