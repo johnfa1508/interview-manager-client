@@ -131,6 +131,7 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
               name="duration"
               value={formData.duration}
               onChange={handleChange}
+              min="0"
               required
             />
           </div>
