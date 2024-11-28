@@ -44,6 +44,11 @@ async function createUserInterviewAsync(data) {
   return res.interview;
 }
 
+async function resetPasswordAsync(data) {
+  const res = await post('api/User/resetPassword', data);
+  return res;
+}
+
 async function updateUserInterviewStatusAsync(interviewId, status) {
   const res = await put(`id/UserInterview/changeStatus/${interviewId}`, status);
   return res.interview;
@@ -75,6 +80,11 @@ async function createLogAsync(interviewId, logbookId, data) {
   return res;
 }
 
+async function forgotPasswordAsync(email) {
+  const res = await post('api/User/forgotPassword', email);
+  return res;
+}
+
 async function deleteLogByIdAsync(id) {
   const res = await del(`api/Log/${id}`);
   return res;
@@ -84,6 +94,8 @@ async function deleteLogByIdAsync(id) {
 async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
 }
+
+
 
 async function get(endpoint, auth = false) {
   return await request('GET', endpoint, null, auth);
@@ -100,6 +112,8 @@ async function put(endpoint, data, auth = false) {
 async function del(endpoint, auth = false) {
   return await request('DELETE', endpoint, null, auth);
 }
+
+
 
 async function request(method, endpoint, data, auth = false) {
   const opts = {
@@ -145,6 +159,8 @@ export {
   updateUserInterviewAsync,
   createUserInterviewAsync,
   updateUserInterviewStatusAsync,
+  forgotPasswordAsync,
+  resetPasswordAsync,
   registerUserAsync,
   loginUserAsync,
   getLogbookByIdAsync,

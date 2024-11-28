@@ -78,7 +78,7 @@ const LoginPage = () => {
                 />
                 Remember me
               </label>
-              <a href="#" className="forgot-password-link">
+              <a href="/forgotPassword" className="forgot-password-link">
                 Forgot Password?
               </a>
             </div>
