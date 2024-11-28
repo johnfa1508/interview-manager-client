@@ -26,6 +26,7 @@
   background-color: #f0f0f0;
   border: none;
   cursor: pointer;
+  font-family: inherit;
 }
 
 .stepper-buttons .offwhite::after {
@@ -77,6 +78,7 @@
   background-color: green;
   border: none;
   cursor: pointer;
+  font-family: inherit;
 }
 
 .stepper-buttons .blue::after {

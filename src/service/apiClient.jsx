@@ -3,7 +3,6 @@ import { API_URL } from './constants';
 
 // CUSTOM FUNCTIONS
 // USER INTERVIEWS
-
 async function getArchivedUserInterviewsByUserIdAsync(id) {
   const res = await get(`id/UserInterview/Archived/${id}`);
   return res.$values;
@@ -180,5 +179,5 @@ export {
   getNoteByIdAsync,
   addInterviewNoteAsync,
   deleteNoteByIdAsync,
-  getArchivedUserInterviewsByUserIdAsync,
+  getArchivedUserInterviewsByUserIdAsync
 };

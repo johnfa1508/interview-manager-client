@@ -74,8 +74,7 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
 
         showSnackbar('Successfully updated log', 'success');
       } else {
-        // FIXME: 1 is hardcoded as logbookId, i think it will be same as loggedInUser id
-        await createLogAsync(formData.interviewId, 1, formData);
+        await createLogAsync(formData.interviewId, loggedInUser.id, formData);
         await fetchLogbookData();
 
         showSnackbar('Successfully created log', 'success');
