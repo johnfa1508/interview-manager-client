@@ -25,14 +25,14 @@
 }
 */
 :root {
-  --background-color: #ffffff; /* Pure white base */
-  --text-color: #1f2a38; /* Deep navy blue for clear, sharp text */
-  --primary-background-color: #d4ebf9; /* Very light pastel blue for subtle accents */
-  --secondary-background-color: #f2f9fc; /* Near-white with a soft blue tint */
-  --header-text-color: #0a3a5d; /* Strong navy blue for headers */
-  --container-background-color: #f7fcff; /* Almost white, with the faintest blue tone */
-  --modal-text-color: #1f2a38; /* Navy blue for modals */
-  --button-color: #31d9e6; /* Classic bright blue for actionable elements */
+  --background-color: #ffffff;
+  --text-color: #1f2a38;
+  --primary-background-color: #d4ebf9;
+  --secondary-background-color: #f2f9fc;
+  --header-text-color: #0a3a5d;
+  --container-background-color: #f7fcff;
+  --modal-text-color: #1f2a38;
+  --button-color: #31d9e6;
   scrollbar-width: thin;
   scrollbar-color: var(--text-color) var(--secondary-background-color);
 }
