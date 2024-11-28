@@ -3,6 +3,10 @@ import useTheme from '../../hooks/useTheme';
 import './style.css';
 import { Link } from 'react-router-dom';
 import { MdDarkMode } from 'react-icons/md';
+import { CgProfile } from 'react-icons/cg';
+import { FiArchive } from 'react-icons/fi';
+import { FaBook } from 'react-icons/fa';
+import { MdGroups } from 'react-icons/md';
 
 export default function NavBar() {
   const { toggleTheme } = useTheme();
@@ -16,23 +20,35 @@ export default function NavBar() {
 
         <ul>
           <Link to="/profile">
-            <li>Profile</li>
+            <li>
+              <CgProfile className="nav-icon" />
+              Profile
+            </li>
           </Link>
 
           <Link to="/archive">
-            <li>Archive</li>
+            <li>
+              <FiArchive className="nav-icon" />
+              Archive
+            </li>
           </Link>
 
           <Link to="/logbook">
-            <li>Logbook</li>
+            <li>
+              <FaBook className="nav-icon" />
+              Logbook
+            </li>
           </Link>
 
           <Link to="/aboutUs">
-            <li>About Us</li>
+            <li>
+              <MdGroups className="nav-icon" />
+              About us
+            </li>
           </Link>
         </ul>
 
-        <MdDarkMode className="navbar-icon" onClick={toggleTheme} />
+        <MdDarkMode className="navbar-darkmode-icon" onClick={toggleTheme} />
       </nav>
     </>
   );
