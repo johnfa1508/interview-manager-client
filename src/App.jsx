@@ -11,6 +11,7 @@ import AboutUs from './pages/aboutUs/index.jsx';
 import useTheme from './hooks/useTheme.jsx';
 import { useEffect } from 'react';
 
+import ForgotPasswordPage from './pages/forgotPassword/index.jsx';
 function App() {
   const { theme } = useTheme();
 
@@ -24,6 +25,7 @@ function App() {
         {/* Unprotected routes */}
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Protected routes, needs token in local storage */}

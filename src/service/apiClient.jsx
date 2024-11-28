@@ -4,6 +4,30 @@ import { API_URL } from './constants';
 // CUSTOM FUNCTIONS
 async function getUserInterviewsByUserIdAsync(id) {
   const res = await get(`id/UserInterview/${id}/interviews`);
+// TODO: When login/registration is implemented, update id here
+
+async function getinterviewNotesAsync(userInterviewId){
+  const res = await get(`api/Note/InterviewNotes/${userInterviewId}`);
+  return res;
+}
+
+async function getNoteByIdAsync(noteId){
+  const res = await get(`api/Note/Note/${noteId}`);
+  return res;
+}
+
+async function addInterviewNoteAsync(userInterviewId, data){ 
+  const res = await post(`api/Note/Note/${userInterviewId}`, data);
+  return res;
+}
+
+async function deleteNoteByIdAsync(noteId){
+  const res = await del(`api/Note/${noteId}`);
+  return res;
+}
+
+async function getUserInterviewsAsync() {
+  const res = await get('id/UserInterview/1/interviews');
   return res.$values;
 }
 
@@ -20,6 +44,11 @@ async function updateUserInterviewAsync(id, data) {
 async function createUserInterviewAsync(data) {
   const res = await post('id/UserInterview/create-interview', data);
   return res.interview;
+}
+
+async function resetPasswordAsync(data) {
+  const res = await post('api/User/resetPassword', data);
+  return res;
 }
 
 async function updateUserInterviewStatusAsync(interviewId, status) {
@@ -63,6 +92,11 @@ async function createLogAsync(interviewId, logbookId, data) {
   return res;
 }
 
+async function forgotPasswordAsync(email) {
+  const res = await post('api/User/forgotPassword', email);
+  return res;
+}
+
 async function deleteLogByIdAsync(id) {
   const res = await del(`api/Log/${id}`);
   return res;
@@ -72,6 +106,8 @@ async function deleteLogByIdAsync(id) {
 async function post(endpoint, data, auth = false) {
   return await request('POST', endpoint, data, auth);
 }
+
+
 
 async function get(endpoint, auth = false) {
   return await request('GET', endpoint, null, auth);
@@ -88,6 +124,8 @@ async function put(endpoint, data, auth = false) {
 async function del(endpoint, auth = false) {
   return await request('DELETE', endpoint, null, auth);
 }
+
+
 
 async function request(method, endpoint, data, auth = true) {
   const opts = {
@@ -161,11 +199,17 @@ export {
   updateUserInterviewAsync,
   createUserInterviewAsync,
   updateUserInterviewStatusAsync,
+  forgotPasswordAsync,
+  resetPasswordAsync,
   registerUserAsync,
   loginUserAsync,
   getUserByIdAsync,
   getLogbookByIdAsync,
   updateLogByIdAsync,
   createLogAsync,
-  deleteLogByIdAsync
+  deleteLogByIdAsync,
+  getinterviewNotesAsync,
+  getNoteByIdAsync,
+  addInterviewNoteAsync,
+  deleteNoteByIdAsync
 };
