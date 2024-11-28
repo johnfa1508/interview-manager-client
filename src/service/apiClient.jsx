@@ -4,6 +4,7 @@ import { API_URL } from './constants';
 // CUSTOM FUNCTIONS
 async function getUserInterviewsByUserIdAsync(id) {
   const res = await get(`id/UserInterview/${id}/interviews`);
+  return res.$values;
 }
 
 async function getinterviewNotesAsync(userInterviewId) {
