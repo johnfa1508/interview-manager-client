@@ -71,6 +71,7 @@
 .login-button:hover {
   background: darkgreen;
   transform: translateY(-2px); /* Move up by 2 pixels */
+  transition: 0.3s;
 }
 
 .password-container {
