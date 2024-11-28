@@ -167,3 +167,7 @@
   text-decoration: underline;
   transition: text-decoration 5s;
 }
+
+input[type='password']::-ms-reveal {
+  display: none;
+}
