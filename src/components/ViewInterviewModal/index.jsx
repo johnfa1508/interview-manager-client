@@ -151,7 +151,7 @@ const ViewInterviewModal = ({ interview }) => {
                     <div className="note-title">{note.title}</div>
 
                     <button onClick={() => deleteNote(note.id)} className="delete-button">
-                      <Trash2 className="icon-small delete-button" />
+                      <Trash2 className="icon-small delete-icon" />
                     </button>
                   </div>
 
