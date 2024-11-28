@@ -5,7 +5,7 @@ import Steps from './steps';
 import useSnackbar from '../../hooks/useSnackbar';
 import Snackbar from '../Snackbar';
 
-const Stepper = ({ header, children, onComplete, stepIsValid, isSubmitting }) => {
+const Stepper = ({ header, children, onComplete, stepIsValid, isSubmitting, setErrors }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
@@ -23,6 +23,7 @@ const Stepper = ({ header, children, onComplete, stepIsValid, isSubmitting }) =>
       }
 
       setCurrentStep(currentStep + 1);
+      setErrors({});
     } else {
       showSnackbar('Please fill out all required fields', 'error');
     }

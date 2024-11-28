@@ -42,6 +42,10 @@ const RegisterPage = () => {
   };
 
   const handleRegister = async () => {
+    if (!stepIsValid(0) || !stepIsValid(1)) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -121,6 +125,7 @@ const RegisterPage = () => {
           onComplete={handleRegister}
           stepIsValid={stepIsValid}
           isSubmitting={isSubmitting}
+          setErrors={setErrors}
         >
           {/* Step 1 */}
           <div>
