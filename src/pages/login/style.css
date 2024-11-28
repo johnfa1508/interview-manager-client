@@ -58,20 +58,21 @@
 .login-button {
   width: 100%;
   padding: 0.75rem;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background: #4fd1c5;
+  margin-bottom: 10px;
+  background: green;
   color: white;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  margin: 10px 0px;
 }
 
 .login-button:hover {
-  /*Better color maybe?*/
-  background: #764ba2;
+  background: darkgreen;
+  transform: translateY(-2px); /* Move up by 2 pixels */
+  transition: 0.3s;
 }
 
 .password-container {
@@ -170,4 +171,8 @@
 .navigate-to-register:hover {
   text-decoration: underline;
   transition: text-decoration 5s;
+}
+
+input[type='password']::-ms-reveal {
+  display: none;
 }

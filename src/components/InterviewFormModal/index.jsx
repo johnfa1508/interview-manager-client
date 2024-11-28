@@ -17,6 +17,7 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
   });
   const { closeModal } = useModal();
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (interview) {
@@ -50,6 +51,8 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
       time: `${formData.time}:00.000Z` // Quick fix to avoid timezone issue
     };
 
+    setIsSubmitting(true);
+
     if (isEditing) {
       await updateUserInterviewAsync(interview.id, formattedData);
       showSnackbar('Interview updated successfully!', 'success');
@@ -58,6 +61,7 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
       showSnackbar('Interview created successfully!', 'success');
     }
 
+    setIsSubmitting(false);
     await fetchInterviews();
 
     // Wait for the Snackbar to finish closing before closing the modal
@@ -141,11 +145,18 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
             />
           </div>
 
-          <button type="submit" className="interview-form-submit-button">
-            {isEditing ? 'Update' : 'Create'}
+          <button type="submit" className="interview-form-submit-button" disabled={isSubmitting}>
+            {isSubmitting
+              ? isEditing
+                ? 'Updating...'
+                : 'Creating...'
+              : isEditing
+              ? 'Update'
+              : 'Create'}
           </button>
         </form>
       </div>
+
       {snackbar.isOpen && (
         <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
       )}

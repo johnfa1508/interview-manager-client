@@ -45,6 +45,8 @@
 .dropdown-item:hover {
   cursor: pointer;
   background-color: var(--primary-background-color);
+  transform: translateY(-2px); /* Move up by 2 pixels */
+  transition: 0.3s;
 }
 
 .dropdown-item input {

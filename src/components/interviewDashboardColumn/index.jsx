@@ -12,6 +12,10 @@ import InterviewFormModal from '../InterviewFormModal';
 import { deleteUserInterviewAsync } from '../../service/apiClient';
 import useSnackbar from '../../hooks/useSnackbar';
 import Snackbar from '../snackbar';
+import { MdOutlineSchedule } from 'react-icons/md';
+import { VscFeedback } from 'react-icons/vsc';
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
+import { MdOutlineCancelScheduleSend } from 'react-icons/md';
 
 export default function InterviewColumn({
   id,
@@ -86,9 +90,31 @@ export default function InterviewColumn({
     openCenteredModal();
   };
 
+  const getIconForColumnHeader = (columnName) => {
+    switch (columnName) {
+      case 'AwaitingFeedback':
+        return <VscFeedback className="dashboard-column-header-icon awaiting" />;
+
+      case 'Scheduled':
+        return <MdOutlineSchedule className="dashboard-column-header-icon scheduled" />;
+
+      case 'Canceled':
+        return <MdOutlineCancelScheduleSend className="dashboard-column-header-icon canceled" />;
+
+      case 'Completed':
+        return <IoIosCheckmarkCircleOutline className="dashboard-column-header-icon completed" />;
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="column">
-      <h3>{id}</h3>
+      <h3 className="dashboard-column-header">
+        {getIconForColumnHeader(id)} {id} ({filteredInterviews.length})
+      </h3>
+
       <Droppable id={id}>
         {filteredInterviews.map((itemId, index) => {
           const interview = interviews.find((interview) => interview.id === itemId);

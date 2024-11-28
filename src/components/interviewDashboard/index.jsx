@@ -111,12 +111,14 @@ export default function InterviewDashboard() {
         // If Draggable-container is dropped in a different container
         console.log(`Moved ${active.id} from ${sourceContainer} to ${destinationContainer}`);
         updateUserInterviewStatusAsync(active.id, destinationContainer);
+
         return moveDraggable(prevItems, active.id, sourceContainer, destinationContainer);
       } else {
         // If Draggable-container is dropped outside of any Droppable-containers
         if (!prevItems.AwaitingFeedback.includes(active.id)) {
           console.log(`Moved ${active.id} from ${sourceContainer} back to AwaitingFeedback`);
           updateUserInterviewStatusAsync(active.id, 'AwaitingFeedback');
+
           return moveDraggableBackToAwaiting(prevItems, active.id, sourceContainer);
         } else {
           return prevItems;
