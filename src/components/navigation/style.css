@@ -22,6 +22,12 @@ nav ul li {
   padding: 10px;
 }
 
+nav ul li:hover {
+  background-color: var(--background-color);
+  transform: translateY(-2px);
+  transition: 0.3s;
+}
+
 .navbar-icon {
   height: 40px;
   width: 40px;

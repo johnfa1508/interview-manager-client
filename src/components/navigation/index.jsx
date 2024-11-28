@@ -18,13 +18,16 @@ export default function NavBar() {
           <Link to="/profile">
             <li>Profile</li>
           </Link>
+
           <Link to="/archive">
             <li>Archive</li>
           </Link>
+
           <Link to="/logbook">
             <li>Logbook</li>
           </Link>
-            <Link to="/aboutUs">
+
+          <Link to="/aboutUs">
             <li>About Us</li>
           </Link>
         </ul>
