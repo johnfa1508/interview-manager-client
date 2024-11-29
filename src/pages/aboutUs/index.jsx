@@ -18,7 +18,7 @@ export default function AboutUs() {
       description: 'Modelled, prototyped and developed the core features of the project.',
       github: 'https://github.com/Muzea001',
       linkedin: 'https://www.linkedin.com/in/muaath-zerouga-8a56092b3/',
-      image: 'src/images/image1.jpg'
+      image: 'src/images/muaath.jpg'
     },
     {
       name: 'John Ferdie Abueg',
