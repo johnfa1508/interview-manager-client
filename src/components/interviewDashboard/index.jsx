@@ -57,7 +57,9 @@ export default function InterviewDashboard() {
   const fetchInterviews = async () => {
     try {
       const data = await getUserInterviewsByUserIdAsync(loggedInUser.id);
-      setInterviews(data);
+      const filteredData = data.filter(interview => !interview.isArchived);
+
+      setInterviews(filteredData);
     } catch (error) {
       console.error('Error fetching interviews:', error);
     }

@@ -9,7 +9,7 @@ async function getArchivedUserInterviewsByUserIdAsync(id) {
 }
 
 async function archiveUserInterviewByIdAsync(id) {
-  const res = await put(`id/UserInterview/ArchiveInterview${id}`);
+  const res = await put(`id/UserInterview/ArchiveInterview/${id}`);
   return res.interview;
 }
 
@@ -179,5 +179,6 @@ export {
   getNoteByIdAsync,
   addInterviewNoteAsync,
   deleteNoteByIdAsync,
-  getArchivedUserInterviewsByUserIdAsync
+  getArchivedUserInterviewsByUserIdAsync,
+  archiveUserInterviewByIdAsync
 };

@@ -9,7 +9,7 @@ import DecisionModal from '../decisionModal';
 import ViewInterviewModal from '../ViewInterviewModal';
 import './style.css';
 import InterviewFormModal from '../InterviewFormModal';
-import { deleteUserInterviewAsync } from '../../service/apiClient';
+import { archiveUserInterviewByIdAsync, deleteUserInterviewAsync } from '../../service/apiClient';
 import useSnackbar from '../../hooks/useSnackbar';
 import Snackbar from '../snackbar';
 import { MdOutlineSchedule } from 'react-icons/md';
@@ -62,8 +62,10 @@ export default function InterviewColumn({
     showSnackbar('Interview deleted successfully!', 'error');
   };
 
-  const handleArchive = (interview) => {
+  const handleArchive = async (interview) => {
     console.log('Archive:', interview);
+    await archiveUserInterviewByIdAsync(interview.id);
+    fetchInterviews();
     closePositionedModal();
   };
 
