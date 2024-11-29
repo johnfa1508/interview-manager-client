@@ -33,6 +33,7 @@
   --container-background-color: #f7fcff;
   --modal-text-color: #1f2a38;
   --button-color: #31d9e6;
+  --button-hover-color: #1fa2b3;
   scrollbar-width: thin;
   scrollbar-color: var(--text-color) var(--secondary-background-color);
 }
@@ -59,6 +60,7 @@
   --container-background-color: #535b65;
   --modal-text-color: #ffffff;
   --button-color: #31d9e6;
+  --button-hover-color: #1fa2b3;
 }
 
 body {

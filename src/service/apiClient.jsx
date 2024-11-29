@@ -13,8 +13,8 @@ async function archiveUserInterviewByIdAsync(id) {
   return res.interview;
 }
 
-async function createUserInterviewAsync(data) {
-  const res = await post('id/UserInterview/create-interview', data);
+async function createUserInterviewAsync(id, data) {
+  const res = await post(`id/UserInterview/create-interview/${id}`, data);
   return res.interview;
 }
 

@@ -5,6 +5,7 @@ import './style.css';
 import { createUserInterviewAsync, updateUserInterviewAsync } from '../../service/apiClient';
 import Snackbar from '../snackbar';
 import useSnackbar from '../../hooks/useSnackbar';
+import useAuth from '../../hooks/useAuth';
 
 export default function InterviewFormModal({ interview, isEditing, fetchInterviews }) {
   const [formData, setFormData] = useState({
@@ -18,6 +19,7 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
   const { closeModal } = useModal();
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { loggedInUser } = useAuth();
 
   useEffect(() => {
     if (interview) {
@@ -56,7 +58,7 @@ export default function InterviewFormModal({ interview, isEditing, fetchIntervie
       await updateUserInterviewAsync(interview.id, formattedData);
       showSnackbar('Interview updated successfully!', 'success');
     } else {
-      await createUserInterviewAsync(formattedData);
+      await createUserInterviewAsync(loggedInUser.id, formattedData);
       showSnackbar('Interview created successfully!', 'success');
     }
 
