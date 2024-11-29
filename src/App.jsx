@@ -10,8 +10,8 @@ import { ProtectedRoute } from './context/auth.jsx';
 import AboutUs from './pages/aboutUs/index.jsx';
 import useTheme from './hooks/useTheme.jsx';
 import { useEffect } from 'react';
-
 import ForgotPasswordPage from './pages/forgotPassword/index.jsx';
+
 function App() {
   const { theme } = useTheme();
 
