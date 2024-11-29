@@ -139,7 +139,7 @@ export default function InterviewDashboard() {
       </div>
 
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-        <div className="container">
+        <div className="dashboard-container">
           {containers.map((id) => (
             <InterviewColumn
               key={id}
