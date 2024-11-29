@@ -65,10 +65,10 @@ const ViewInterviewModal = ({ interview }) => {
   const deleteNote = async (noteId) => {
     try {
       await deleteNoteByIdAsync(noteId);
+      fetchNotes();
     } catch (err) {
       setError('Failed to delete note');
       console.error('Failed to delete note with ID: ${noteId}', err);
-
       fetchNotes();
       showSnackbar('Failed to delete note', 'error');
     } finally {
