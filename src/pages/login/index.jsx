@@ -7,7 +7,7 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { FaRegEye } from 'react-icons/fa';
 import { FaRegEyeSlash } from 'react-icons/fa';
-import Snackbar from '../../components/Snackbar';
+import Snackbar from '../../components/snackbar';
 import useSnackbar from '../../hooks/useSnackbar';
 import { Link } from 'react-router-dom';
 import './style.css';

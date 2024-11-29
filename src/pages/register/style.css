@@ -12,13 +12,14 @@
 
 .file-input:focus {
   outline: none;
-  border-color: #4fd1c5;
+  border-color: var(--button-color);
 }
 
 .navigate-to-login {
   text-decoration: none;
-  color: var(--text-color);
+  color: var(--button-color);
   margin-top: 1rem;
+  font-size: 13px;
 }
 
 .navigate-to-login:hover {

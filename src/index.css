@@ -4,30 +4,48 @@
   font-weight: 400;
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/aldrich/v21/MCoTzAn-1s3IGyJMVacY3w.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-
+/*--placeholder-color: #b0b0b0;*/
+/*
 :root {
-  --background-color: #ffffff; /* Clean white background */
-  --text-color: #333333; /* Dark gray for high contrast text */
-  --primary-background-color: #cccccc; /* Light gray for primary elements */
-  --secondary-background-color: #f7f7f7; /* Very light gray for subtle contrast */
-  --header-text-color: #333333; /* Dark gray for header text */
-  --container-background-color: #ffffff; /* White for containers */
-  --modal-text-color: #333333; /* Dark gray for modal text */
-  scrollbar-width: thick;
-  scrollbar-color: var(--text-color) var(--primary-background-color);
+  --background-color: #ffffff;
+  --text-color: #000000;
+  
+  --primary-background-color: #11252d;
+  --secondary-background-color: #f2fbfd;
+  --header-text-color: #030d11;
+  --container-background-color: #e1eef1;
+  --modal-text-color: #fafafa;
+  --button-color: #31d9e6;
+  scrollbar-width: thin;
+  scrollbar-color: var(--highlight-color) var(--secondary-background-color);
+}
+*/
+:root {
+  --background-color: #ffffff;
+  --text-color: #1f2a38;
+  --primary-background-color: #d4ebf9;
+  --secondary-background-color: #f2f9fc;
+  --header-text-color: #0a3a5d;
+  --container-background-color: #f7fcff;
+  --modal-text-color: #1f2a38;
+  --button-color: #31d9e6;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-color) var(--secondary-background-color);
 }
 
 [data-theme='christmas'] {
-  --background-color: #49be2c;
+  --background-color: #d32f2f;
   --text-color: #000000;
-  --primary-background-color: #2cb469;
-  --secondary-background-color: #c72b2e;
+  --primary-background-color: #388e3c;
+  --secondary-background-color: #ffffff;
   --header-text-color: #ffffff;
-  --container-background-color: #ab1717;
+  --container-background-color: #d32f2f;
   --modal-text-color: #000000;
+  --button-color: #fbc02d;
   scrollbar-width: thin;
   scrollbar-color: var(--text-color) var(--primary-background-color);
 }
@@ -40,6 +58,7 @@
   --header-text-color: #ffffff;
   --container-background-color: #535b65;
   --modal-text-color: #ffffff;
+  --button-color: #31d9e6;
 }
 
 body {

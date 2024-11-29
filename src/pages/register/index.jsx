@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import Snackbar from '../../components/Snackbar';
+import Snackbar from '../../components/snackbar';
 import useSnackbar from '../../hooks/useSnackbar';
 import Stepper from '../../components/Stepper';
 import ProfileImage from '../../components/ProfileImage';

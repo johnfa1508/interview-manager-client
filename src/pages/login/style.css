@@ -18,7 +18,7 @@
 
 .login-box h1 {
   text-align: center;
-  color: var(--text-color);
+  color: var(--modal-text-color);
   margin-bottom: 2rem;
 }
 
@@ -29,7 +29,7 @@
 .input-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: var(--text-color);
+  color: var(--modal-text-color);
 }
 
 .input-group input {
@@ -52,13 +52,13 @@
 
 .input-group input:focus {
   outline: none;
-  border-color: #4fd1c5;
+  border-color: var(--button-color);
 }
 
 .login-button {
   width: 100%;
   padding: 0.75rem;
-    margin-bottom: 10px;
+  margin-bottom: 10px;
   background: green;
   color: white;
   border: none;
@@ -87,7 +87,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--text-color);
+  color: var(--modal-text-color);
   font-size: 1rem;
 }
 
@@ -96,7 +96,7 @@
   display: block;
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: #4fd1c5;
+  color: var(--button-color);
   text-decoration: none;
 }
 
@@ -117,7 +117,7 @@
   display: flex;
   align-items: center; /* Ensures both items are vertically aligned */
   font-size: 0.875rem;
-  color: var(--text-color);
+  color: var(--modal-text-color);
   line-height: 1; /* Ensures proper vertical alignment of text */
 }
 
@@ -136,7 +136,7 @@
 /* Forgot Password link */
 .forgot-password-link {
   font-size: 0.875rem;
-  color: #4fd1c5;
+  color: var(--button-color);
   text-decoration: none;
   margin-left: auto;
 }
@@ -152,7 +152,7 @@
 }
 
 .create-account a {
-  color: #4fd1c5;
+  color: var(--button-color);
   text-decoration: none;
   font-size: 0.875rem;
 }
@@ -163,8 +163,9 @@
 
 .navigate-to-register {
   text-decoration: none;
-  color: var(--text-color);
+  color: var(--button-color);
   margin-top: 1rem;
+  font-size: 13px;
 }
 
 .navigate-to-register:hover {

@@ -13,7 +13,7 @@
 .image-upload-button {
   font-size: 14px;
   padding: 8px 16px;
-  background-color: #4fd1c5;
+  background-color: var(--button-color);
   border: none;
   color: white;
   cursor: pointer;
@@ -21,7 +21,7 @@
 }
 
 .image-upload-button:hover {
-  background-color: #38b2ac;
+  background-color: var(--button-color);
 }
 
 .profile-form {
@@ -64,7 +64,7 @@
 }
 
 .profile-form button {
-  background-color: #4fd1c5;
+  background-color: var(--button-color);
   color: var(--button-text-color);
   border: none;
   cursor: pointer;

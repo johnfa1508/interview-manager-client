@@ -5,7 +5,7 @@
 
 .column h3 {
   text-align: center;
-  color: var(--text-color);
+  color: var(--modal-text-color);
 }
 
 .draggable-title {

@@ -12,7 +12,11 @@ const useTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  return { theme, toggleTheme };
+  const toggleChristmas = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' || prevTheme === 'dark' ? 'christmas' : 'dark'));
+  }
+
+  return { theme, toggleTheme, toggleChristmas };
 };
 
 export default useTheme;
