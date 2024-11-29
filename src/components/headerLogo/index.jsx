@@ -7,14 +7,15 @@ export default function HeaderLogo({ textColor, arrowColor, boxColor }) {
       className="header-logo"
       xmlns="http://www.w3.org/2000/svg"
       xmlSpace="preserve"
-      width="2000"
-      height="50"
+      width="100%"
+      height="100%"
       data-id="lg_HVB8OrXZoo6SfjAtzv"
       data-version="1"
-      viewBox="0 0 2000 50"
+      viewBox="0 0 2000 100"
     >
       <g data-padding="20">
-        <g transform="translate(10 .894)scale(.96422)">
+        {/* Change here to make it larger */}
+        <g transform="translate(-1500 5) scale(2)">
           <rect
             width="452.915"
             height="45.2"
@@ -25,12 +26,14 @@ export default function HeaderLogo({ textColor, arrowColor, boxColor }) {
             ry="0"
             transform="translate(452.94 400.5)"
           />
+
           {/*Text "INTERVIEW MANAGER"*/}
           <path
             // TODO: Change based on theme *
             fill={`${textColor}`}
             d="M856.616 9.57h4.01v28.01h-4.01Zm13.43 6.29v21.72h-4V9.57h4l16.84 21.72V9.57h4v28.01h-4Zm23.87-2.29v-4h22.41v4h-9.2v24.01h-4.01V13.57Zm25.45 24.01V9.57h20.41v4h-16.41v8.01h14.01v4h-14.01v7.99h16.41v4.01Zm46.77-21.2v3.19q0 5.86-5 6.68l5.27 11.33h-4.43l-5.2-11.2h-8.77v11.2h-4V9.57h15.33q6.8 0 6.8 6.81m-18.13-2.81v8.81h11.11q1.61 0 2.31-.7.7-.71.7-2.31v-2.79q0-1.6-.7-2.31-.7-.7-2.31-.7Zm35.86 24.01h-4.42l-10.8-28.01h4.3l8.71 23.04 8.73-23.04h4.28Zm13.83-28.01h4.01v28.01h-4.01Zm9.44 28.01V9.57h20.41v4h-16.41v8.01h14v4h-14v7.99h16.41v4.01Zm34.63 0h-4.39l-8.01-28.01h4l6.21 22.28 6.2-22.28h4l6.19 22.28 6.21-22.28h4.01l-8.01 28.01h-4.4l-5.99-21Zm53.32 0h-1.19l-10.45-20.53v20.53h-4.01V9.57h4.38l10.66 21.09 10.69-21.09h4.35v28.01h-3.98V17.05Zm28.28-28.01h4l10.8 28.01h-4l-2.48-6.45h-12.64l-2.48 6.45h-4Zm2.01 5.21-4.81 12.35h9.57Zm19.84 1.08v21.72h-4V9.57h4l16.84 21.72V9.57h4v28.01h-4Zm34.67-6.29h4l10.8 28.01h-4l-2.48-6.45h-12.64l-2.48 6.45h-4Zm2.01 5.21-4.81 12.35h9.57Zm15.84 18.79v-20q0-.82.31-1.55t.86-1.27q.54-.54 1.28-.86.73-.32 1.55-.32h15.19q.83 0 1.56.32t1.28.86q.54.54.86 1.27.31.73.31 1.55v3.61h-4.01v-3.61h-15.19v20h15.19v-6.8h-7.59v-4h11.6v10.8q0 .82-.31 1.55-.32.74-.86 1.28-.55.55-1.28.86-.73.32-1.56.32h-15.19q-.82 0-1.55-.32-.74-.31-1.28-.86-.55-.54-.86-1.28-.31-.73-.31-1.55m28.63 4.01V9.57h20.41v4h-16.41v8.01h14v4h-14v7.99h16.41v4.01Zm46.77-21.2v3.19q0 5.86-5 6.68l5.27 11.33h-4.43l-5.19-11.2h-8.77v11.2h-4.01V9.57h15.33q6.8 0 6.8 6.81m-18.12-2.81v8.81h11.11q1.6 0 2.3-.7.71-.71.71-2.31v-2.79q0-1.6-.71-2.31-.7-.7-2.3-.7Z"
           />
+
           {/*Box under arrow*/}
           <rect
             width="100"
@@ -42,6 +45,7 @@ export default function HeaderLogo({ textColor, arrowColor, boxColor }) {
             ry="7"
             transform="matrix(.85 0 0 .85 173.1 400.28)"
           />
+
           {/*Arrow*/}
           <path
             fill={`${arrowColor}`}

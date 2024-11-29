@@ -67,6 +67,7 @@
   cursor: pointer;
   transition: background-color 0.2s;
   margin: 10px 0px;
+  font-family: inherit;
 }
 
 .login-button:hover {
