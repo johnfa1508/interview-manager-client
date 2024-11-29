@@ -65,7 +65,12 @@ export default function Header() {
 
   return (
     <header>
-      <HeaderLogo textColor={'#FFFFFF'} arrowColor={'#030311'} boxColor={'#20b2aa'} />
+      <HeaderLogo
+        textColor={'#FFFFFF'}
+        arrowColor={'#030311'}
+        boxColor={'#20b2aa'}
+        className="header-logo"
+      />
 
       <div className="notification-dropdown-container">
         <div className="notification-bell" onClick={handleBellClick}>

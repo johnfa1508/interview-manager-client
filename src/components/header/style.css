@@ -19,10 +19,6 @@ header {
   display: block; /* Prevent any space below the image */
 }
 
-.header-logo {
-  flex-grow: 1; /* Allow the logo to take up remaining space */
-}
-
 .notification-bell {
   position: relative;
   cursor: pointer;
