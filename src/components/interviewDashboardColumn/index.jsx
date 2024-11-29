@@ -59,7 +59,7 @@ export default function InterviewColumn({
     setInterviews((prevInterviews) => prevInterviews.filter((i) => i.id !== interview.id));
     closePositionedModal();
 
-    showSnackbar('Interview deleted successfully!', 'error');
+    showSnackbar('Interview deleted successfully!', 'success');
   };
 
   const handleArchive = async (interview) => {
@@ -67,6 +67,8 @@ export default function InterviewColumn({
     await archiveUserInterviewByIdAsync(interview.id);
     fetchInterviews();
     closePositionedModal();
+
+    showSnackbar('Interview archived successfully!', 'success');
   };
 
   const showDecisionModal = (interview, event) => {
