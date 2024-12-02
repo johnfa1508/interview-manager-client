@@ -66,8 +66,8 @@ async function getLogbookByIdAsync(id) {
 }
 
 // LOGBOOK - LOGS
-async function createLogAsync(interviewId, logbookId, data) {
-  const res = await post(`api/Log/${interviewId}/${logbookId}`, data);
+async function createLogAsync(logbookId, data) {
+  const res = await post(`${logbookId}`, data);
   return res;
 }
 

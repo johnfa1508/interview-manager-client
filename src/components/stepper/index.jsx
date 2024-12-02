@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './style.css';
 import Steps from './steps';
 import useSnackbar from '../../hooks/useSnackbar';
-import Snackbar from '../Snackbar';
+import Snackbar from '../snackbar';
 
 const Stepper = ({ header, children, onComplete, stepIsValid, isSubmitting, setErrors }) => {
   const [currentStep, setCurrentStep] = useState(0);

@@ -23,6 +23,7 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
   const [interviews, setInterviews] = useState([]);
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
   const { loggedInUser } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (log) {
@@ -65,25 +66,35 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsSubmitting(true);
+
     if (formData.label.length === 0) {
       showSnackbar('Please select at least one label', 'error');
+      setIsSubmitting(false);
     } else {
-      if (isEditing) {
-        await updateLogByIdAsync(log.id, formData);
-        await fetchLogbookData();
+      try {
+        if (isEditing) {
+          await updateLogByIdAsync(log.id, formData);
+          await fetchLogbookData();
 
-        showSnackbar('Successfully updated log', 'success');
-      } else {
-        await createLogAsync(formData.interviewId, loggedInUser.id, formData);
-        await fetchLogbookData();
+          showSnackbar('Successfully updated log', 'success');
+        } else {
+          console.log(formData);
+          await createLogAsync(loggedInUser.logbookId, formData);
+          await fetchLogbookData();
 
-        showSnackbar('Successfully created log', 'success');
+          showSnackbar('Successfully created log', 'success');
+        }
+        // Wait for the Snackbar to finish closing before closing the modal
+        setTimeout(() => {
+          closeModal();
+        }, 3000); // Match the Snackbar display duration
+      } catch (error) {
+        console.error('Error creating log:', error);
+        showSnackbar('An error occurred. Please try again.', 'error');
+      } finally {
+        setIsSubmitting(false);
       }
-
-      // Wait for the Snackbar to finish closing before closing the modal
-      setTimeout(() => {
-        closeModal();
-      }, 3000); // Match the Snackbar display duration
     }
   };
 
@@ -161,7 +172,13 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
           </div>
 
           <button type="submit" className="interview-form-submit-button">
-            {isEditing ? 'Update' : 'Create'}
+            {isSubmitting
+              ? isEditing
+                ? 'Updating...'
+                : 'Creating...'
+              : isEditing
+              ? 'Update'
+              : 'Create'}
           </button>
         </form>
       </div>
