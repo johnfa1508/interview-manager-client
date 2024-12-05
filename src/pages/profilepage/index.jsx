@@ -8,6 +8,7 @@ import { updateUserInLocalStorage } from '../../service/loggedInUserUtils';
 import useAuth from '../../hooks/useAuth';
 import Snackbar from '../../components/snackbar';
 import useSnackbar from '../../hooks/useSnackbar';
+import { updateUserByIdAsync } from '../../service/apiClient';
 import './style.css';
 
 const ProfilePage = () => {
@@ -48,6 +49,7 @@ const ProfilePage = () => {
     try {
       updateUserInLocalStorage(formData);
       // TODO: Update user data in the backend
+      await updateUserByIdAsync(loggedInUser.id, formData);
 
       showSnackbar('Profile updated successfully!', 'success');
     } catch (error) {

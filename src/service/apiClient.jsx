@@ -180,5 +180,6 @@ export {
   addInterviewNoteAsync,
   deleteNoteByIdAsync,
   getArchivedUserInterviewsByUserIdAsync,
-  archiveUserInterviewByIdAsync
+  archiveUserInterviewByIdAsync,
+  updateUserByIdAsync
 };

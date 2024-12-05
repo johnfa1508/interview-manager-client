@@ -72,5 +72,7 @@
 }
 
 .profile-form button:hover {
-  background-color: var(--secondary-background-color);
+  background-color: var(--button-hover-color);
+  transform: translateY(-2px);
+  transition: 0.3s;
 }
