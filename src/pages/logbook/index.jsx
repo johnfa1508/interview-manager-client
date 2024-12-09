@@ -6,7 +6,6 @@ import Searchbar from '../../components/searchbar';
 import LogbookTable from '../../components/logbookTable';
 import useModal from '../../hooks/useModal';
 import LogFormModal from '../../components/logFormModal';
-// import { logbooksMockData } from '../../service/mockData';
 import { logLabels } from '../../service/constants';
 import CheckboxDropdown from '../../components/checkboxDropdown';
 import './style.css';

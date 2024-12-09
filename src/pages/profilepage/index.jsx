@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
 import ProfileImage from '../../components/ProfileImage';
-// import { getUserFromLocalStorage, updateUserInLocalStorage } from '../../context/userStorage';
 import { updateUserInLocalStorage } from '../../service/loggedInUserUtils';
 import useAuth from '../../hooks/useAuth';
 import Snackbar from '../../components/snackbar';

@@ -1,8 +1,3 @@
-/*
-import { useNavigate } from 'react-router-dom';
-import { loginUserAsync } from '../../service/apiClient';
-import { saveUserToLocalStorage } from '../../context/userStorage';
-*/
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { FaRegEye } from 'react-icons/fa';
@@ -61,39 +56,6 @@ const LoginPage = () => {
 
     return true;
   };
-
-  /*
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const payload = {
-        username,
-        password
-      };
-
-      const response = await loginUserAsync(payload);
-
-      if (response?.token) {
-        // Save user info and token to local storage
-        if (rememberMe) {
-          saveUserToLocalStorage(response); // Store token and user info
-        }
-
-        alert('Login successful!');
-        navigate('/'); // Redirect to home or dashboard
-      } else {
-        alert(response?.message || 'Login failed! Check your credentials.');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      alert('An error occurred. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-  */
 
   return (
     <div className="login-container">

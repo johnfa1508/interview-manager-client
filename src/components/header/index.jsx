@@ -1,10 +1,5 @@
 import { useState, useEffect } from 'react';
 import HeaderLogo from '../headerLogo';
-/*
-import { Link } from 'react-router-dom';
-import ProfileImage from '../ProfileImage';
-import { getUserFromLocalStorage } from '../../context/userStorage';
-*/
 import NotificationBox from '../notificationBox';
 import useAuth from '../../hooks/useAuth';
 import ProfileDropdown from '../profileDropdown';
