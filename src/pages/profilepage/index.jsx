@@ -19,7 +19,6 @@ const ProfilePage = () => {
   });
 
   const [isSaving, setIsSaving] = useState(false);
-  // const [image, setImage] = useState(null);
   const { loggedInUser } = useAuth();
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
@@ -47,7 +46,6 @@ const ProfilePage = () => {
 
     try {
       updateUserInLocalStorage(formData);
-      // TODO: Update user data in the backend
       await updateUserByIdAsync(loggedInUser.id, formData);
 
       showSnackbar('Profile updated successfully!', 'success');
