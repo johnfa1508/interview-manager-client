@@ -105,7 +105,6 @@ export default function InterviewColumn({
 
       case 'Canceled':
         return <MdOutlineCancelScheduleSend className="dashboard-column-header-icon canceled" />;
-
       case 'Completed':
         return <IoIosCheckmarkCircleOutline className="dashboard-column-header-icon completed" />;
 
