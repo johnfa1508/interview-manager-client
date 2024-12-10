@@ -157,7 +157,9 @@ async function request(method, endpoint, data, auth = true) {
     throw new Error(response.message || response || `HTTP error! status: ${response.status}`);
   }
 
-  return response.json();
+  // Check if the response has content before parsing
+  const text = await response.text();
+  return text ? JSON.parse(text) : {};
 }
 
 export {
