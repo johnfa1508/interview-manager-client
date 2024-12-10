@@ -23,7 +23,7 @@ export default function ProfileDropdown({ image, onLogout }) {
             Profile
           </Link>
 
-          <Link to="/profile" className="profile-dropdown-item" onClick={onLogout}>
+          <Link to="/login" className="profile-dropdown-item" onClick={onLogout}>
             Logout
           </Link>
         </div>
