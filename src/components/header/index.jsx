@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import HeaderLogo from '../headerLogo';
 import NotificationBox from '../notificationBox';
 import useAuth from '../../hooks/useAuth';
@@ -7,11 +7,7 @@ import './style.css';
 import * as signalR from '@microsoft/signalr';
 
 export default function Header() {
-  const { loggedInUser, onLogout } = useAuth();
-
-  const handleLogout = () => {
-    onLogout();
-  };
+  const { loggedInUser, handleLogout } = useAuth();
   const [notifications, setNotifications] = useState([
     'Interview status for UserInterview ID 1 has changed to Scheduled.',
     'Interview status for UserInterview ID 2 has changed to Completed.',
@@ -19,6 +15,7 @@ export default function Header() {
   ]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [unreadCount, setUnreadCount] = useState(notifications.length);
+  const notificationRef = useRef(null);
 
   useEffect(() => {
     if (!loggedInUser) {
@@ -58,6 +55,19 @@ export default function Header() {
     setNotifications((prevNotifications) => prevNotifications.filter((_, i) => i !== index));
   };
 
+  const handleClickOutside = (event) => {
+    if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+      setShowNotifications(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <header>
       <HeaderLogo
@@ -67,7 +77,7 @@ export default function Header() {
         className="header-logo"
       />
 
-      <div className="notification-dropdown-container">
+      <div className="notification-dropdown-container" ref={notificationRef}>
         <div className="notification-bell" onClick={handleBellClick}>
           <i className="fas fa-bell"></i>
           {unreadCount > 0 && <span className="notification-count">{unreadCount}</span>}
