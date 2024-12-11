@@ -40,8 +40,12 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
     fetchInterviews();
   }, []);
 
+  // Fetches all interviews then filters away archived interviews
   const fetchInterviews = async () => {
-    setInterviews(await getUserInterviewsByUserIdAsync(loggedInUser.id));
+    const allInterviews = await getUserInterviewsByUserIdAsync(loggedInUser.id);
+    const activeInterviews = allInterviews.filter((interview) => !interview.isArchived);
+
+    setInterviews(activeInterviews);
   };
 
   const handleChange = (event) => {
@@ -127,7 +131,7 @@ export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
           </div>
 
           <div className="log-form-group">
-            <label htmlFor="interviewId">Interview*</label>
+            <label htmlFor="interviewId">Active interview*</label>
             <select
               id="interviewId"
               name="interviewId"
