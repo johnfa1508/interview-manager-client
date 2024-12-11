@@ -2,7 +2,9 @@ const style = {
   content: {
     margin: '0 auto',
     position: 'relative',
-    top: '14%'
+    top: '12%',
+    left: '0',
+    height: '70vh'
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.75)'
