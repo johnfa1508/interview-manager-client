@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useState, useRef, useEffect } from 'react';
 import { CiCircleMore } from 'react-icons/ci';
 import { Droppable } from '../droppable';
 import { Draggable } from '../draggable';
 import { formatDateTime } from '../../service/formatDate';
 import useModal from '../../hooks/useModal';
-import usePositionedModal from '../../hooks/usePositionedModal';
-import DecisionModal from '../decisionModal';
 import ViewInterviewModal from '../ViewInterviewModal';
 import './style.css';
 import InterviewFormModal from '../InterviewFormModal';
@@ -25,24 +24,35 @@ export default function InterviewColumn({
   searchValue,
   fetchInterviews
 }) {
-  const {
-    openModal: openCenteredModal,
-    // closeModal: closeCenteredModal,
-    setModal: setCenteredModal
-  } = useModal();
-  const { openModal: openPositionedModal, closeModal: closePositionedModal } = usePositionedModal();
+  const { openModal, setModal } = useModal();
   const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
+  const [dropdownOpen, setDropdownOpen] = useState(null);
+  const dropdownRefs = useRef([]);
 
-  const filteredInterviews = interviewContainer[id].filter((itemId) =>
-    interviews.some((interview) => interview.id === itemId)
-  );
+  const toggleDropdown = (index) => {
+    setDropdownOpen(dropdownOpen === index ? null : index);
+  };
 
-  const handleEdit = (interview) => {
-    console.log('Edit:', interview);
-    closePositionedModal();
+  const handleClickOutside = (event) => {
+    const isClickInside = dropdownRefs.current.some((ref) => ref && ref.contains(event.target));
+    if (!isClickInside) {
+      setDropdownOpen(null);
+    }
+  };
 
-    setCenteredModal(
-      'Edit interview',
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleEdit = (interview, event) => {
+    event.stopPropagation();
+    setDropdownOpen(null);
+
+    setModal(
+      'Edit Interview',
       <InterviewFormModal
         interview={interview}
         isEditing={true}
@@ -50,49 +60,30 @@ export default function InterviewColumn({
       />
     );
 
-    openCenteredModal();
+    openModal();
   };
 
-  const handleDelete = (interview) => {
-    console.log('Delete:', interview);
-    deleteUserInterviewAsync(interview.id);
+  const handleDelete = async (interview, event) => {
+    event.stopPropagation();
+    setDropdownOpen(null);
+
+    await deleteUserInterviewAsync(interview.id);
     setInterviews((prevInterviews) => prevInterviews.filter((i) => i.id !== interview.id));
-    closePositionedModal();
-
-    showSnackbar('Interview deleted successfully!', 'success');
+    showSnackbar('Interview deleted successfully', 'success');
   };
 
-  const handleArchive = async (interview) => {
-    console.log('Archive:', interview);
+  const handleArchive = async (interview, event) => {
+    event.stopPropagation();
+    setDropdownOpen(null);
+
     await archiveUserInterviewByIdAsync(interview.id);
     fetchInterviews();
-    closePositionedModal();
-
     showSnackbar('Interview archived successfully!', 'success');
   };
 
-  const showDecisionModal = (interview, event) => {
-    const rect = event.target.getBoundingClientRect();
-    const position = {
-      top: rect.top - 35,
-      left: rect.left + rect.width - 35
-    };
-
-    openPositionedModal(
-      <DecisionModal
-        onEdit={() => handleEdit(interview)}
-        onDelete={() => handleDelete(interview)}
-        onArchive={() => handleArchive(interview)}
-        closeModal={closePositionedModal}
-        position={position}
-      />
-    );
-  };
-
   const showInterviewModal = (interview) => {
-    setCenteredModal(interview.title, <ViewInterviewModal interview={interview} />);
-
-    openCenteredModal();
+    setModal(interview.title, <ViewInterviewModal interview={interview} />);
+    openModal();
   };
 
   const getIconForColumnHeader = (columnName) => {
@@ -105,6 +96,7 @@ export default function InterviewColumn({
 
       case 'Canceled':
         return <MdOutlineCancelScheduleSend className="dashboard-column-header-icon canceled" />;
+
       case 'Completed':
         return <IoIosCheckmarkCircleOutline className="dashboard-column-header-icon completed" />;
 
@@ -116,31 +108,45 @@ export default function InterviewColumn({
   return (
     <div className="column">
       <h3 className="dashboard-column-header">
-        {getIconForColumnHeader(id)} {id} ({filteredInterviews.length})
+        {getIconForColumnHeader(id)} {id} ({interviewContainer[id].length})
       </h3>
 
       <Droppable id={id}>
-        {filteredInterviews.map((itemId, index) => {
+        {interviewContainer[id].map((itemId, index) => {
           const interview = interviews.find((interview) => interview.id === itemId);
 
           return (
             <Draggable key={itemId} id={itemId} index={index}>
-              <div
-                className="decision-container"
-                onClick={(event) => showDecisionModal(interview, event)}
-              >
-                <CiCircleMore className="decision-icon" />
+              <div className="draggable-item">
+                <div
+                  className="decision-container"
+                  ref={(el) => (dropdownRefs.current[index] = el)}
+                >
+                  <CiCircleMore className="decision-icon" onClick={() => toggleDropdown(index)} />
+
+                  {/* Dropdown decision menu */}
+                  {dropdownOpen === index && (
+                    <ul className="interview-column-dropdown-menu">
+                      <li onClick={(e) => handleEdit(interview, e)}>Edit</li>
+                      <li onClick={(e) => handleDelete(interview, e)}>Delete</li>
+                      <li onClick={(e) => handleArchive(interview, e)}>Archive</li>
+                      <li onClick={() => setDropdownOpen(null)}>Close</li>
+                    </ul>
+                  )}
+                </div>
+
+                <h4 className="draggable-title" onClick={() => showInterviewModal(interview)}>
+                  {interview?.title}
+                </h4>
+
+                <p>{formatDateTime(interview?.time)}</p>
               </div>
-              <h4 className="draggable-title" onClick={() => showInterviewModal(interview)}>
-                {interview.title}
-              </h4>
-              <p>{formatDateTime(interview.time)}</p>
             </Draggable>
           );
         })}
 
-        {searchValue !== '' && filteredInterviews.length === 0 && <p>No results found</p>}
-        {filteredInterviews.length === 0 && searchValue === '' && <p>Drop here</p>}
+        {searchValue !== '' && interviewContainer[id].length === 0 && <p>No results found</p>}
+        {interviewContainer[id].length === 0 && searchValue === '' && <p>Drop here</p>}
       </Droppable>
 
       {snackbar.isOpen && (

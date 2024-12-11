@@ -17,17 +17,52 @@
   text-decoration: underline;
 }
 
-.decision-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .decision-icon {
   cursor: pointer;
   justify-self: flex-end;
   height: 25px;
   width: 25px;
   color: var(--text-color);
+}
+
+.decision-container {
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+}
+
+.interview-column-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: -25%;
+  background-color: var(--secondary-background-color);
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 50%;
+}
+
+.interview-column-dropdown-menu li {
+  list-style-type: none;
+  padding: 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-color);
+  background-color: var(--secondary-background-color);
+  border-radius: 4px;
+}
+
+.interview-column-dropdown-menu li:hover {
+  background-color: var(--primary-background-color);
+  transition: 0.3s;
 }
 
 .dashboard-column-header {
