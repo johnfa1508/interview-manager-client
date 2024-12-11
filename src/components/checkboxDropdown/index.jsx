@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './style.css';
 
 export default function CheckboxDropdown({ options, selectedOptions, onChange }) {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleCheckboxChange = (event) => {
     const { value, checked } = event.target;
@@ -14,8 +15,21 @@ export default function CheckboxDropdown({ options, selectedOptions, onChange })
     }
   };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="dropdown-container">
+    <div className="dropdown-container" ref={dropdownRef}>
       <button type="button" className="dropdown-button" onClick={() => setIsOpen(!isOpen)}>
         Filter by labels
       </button>
