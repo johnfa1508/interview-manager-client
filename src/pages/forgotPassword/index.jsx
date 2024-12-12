@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { forgotPasswordAsync, resetPasswordAsync } from '../../service/apiClient';
 import './style.css';
 
@@ -70,9 +70,14 @@ const ForgotPasswordPage = () => {
               required
             />
           </div>
+
           <button type="submit" className="login-button" disabled={isSubmitting}>
             {isSubmitting ? 'Sending...' : 'Send Reset Link'}
           </button>
+
+          <Link to="/login" className="back-button">
+            Back
+          </Link>
         </form>
         {tokenSent && (
           <form onSubmit={handleResetPassword}>

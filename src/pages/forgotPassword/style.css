@@ -1,0 +1,11 @@
+.back-button {
+  text-decoration: none;
+  margin-top: 20px;
+  margin-left: 20px;
+  color: var(--text-color);
+}
+
+.back-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
