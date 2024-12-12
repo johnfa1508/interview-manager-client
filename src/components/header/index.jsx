@@ -7,7 +7,7 @@ import './style.css';
 import * as signalR from '@microsoft/signalr';
 
 export default function Header() {
-  const { loggedInUser, handleLogout } = useAuth();
+  const { loggedInUser } = useAuth();
   const [notifications, setNotifications] = useState([
     'Interview status for UserInterview ID 1 has changed to Scheduled.',
     'Interview status for UserInterview ID 2 has changed to Completed.',
@@ -92,7 +92,7 @@ export default function Header() {
         )}
       </div>
 
-      <ProfileDropdown image={loggedInUser?.profileImage} onLogout={handleLogout} />
+      <ProfileDropdown image={loggedInUser?.profileImage} />
     </header>
   );
 }

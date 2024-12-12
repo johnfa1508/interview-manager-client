@@ -2,11 +2,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileImage from '../ProfileImage';
+import useAuth from '../../hooks/useAuth';
 import './style.css';
 
-export default function ProfileDropdown({ image, onLogout }) {
+export default function ProfileDropdown({ image }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const { onLogout } = useAuth();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
