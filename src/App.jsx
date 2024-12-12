@@ -25,8 +25,8 @@ function App() {
         {/* Unprotected routes */}
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="forgotPassword" element={<ForgotPasswordPage />} />
+        <Route path="/" element={<Navigate to="login" replace />} />
 
         {/* Protected routes, needs token in local storage */}
         <Route
@@ -66,7 +66,7 @@ function App() {
         />
 
         <Route
-          path="/aboutUs"
+          path="aboutUs"
           element={
             <ProtectedRoute>
               <AboutUs />

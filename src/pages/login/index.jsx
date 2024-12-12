@@ -108,9 +108,9 @@ const LoginPage = () => {
               Remember me
             </label>
 
-            <a href="#" className="forgot-password-link">
-              Forgot Password?
-            </a>
+            <Link to="/forgotPassword" className="forgot-password-link">
+              Forgot password?
+            </Link>
           </div>
 
           <button type="submit" className="login-button" disabled={isSubmitting}>
