@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
 import Header from '../../components/header';
 import NavBar from '../../components/navigation';
-import { getArchivedUserInterviewsByUserIdAsync} from '../../service/apiClient';
+import {
+  getArchivedUserInterviewsByUserIdAsync,
+  unArchiveUserInterviewByIdAsync,
+  deleteUserInterviewAsync
+} from '../../service/apiClient';
 import useAuth from '../../hooks/useAuth';
+import useSnackbar from '../../hooks/useSnackbar';
+import Snackbar from '../../components/snackbar';
 import './style.css';
 
 export default function Archive() {
   const [interviews, setInterviews] = useState([]);
   const { loggedInUser } = useAuth();
+  const { snackbar, showSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
     async function fetchData() {
@@ -16,6 +23,34 @@ export default function Archive() {
     }
     fetchData();
   }, [loggedInUser.id]);
+
+  const handleDelete = async (interviewId) => {
+    try {
+      await deleteUserInterviewAsync(interviewId);
+      setInterviews((prevInterviews) =>
+        prevInterviews.filter((interview) => interview.id !== interviewId)
+      );
+
+      showSnackbar('Interview deleted successfully.', 'success');
+    } catch (error) {
+      console.error('Failed to delete interview:', error);
+      showSnackbar('Failed to delete interview.', 'error');
+    }
+  };
+
+  const handleUnarchive = async (interviewId) => {
+    try {
+      await unArchiveUserInterviewByIdAsync(interviewId);
+      setInterviews((prevInterviews) =>
+        prevInterviews.filter((interview) => interview.id !== interviewId)
+      );
+
+      showSnackbar('Interview unarchived successfully.', 'success');
+    } catch (error) {
+      console.error('Failed to unarchive interview:', error);
+      showSnackbar('Failed to unarchive interview.', 'error');
+    }
+  };
 
   return (
     <div className="dashboard-layout">
@@ -29,19 +64,34 @@ export default function Archive() {
               <tr>
                 <th>Description</th>
                 <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
+
             <tbody>
               {interviews.map((interview, index) => (
                 <tr key={index}>
                   <td>{interview.description}</td>
                   <td>{interview.status}</td>
+                  <td>
+                    <button className="unarchive" onClick={() => handleUnarchive(interview.id)}>
+                      Unarchive
+                    </button>
+
+                    <button className="delete" onClick={() => handleDelete(interview.id)}>
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      {snackbar.isOpen && (
+        <Snackbar message={snackbar.message} type={snackbar.type} onClose={closeSnackbar} />
+      )}
     </div>
   );
 }

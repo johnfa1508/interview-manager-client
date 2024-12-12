@@ -13,6 +13,11 @@ async function archiveUserInterviewByIdAsync(id) {
   return res.interview;
 }
 
+async function unArchiveUserInterviewByIdAsync(id) {
+  const res = await put(`id/UserInterview/UnarchiveInterview/${id}`);
+  return res.interview;
+}
+
 async function createUserInterviewAsync(id, data) {
   const res = await post(`id/UserInterview/create-interview/${id}`, data);
   return res.interview;
@@ -183,5 +188,6 @@ export {
   deleteNoteByIdAsync,
   getArchivedUserInterviewsByUserIdAsync,
   archiveUserInterviewByIdAsync,
-  updateUserByIdAsync
+  updateUserByIdAsync,
+  unArchiveUserInterviewByIdAsync
 };
