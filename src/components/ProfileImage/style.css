@@ -1,21 +1,10 @@
 .profile-image-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .profile-image {
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .profile-image-placeholder {
-    background-color: #f1f1f1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #888;
-    border-radius: 50%;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image {
+  border-radius: 50%;
+  object-fit: cover;
+}
