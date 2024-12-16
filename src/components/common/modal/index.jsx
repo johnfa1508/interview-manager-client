@@ -13,7 +13,7 @@ const Modal = ({ width = '612px' }) => {
   style.content.backgroundColor = localStorage.getItem('theme') === 'dark' ? '#061b23' : '#e4e5f1';
 
   return (
-    <ReactModal isOpen={isOpen} onRequestClose={closeModal} style={style}>
+    <ReactModal isOpen={isOpen} onRequestClose={closeModal} style={style} closeTimeoutMS={250}>
       <div className="modal-body">
         <section className="modal-header border-bottom">
           <h2>{modalHeader}</h2>
