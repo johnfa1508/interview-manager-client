@@ -33,7 +33,6 @@
   margin-bottom: 10px;
   object-fit: cover;
   padding: 5px;
-  
 }
 
 .team-member h3 {
@@ -68,7 +67,9 @@
 
 .social-links a:hover {
   background-color: var(--header-text-color);
-  color: var(--background-color)
+  color: var(--background-color);
+  transform: translateY(-2px);
+  transition: 0.3s;
 }
 
 .social-links i {
