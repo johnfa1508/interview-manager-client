@@ -1,6 +1,7 @@
 .column {
   border-radius: 8px;
   background-color: var(--primary-background-color);
+  animation: fadeInZoom 300ms ease-in-out forwards;
 }
 
 .column h3 {
@@ -11,6 +12,11 @@
 .draggable-title {
   cursor: pointer;
   margin-top: 0;
+}
+
+/* Item Animation */
+.draggable-item {
+  animation: fadeInZoom 300ms ease-in-out forwards;
 }
 
 .draggable-title:hover {
@@ -92,4 +98,16 @@
 
 .dashboard-column-header-icon.completed {
   color: green;
+}
+
+/* Animation */
+@keyframes fadeInZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
