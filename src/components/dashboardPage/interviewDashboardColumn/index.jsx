@@ -108,14 +108,20 @@ export default function InterviewColumn({
     }
   };
 
+  const filteredInterviews = interviewContainer[id].filter((itemId) => {
+    const interview = interviews.find((interview) => interview.id === itemId);
+
+    return interview?.title.toLowerCase().includes(searchValue.toLowerCase());
+  });
+
   return (
     <div className="column">
       <h3 className="dashboard-column-header">
-        {getIconForColumnHeader(id)} {id} ({interviewContainer[id].length})
+        {getIconForColumnHeader(id)} {id} ({filteredInterviews.length})
       </h3>
 
       <Droppable id={id}>
-        {interviewContainer[id].map((itemId, index) => {
+        {filteredInterviews.map((itemId, index) => {
           const interview = interviews.find((interview) => interview.id === itemId);
 
           return (
@@ -148,8 +154,8 @@ export default function InterviewColumn({
           );
         })}
 
-        {searchValue !== '' && interviewContainer[id].length === 0 && <p>No results found</p>}
-        {interviewContainer[id].length === 0 && searchValue === '' && <p>Drop here</p>}
+        {searchValue !== '' && filteredInterviews.length === 0 && <p>No results found</p>}
+        {filteredInterviews.length === 0 && searchValue === '' && <p>Drop here</p>}
       </Droppable>
 
       {snackbar.isOpen && (
