@@ -6,6 +6,7 @@
 .logbook-table {
   width: 100%;
   border-collapse: collapse;
+  animation: easeIn 500ms ease-in-out forwards;
 }
 
 .logbook-table th,
@@ -92,4 +93,15 @@
 
 .label-pill.presentation {
   background-color: #795548; /* Brown */
+}
+
+@keyframes easeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
