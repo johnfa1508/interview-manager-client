@@ -21,12 +21,11 @@ export default function LogbookTable({ logbookData, filteredLogs, fetchLogbookDa
     openModal();
   };
 
-  // NEVER REACHES SNACKBAR
   const handleDelete = async (logId) => {
-    showSnackbar('Log deleted successfully', 'success');
-
     await deleteLogByIdAsync(logId);
     await fetchLogbookData();
+
+    showSnackbar('Log deleted successfully', 'success');
   };
 
   if (!logbookData) {
