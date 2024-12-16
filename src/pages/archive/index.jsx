@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Header from '../../components/header';
-import NavBar from '../../components/navigation';
+import Header from '../../components/headerComponents/header';
+import NavBar from '../../components/navComponents/navigation';
 import {
   getArchivedUserInterviewsByUserIdAsync,
   unArchiveUserInterviewByIdAsync,
@@ -8,7 +8,7 @@ import {
 } from '../../service/apiClient';
 import useAuth from '../../hooks/useAuth';
 import useSnackbar from '../../hooks/useSnackbar';
-import Snackbar from '../../components/snackbar';
+import Snackbar from '../../components/common/snackbar';
 import './style.css';
 
 export default function Archive() {

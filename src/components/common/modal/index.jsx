@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import ReactModal from 'react-modal';
-import useModal from '../../hooks/useModal';
+import useModal from '../../../hooks/useModal';
 import style from './style';
 import './style.css';
 

@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import ProfileImage from '../ProfileImage';
-import useAuth from '../../hooks/useAuth';
+import ProfileImage from '../../common/ProfileImage';
+import useAuth from '../../../hooks/useAuth';
 import './style.css';
 
 export default function ProfileDropdown({ image }) {

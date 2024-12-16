@@ -2,10 +2,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import Snackbar from '../../components/snackbar';
+import Snackbar from '../../components/common/snackbar';
 import useSnackbar from '../../hooks/useSnackbar';
-import Stepper from '../../components/Stepper';
-import ProfileImage from '../../components/ProfileImage';
+import Stepper from '../../components/registerPage/stepper';
+import ProfileImage from '../../components/common/ProfileImage';
 import { FaRegEye } from 'react-icons/fa';
 import { FaRegEyeSlash } from 'react-icons/fa';
 import './style.css';

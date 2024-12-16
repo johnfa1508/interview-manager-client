@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import InterviewColumn from '../interviewDashboardColumn';
-import Searchbar from '../searchbar';
+import Searchbar from '../../common/searchbar';
 import {
   getSourceContainer,
   moveDraggable,
   moveDraggableBackToAwaiting
-} from '../../service/dragUtils';
+} from '../../../service/dragUtils';
 import { MdOutlineAddCircleOutline } from 'react-icons/md';
-import useModal from '../../hooks/useModal';
+import useModal from '../../../hooks/useModal';
 import InterviewFormModal from '../InterviewFormModal';
 import './style.css';
 import {
   getUserInterviewsByUserIdAsync,
   updateUserInterviewStatusAsync
-} from '../../service/apiClient';
-import useAuth from '../../hooks/useAuth';
+} from '../../../service/apiClient';
+import useAuth from '../../../hooks/useAuth';
 
 export default function InterviewDashboard() {
   const containers = ['AwaitingFeedback', 'Scheduled', 'Canceled', 'Completed'];

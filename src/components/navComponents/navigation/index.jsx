@@ -1,7 +1,7 @@
 import { FaHome } from 'react-icons/fa';
 import { MdDarkMode } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import useTheme from '../../hooks/useTheme';
+import useTheme from '../../../hooks/useTheme';
 import './style.css';
 import { CgProfile } from 'react-icons/cg';
 import { FiArchive } from 'react-icons/fi';

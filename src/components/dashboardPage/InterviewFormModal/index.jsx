@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import useModal from '../../hooks/useModal';
+import useModal from '../../../hooks/useModal';
 import './style.css';
-import { createUserInterviewAsync, updateUserInterviewAsync } from '../../service/apiClient';
-import Snackbar from '../snackbar';
-import useSnackbar from '../../hooks/useSnackbar';
-import useAuth from '../../hooks/useAuth';
+import { createUserInterviewAsync, updateUserInterviewAsync } from '../../../service/apiClient';
+import Snackbar from '../../common/snackbar';
+import useSnackbar from '../../../hooks/useSnackbar';
+import useAuth from '../../../hooks/useAuth';
 
 export default function InterviewFormModal({ interview, isEditing, fetchInterviews }) {
   const [formData, setFormData] = useState({

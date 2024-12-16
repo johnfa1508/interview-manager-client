@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import useModal from '../../hooks/useModal';
-import { logLabels } from '../../service/constants';
+import useModal from '../../../hooks/useModal';
+import { logLabels } from '../../../service/constants';
 import './style.css';
 import {
   getUserInterviewsByUserIdAsync,
   createLogAsync,
   updateLogByIdAsync
-} from '../../service/apiClient';
-import useSnackbar from '../../hooks/useSnackbar';
-import Snackbar from '../snackbar';
-import useAuth from '../../hooks/useAuth';
+} from '../../../service/apiClient';
+import useSnackbar from '../../../hooks/useSnackbar';
+import Snackbar from '../../common/snackbar';
+import useAuth from '../../../hooks/useAuth';
 
 export default function LogFormModal({ log, isEditing, fetchLogbookData }) {
   const [formData, setFormData] = useState({

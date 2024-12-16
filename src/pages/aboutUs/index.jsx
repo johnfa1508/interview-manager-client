@@ -1,5 +1,5 @@
-import Header from '../../components/header';
-import NavBar from '../../components/navigation';
+import Header from '../../components/headerComponents/header';
+import NavBar from '../../components/navComponents/navigation';
 import './style.css';
 
 export default function AboutUs() {
@@ -49,16 +49,28 @@ export default function AboutUs() {
             <div key={index} className="team-member">
               <img src={member.image} alt={`${member.name}'s picture`} />
               <h3>{member.name}</h3>
-              <p><strong>Role:</strong><br></br> {member.role}</p>
-              <p><strong>Description:</strong><br></br> {member.description}</p>
+              <p>
+                <strong>Role:</strong>
+                <br></br> {member.role}
+              </p>
+              <p>
+                <strong>Description:</strong>
+                <br></br> {member.description}
+              </p>
               <div className="social-links">
                 <div>
                   <i className="fab fa-linkedin"></i>
-                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer"> LinkedIn</a>
+                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                    {' '}
+                    LinkedIn
+                  </a>
                 </div>
                 <div>
                   <i className="fab fa-github"></i>
-                  <a href={member.github} target="_blank" rel="noopener noreferrer"> GitHub</a>
+                  <a href={member.github} target="_blank" rel="noopener noreferrer">
+                    {' '}
+                    GitHub
+                  </a>
                 </div>
               </div>
             </div>

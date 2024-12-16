@@ -3,14 +3,17 @@ import { useState, useRef, useEffect } from 'react';
 import { CiCircleMore } from 'react-icons/ci';
 import { Droppable } from '../droppable';
 import { Draggable } from '../draggable';
-import { formatDateTime } from '../../service/formatDate';
-import useModal from '../../hooks/useModal';
+import { formatDateTime } from '../../../service/formatDate';
+import useModal from '../../../hooks/useModal';
 import ViewInterviewModal from '../ViewInterviewModal';
 import './style.css';
 import InterviewFormModal from '../InterviewFormModal';
-import { archiveUserInterviewByIdAsync, deleteUserInterviewAsync } from '../../service/apiClient';
-import useSnackbar from '../../hooks/useSnackbar';
-import Snackbar from '../snackbar';
+import {
+  archiveUserInterviewByIdAsync,
+  deleteUserInterviewAsync
+} from '../../../service/apiClient';
+import useSnackbar from '../../../hooks/useSnackbar';
+import Snackbar from '../../common/snackbar';
 import { MdOutlineSchedule } from 'react-icons/md';
 import { VscFeedback } from 'react-icons/vsc';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';

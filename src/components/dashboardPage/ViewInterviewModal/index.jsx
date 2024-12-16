@@ -3,14 +3,14 @@
 import { useEffect, useState } from 'react';
 import './style.css';
 import { Clock, MapPin, Timer, FileText, X, Plus, Trash2 } from 'lucide-react';
-import { formatDateTime } from '../../service/formatDate';
+import { formatDateTime } from '../../../service/formatDate';
 import {
   getNotesByUserInterviewIdAsync,
   addInterviewNoteAsync,
   deleteNoteByIdAsync
-} from '../../service/apiClient';
-import useSnackbar from '../../hooks/useSnackbar';
-import Snackbar from '../snackbar';
+} from '../../../service/apiClient';
+import useSnackbar from '../../../hooks/useSnackbar';
+import Snackbar from '../../common/snackbar';
 
 const ViewInterviewModal = ({ interview }) => {
   const [currentInterview, setCurrentInterview] = useState(null);

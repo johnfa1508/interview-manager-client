@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import useModal from '../../hooks/useModal';
+import useModal from '../../../hooks/useModal';
 import LogFormModal from '../logFormModal';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaEdit } from 'react-icons/fa';
-import { deleteLogByIdAsync } from '../../service/apiClient';
-import Snackbar from '../snackbar';
-import useSnackbar from '../../hooks/useSnackbar';
+import { deleteLogByIdAsync } from '../../../service/apiClient';
+import Snackbar from '../../common/snackbar';
+import useSnackbar from '../../../hooks/useSnackbar';
 import './style.css';
 
 export default function LogbookTable({ logbookData, filteredLogs, fetchLogbookData }) {

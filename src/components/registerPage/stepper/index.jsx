@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import './style.css';
 import Steps from './steps';
-import useSnackbar from '../../hooks/useSnackbar';
-import Snackbar from '../snackbar';
+import useSnackbar from '../../../hooks/useSnackbar';
+import Snackbar from '../../common/snackbar';
+import './style.css';
 
 const Stepper = ({ header, children, onComplete, stepIsValid, isSubmitting, setErrors }) => {
   const [currentStep, setCurrentStep] = useState(0);

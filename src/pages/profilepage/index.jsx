@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
-import Header from '../../components/header';
-import NavBar from '../../components/navigation';
-import ProfileImage from '../../components/ProfileImage';
+import Header from '../../components/headerComponents/header';
+import NavBar from '../../components/navComponents/navigation';
+import ProfileImage from '../../components/common/ProfileImage';
 import { updateUserInLocalStorage } from '../../service/loggedInUserUtils';
 import useAuth from '../../hooks/useAuth';
-import Snackbar from '../../components/snackbar';
+import Snackbar from '../../components/common/snackbar';
 import useSnackbar from '../../hooks/useSnackbar';
 import { updateUserByIdAsync } from '../../service/apiClient';
 import './style.css';

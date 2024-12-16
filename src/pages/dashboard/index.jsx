@@ -1,6 +1,6 @@
-import Header from '../../components/header';
-import InterviewDashboard from '../../components/interviewDashboard';
-import NavBar from '../../components/navigation';
+import Header from '../../components/headerComponents/header';
+import InterviewDashboard from '../../components/dashboardPage/interviewDashboard';
+import NavBar from '../../components/navComponents/navigation';
 import './style.css';
 
 export default function Dashboard() {

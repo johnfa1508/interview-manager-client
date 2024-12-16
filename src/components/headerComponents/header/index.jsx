@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import HeaderLogo from '../headerLogo';
 import NotificationBox from '../notificationBox';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import ProfileDropdown from '../profileDropdown';
 import './style.css';
 import * as signalR from '@microsoft/signalr';
