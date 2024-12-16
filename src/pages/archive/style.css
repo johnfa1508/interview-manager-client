@@ -4,6 +4,7 @@
   margin: 25px 0;
   font-size: 18px;
   text-align: left;
+  animation: easeIn 500ms ease-in-out forwards;
 }
 
 .archive-table th,
@@ -54,4 +55,15 @@
 .archive-table button:hover {
   transform: translateY(-2px);
   transition: 0.3s;
+}
+
+@keyframes easeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
