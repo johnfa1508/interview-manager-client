@@ -8,50 +8,56 @@ import { FiArchive } from 'react-icons/fi';
 import { FaBook } from 'react-icons/fa';
 import { MdGroups } from 'react-icons/md';
 import { FaRegSnowflake } from 'react-icons/fa';
+import { FaBriefcase } from 'react-icons/fa'; // Icon for Available Jobs
 
 export default function NavBar() {
   const { toggleTheme, toggleChristmas } = useTheme();
 
   return (
-    <>
-      <nav>
-        <Link to="/dashboard">
-          <FaHome size={'50px'} className="home-icon" />
+    <nav>
+      <Link to="/dashboard">
+        <FaHome size={'50px'} className="home-icon" />
+      </Link>
+
+      <ul>
+        <Link to="/profile">
+          <li>
+            <CgProfile className="nav-icon" />
+            Profile
+          </li>
         </Link>
 
-        <ul>
-          <Link to="/profile">
-            <li>
-              <CgProfile className="nav-icon" />
-              Profile
-            </li>
-          </Link>
+        <Link to="/available-jobs">
+          <li>
+            <FaBriefcase className="nav-icon" />
+            Available Jobs
+          </li>
+        </Link>
 
-          <Link to="/archive">
-            <li>
-              <FiArchive className="nav-icon" />
-              Archive
-            </li>
-          </Link>
+        <Link to="/archive">
+          <li>
+            <FiArchive className="nav-icon" />
+            Archive
+          </li>
+        </Link>
 
-          <Link to="/logbook">
-            <li>
-              <FaBook className="nav-icon" />
-              Logbook
-            </li>
-          </Link>
+        <Link to="/logbook">
+          <li>
+            <FaBook className="nav-icon" />
+            Logbook
+          </li>
+        </Link>
 
-          <Link to="/aboutUs">
-            <li>
-              <MdGroups className="nav-icon" />
-              About us
-            </li>
-          </Link>
-        </ul>
+        <Link to="/aboutUs">
+          <li>
+            <MdGroups className="nav-icon" />
+            About us
+          </li>
+        </Link>
+      </ul>
 
-        <MdDarkMode className="navbar-darkmode-icon" onClick={toggleTheme} />
-        <FaRegSnowflake className="xmas-icon" onClick={toggleChristmas} />
-      </nav>
-    </>
+      <MdDarkMode className="navbar-darkmode-icon" onClick={toggleTheme} />
+      <FaRegSnowflake className="xmas-icon" onClick={toggleChristmas} />
+    </nav>
   );
 }

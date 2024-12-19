@@ -5,6 +5,7 @@ import ProfilePage from './pages/profilepage/index.jsx';
 import LogbookPage from './pages/logbook/index.jsx';
 import ArchivePage from './pages/archive/index.jsx';
 import LoginPage from './pages/login/index.jsx';
+import AvailableJobsPage from './pages/availabeJobs/index.jsx';
 import RegisterPage from './pages/register/index.jsx';
 import { ProtectedRoute } from './context/auth.jsx';
 import AboutUs from './pages/aboutUs/index.jsx';
@@ -70,6 +71,15 @@ function App() {
           element={
             <ProtectedRoute>
               <AboutUs />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="available-jobs"
+          element={
+            <ProtectedRoute>
+              <AvailableJobsPage />
             </ProtectedRoute>
           }
         />
